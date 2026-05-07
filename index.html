@@ -451,9 +451,8 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
         <button class="atlas-tab active" onclick="atlasTab('resumen',this)">Resumen</button>
         <button class="atlas-tab" onclick="atlasTab('senderos',this)">Senderos</button>
         <button class="atlas-tab" onclick="atlasTab('hitos',this)">Hitos</button>
-        <button class="atlas-tab" onclick="atlasTab('servicios',this)">Servicios</button>
         <button class="atlas-tab" onclick="atlasTab('fauna',this)">Flora y fauna</button>
-        <button class="atlas-tab" onclick="atlasTab('perfiles',this)">Por perfil</button>
+        <button class="atlas-tab" onclick="atlasTab('servicios',this)">Servicios</button>
       </div>
     </div>
     <!-- TAB CONTENT -->
@@ -480,22 +479,11 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
           </div>
         </div>
         <div class="atlas-stat-row">
-          <div class="atlas-stat"><div class="atlas-stat-n">12</div><div class="atlas-stat-l">senderos habilitados</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">8</div><div class="atlas-stat-l">cuerpos de agua</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">6</div><div class="atlas-stat-l">zonas camping</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">60.832</div><div class="atlas-stat-l">hectáreas</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">11</div><div class="atlas-stat-l">senderos habilitados</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">9</div><div class="atlas-stat-l">hitos</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">flora y fauna</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">7</div><div class="atlas-stat-l">servicios</div></div>
         </div>
-        <div class="atlas-note">El parque tiene dos sectores de acceso: <strong style="color:white;">Sector Curacautín</strong> (norte, acceso principal, lago y mayoría de servicios) y <strong style="color:white;">Sector Truful-Truful / Melipeuco</strong> (sur, saltos y Laguna Verde). La mayoría de visitantes llegan por Curacautín.</div>
-        <div class="atlas-lbl">Hotspots vs. zonas subexploradas</div>
-        <div class="atlas-card atlas-card-hot">
-          <div class="atlas-ct">🔴 Hotspots — concentran la mayoría de visitas</div>
-          <div class="atlas-cs">Lago Conguillío (playa principal) · Sendero Sierra Nevada · Laguna Captrén · Laguna Arcoíris · Salto Truful-Truful · Mirador volcán Llaima</div>
-        </div>
-        <div class="atlas-card atlas-card-hidden">
-          <div class="atlas-ct">🟢 Subexplorados — redistribuye el flujo</div>
-          <div class="atlas-cs">Sendero Pastos Blancos · Sendero Contrabandista · Sendero Los Coigües · Laguna Carén · Sector Los Paraguas · Cañón Truful-Truful (muralla geológica) · Playa sur del lago</div>
-        </div>
-        <div class="atlas-note atlas-note-green">La app prioriza Pastos Blancos, Contrabandista, Los Coigües y Sector Los Paraguas para perfiles Explorador y Competidor.</div>
         <div class="atlas-lbl">3 sectores de acceso</div>
         <div class="atlas-card"><div class="atlas-ct">Sur — Melipeuco <span class="badge badge-verde" style="margin-left:6px;">Más accesible</span></div><div class="atlas-cs">City car, SUV, 4x4, bus · Todo el año · ~110 km desde Temuco</div></div>
         <div class="atlas-card"><div class="atlas-ct">Norte — Curacautín <span class="badge badge-amber" style="margin-left:6px;">SUV o 4x4</span></div><div class="atlas-cs">Solo nov–mayo completo · 30 km ripio · ~148 km desde Temuco</div></div>
@@ -591,7 +579,6 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
         <div class="atlas-card"><div class="atlas-ct">Laguna Arcoíris</div><div class="atlas-cs">Formada en 1703 por erupción del Llaima. Coihues sobre roca volcánica. La más fotogénica del parque. En otoño refleja los colores del bosque.</div></div>
         <div class="atlas-card"><div class="atlas-ct">Laguna Captrén</div><div class="atlas-cs">Rica en avifauna. Refleja el volcán. Prohibido nadar. Acceso por Los Carpinteros. Entorno de araucarias y ñirres.</div></div>
         <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Laguna Verde / Quililo <span class="badge badge-sub" style="margin-left:4px;">Subexplorada</span></div><div class="atlas-cs">175 ha. Sector sur (entrada Melipeuco). Playa de arena volcánica. Pesca recreativa. Mucho menos visitada que el lago principal.</div></div>
-        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Laguna Carén <span class="badge badge-sub" style="margin-left:4px;">Casi desconocida</span></div><div class="atlas-cs">Mencionada en literatura del parque. Zona muy poco visitada. Alta oportunidad de redistribución.</div></div>
         <div class="atlas-divider"></div>
         <div class="atlas-lbl">Geología y volcanes</div>
         <div class="atlas-card atlas-card-hot"><div class="atlas-ct">Volcán Llaima — 3.125 msnm</div><div class="atlas-cs">Uno de los más activos de Chile. Forma cónica casi perfecta. Cráter norte de 350 m de diámetro. Última erupción: 1 enero 2008. Glaciares en tres flancos.</div></div>
@@ -605,24 +592,13 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 
       <!-- SERVICIOS -->
       <div class="atlas-pnl" id="ap-servicios">
-        <div class="atlas-lbl">Campings (operados por Sendas Conguillío)</div>
-        <div class="atlas-card"><div class="atlas-ct">Camping Los Ñirres</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>32 sitios</strong></div><div class="atlas-meta-item"><strong>Sector Curacautín</strong></div></div><div class="atlas-cs">El más grande. ~300 m del lago. Ducha agua caliente 6h/día. Requiere reserva.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Camping Los Carpinteros</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>11 sitios</strong></div><div class="atlas-meta-item"><strong>Sector Curacautín</strong></div></div><div class="atlas-cs">Entre ñirres y araucarias. ~500 m del lago. Requiere reserva.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Camping El Estero</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>16 sitios</strong></div><div class="atlas-meta-item"><strong>Sector Curacautín</strong></div></div><div class="atlas-cs">~700 m del lago. Sin reserva previa.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Camping Mochileros</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>8 sitios</strong></div><div class="atlas-meta-item"><strong>Solo a pie</strong></div></div><div class="atlas-cs">Sin reserva. Para viajeros sin vehículo.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Camping La Caseta</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>10 sitios</strong></div><div class="atlas-meta-item"><strong>Baño privado con tina</strong></div></div><div class="atlas-cs">Playa propia en el lago. Agua caliente 24h. El más exclusivo.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Camping El Hoyón</div><div class="atlas-meta"><div class="atlas-meta-item"><strong>10 sitios</strong></div><div class="atlas-meta-item"><strong>La mejor playa</strong></div></div><div class="atlas-cs">La mejor playa privada del parque. Agua caliente 24h. Requiere reserva.</div></div>
-        <div class="atlas-divider"></div>
-        <div class="atlas-lbl">Alojamiento con techo</div>
-        <div class="atlas-card"><div class="atlas-ct">Cabañas Sendas Conguillío</div><div class="atlas-cs">Dentro del parque, &lt;1 km del lago. Reserva: sendasconguillio.cl</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Refugio Calfucura (invierno)</div><div class="atlas-cs">Habitaciones compartidas. Deportes de montaña. $30.000/persona. Cocina y calefacción a leña. Llevar saco de dormir.</div></div>
-        <div class="atlas-divider"></div>
+        <div class="atlas-lbl">Alojamiento</div>
+        <div class="atlas-card"><div class="atlas-cs" style="line-height:2.4;">· Camping — 6 sectores disponibles (norte y sur)<br>· Cabañas<br>· Refugio de montaña (invierno)</div></div>
         <div class="atlas-lbl">Temporada alta (dic–mar)</div>
-        <div class="atlas-card"><div class="atlas-ct">Cafetería Pewen</div><div class="atlas-cs">A orilla del lago. Abierta 15 dic – 10 mar.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Minimarket Sendas</div><div class="atlas-cs">En recepción. Abierto 1 dic – 15 mar.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Kayak y botes</div><div class="atlas-cs">Arriendo en el lago Conguillío. Solo temporada estival.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Centro de ski Las Araucarias</div><div class="atlas-cs">Flanco oeste del Llaima. Andariveles, cafetería, clases de ski. Solo invierno.</div></div>
-        <div class="atlas-note"><strong style="color:white;">Reservas:</strong> +56 9 8825 4877 · sendasconguillio.cl</div>
+        <div class="atlas-card"><div class="atlas-cs" style="line-height:2.4;">· Cafetería<br>· Minimarket<br>· Kayak y arriendo de botes</div></div>
+        <div class="atlas-lbl">Invierno</div>
+        <div class="atlas-card"><div class="atlas-cs" style="line-height:2.4;">· Centro de ski</div></div>
+        <div class="atlas-note"><strong style="color:white;">Reservas:</strong> sendasconguillio.cl · +56 9 8825 4877</div>
       </div>
 
       <!-- FLORA Y FAUNA -->
@@ -640,29 +616,16 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
         <div class="atlas-card"><div class="atlas-ct">Cachaña</div><div class="atlas-cs">Loro verde de vuelo ruidoso. Frecuente en senderos boscosos.</div></div>
         <div class="atlas-card"><div class="atlas-ct">Pato Cortacorrientes</div><div class="atlas-cs">Especie acuática. Laguna Captrén es su hábitat preferido.</div></div>
         <div class="atlas-card"><div class="atlas-ct">Zorro Culpeo y Zorro Chilla</div><div class="atlas-cs">Más fáciles de avistar que el puma. Especialmente al amanecer.</div></div>
+        <div class="atlas-divider"></div>
+        <div class="atlas-lbl">Fungi</div>
+        <div class="atlas-card"><div class="atlas-ct">Llao llao</div><div class="atlas-cs"><em>Cyttaria darwinii</em> · Esferas naranja brillante que emergen en racimos sobre ramas de coihue y ñirre. Parásito endémico de Nothofagus. Comestible y dulce — ingrediente ancestral en la culinaria Pehuenche, incluida la chicha. Descrito por Charles Darwin en 1832.</div></div>
+        <div class="atlas-card"><div class="atlas-ct">Digüeñe</div><div class="atlas-cs"><em>Cyttaria espinosae</em> · Frutas naranja pálido con textura porosa, similares a una mora, que emergen de agallas en ramas de roble chileno. Parásito específico de Nothofagus obliqua. Comestible, se cosecha en primavera — uno de los hongos más consumidos del sur de Chile.</div></div>
+        <div class="atlas-card"><div class="atlas-ct">Changle</div><div class="atlas-cs"><em>Ramaria flava</em> · Hongo coral amarillo limón intenso con estructura ramificada, hasta 20 cm. Habitual en bosques templados del sur de Chile. Comestible y apreciado — textura crujiente, sabor levemente amargo. Aparece en otoño.</div></div>
+        <div class="atlas-card"><div class="atlas-ct">Lebre</div><div class="atlas-cs"><em>Cortinarius lebre</em> · Reconocible por su fuerte olor a naftalina en fresco, que se transforma al cocinarse. Abundante en bosque nativo durante la temporada lluviosa (mayo–agosto). Comestible, con importancia culinaria regional.</div></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Loyo <span class="badge badge-sub" style="margin-left:4px;">En peligro</span></div><div class="atlas-cs"><em>Butyriboletus loyo</em> · Sombrero púrpura-rojo y pie amarillo brillante, puede alcanzar 30 cm y 5 kg. Consumido desde tiempos ancestrales en el sur de Chile. Actualmente en peligro de extinción por sobreexplotación y pérdida de bosque nativo.</div></div>
+        <div class="atlas-card"><div class="atlas-ct">Cola de pavo</div><div class="atlas-cs"><em>Trametes versicolor</em> · Políporo multicolor en anillos concéntricos sobre troncos caídos — marrón, ocre y gris. Descomponedor clave del bosque. Reconocido mundialmente por sus propiedades medicinales (β-glucanos, sistema inmune).</div></div>
       </div>
 
-      <!-- POR PERFIL -->
-      <div class="atlas-pnl" id="ap-perfiles">
-        <div class="atlas-note">Esta sección define qué recomienda Rastro según el perfil del quiz.</div>
-        <div class="atlas-divider"></div>
-        <div class="atlas-lbl">Explorador</div>
-        <div class="atlas-card atlas-card-exp">
-          <div class="atlas-cs"><strong style="color:#CECBF6;">Recomendaciones:</strong> Contrabandista (historia, sin turistas), Laguna Carén (casi desconocida), Sector Los Paraguas (Cherquenco), Muralla geológica Truful-Truful.<br><br><strong style="color:#CECBF6;">No recomendar de entrada:</strong> Sierra Nevada (masivo), Laguna Arcoíris (hotspot).<br><br><strong style="color:#CECBF6;">Hito diferenciador:</strong> Sitios arqueológicos Pehuenche + escoriales como paisaje marciano.</div>
-        </div>
-        <div class="atlas-lbl">Logrador</div>
-        <div class="atlas-card atlas-card-log">
-          <div class="atlas-cs"><strong style="color:#9FE1CB;">Recomendaciones:</strong> Sierra Nevada completo (3 miradores), Los Carpinteros + Laguna Captrén (combo), Sendero de la Playa en bici + Sierra Nevada.<br><br><strong style="color:#9FE1CB;">Hito diferenciador:</strong> Araucaria Madre (2.000 años, récord del parque) + laguna glaciar en la cima.</div>
-        </div>
-        <div class="atlas-lbl">Socializador</div>
-        <div class="atlas-card atlas-card-soc">
-          <div class="atlas-cs"><strong style="color:#FAC775;">Recomendaciones:</strong> Laguna Arcoíris (corto, impactante), Las Araucarias (educativo), Las Vertientes (muy accesible), playa lago + kayak.<br><br><strong style="color:#FAC775;">Con niños/movilidad:</strong> Las Vertientes + Las Araucarias. Grupo activo: Captrén + primer tramo Sierra Nevada.</div>
-        </div>
-        <div class="atlas-lbl">Competidor</div>
-        <div class="atlas-card atlas-card-comp">
-          <div class="atlas-cs"><strong style="color:#F5C4B3;">Recomendaciones:</strong> Pastos Blancos (moderado, 3–4h, faldas del Llaima), Sierra Nevada tercer mirador + laguna glaciar, ascenso al Llaima (desde Malalcahuello, con guía).<br><br><strong style="color:#F5C4B3;">Pastos Blancos abierto todo el año.</strong> Raquetas recomendadas en invierno. Sin señal en la parte alta.</div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -1195,13 +1158,14 @@ const NOMBRES={E:"Explorador",L:"Logrador",S:"Socializador",C:"Competidor"};
 // Senderos que, al ser completados, marcan automáticamente hitos relacionados.
 // Solo se incluyen relaciones geográficas directas (el sendero pasa por el hito o accede a él).
 const SENDERO_HITO_LINKS={
-  'Laguna Captrén':          ['Laguna Captrén'],                   // circuito rodea la laguna
-  'Laguna Arcoíris':         ['Laguna Arcoíris'],                  // destino directo del sendero
-  'Sierra Nevada':           ['Sierra Nevada'],                    // la cordillera es el destino
-  'Los Carpinteros':         ['Laguna Captrén'],                   // el sendero accede a la laguna
-  'Salto Truful-Truful':     ['Muralla del Cañón Truful-Truful'],  // están en el mismo punto
-  'Ensenada – Laguna Verde': ['Laguna Verde / Quililo'],           // mismo cuerpo de agua
-  'Pastos Blancos':          ['Escoriales del Llaima'],            // el sendero atraviesa los escoriales
+  'Laguna Captrén':          ['Laguna Captrén'],
+  'Laguna Arcoíris':         ['Laguna Arcoíris'],
+  'Sierra Nevada':           ['Sierra Nevada'],
+  'Los Carpinteros':         ['Laguna Captrén'],
+  'Salto Truful-Truful':     ['Muralla del Cañón Truful-Truful'],
+  'Ensenada – Laguna Verde': ['Laguna Verde / Quililo'],
+  'Pastos Blancos':          ['Escoriales del Llaima'],
+  'Las Vertientes':          ['Lago Conguillío'],
 };
 const INTENSIDAD={contemplativo:"contemplativos",activo:"activos",exigente:"desafiantes"};
 const BADGE_COLS={E:"badge-purpura",L:"badge-verde",S:"badge-amber",C:"badge-coral"};
@@ -1620,6 +1584,7 @@ function initAtlasVisitados(){
   let esFauna=false;
   document.querySelectorAll('#ap-fauna > *').forEach(el=>{
     if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fauna'))esFauna=true;
+    if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fungi'))esFauna=false;
     if(!el.classList.contains('atlas-card'))return;
     const ctEl=el.querySelector('.atlas-ct');if(!ctEl)return;
     const nombre=ctEl.textContent.trim();
@@ -1669,6 +1634,7 @@ function actualizarProgresoAtlas(){
   let esFauna=false;
   document.querySelectorAll('#ap-fauna > *').forEach(el=>{
     if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fauna'))esFauna=true;
+    if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fungi'))esFauna=false;
     if(!el.classList.contains('atlas-card'))return;
     const ct=el.querySelector('.atlas-ct');if(!ct)return;
     const n=ct.textContent.trim();
@@ -1746,6 +1712,42 @@ let grupoMultiSel=new Set();
 function selGrupoTipo(tipo,btn){document.querySelectorAll('#plan-grupo-tipo .option-item').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');if(tipo==='solo'){document.getElementById('grupo-multi-panel').style.display='none';state.plan.grupoTypes=['solo'];state.plan.grupo='solo';setTimeout(()=>planSig(2),280);}else{grupoMultiSel.clear();document.querySelectorAll('#grupo-multi-panel .option-item').forEach(b=>b.classList.remove('selected'));document.getElementById('grupo-multi-panel').style.display='block';}}
 function toggleGrupoMulti(val,btn){btn.classList.toggle('selected');if(btn.classList.contains('selected'))grupoMultiSel.add(val);else grupoMultiSel.delete(val);}
 function confirmarGrupo(){if(grupoMultiSel.size===0)return;const types=[...grupoMultiSel];state.plan.grupoTypes=types;const pri=['movilidad_reducida','familia_ninos','familia','amigos','pareja'];state.plan.grupo=pri.find(p=>types.includes(p))||types[0];planSig(2);}
+function toggleLlegar(btn){const panel=btn.nextElementSibling;const open=panel.style.display==='block';panel.style.display=open?'none':'block';btn.textContent=open?'📍 Cómo llegar ↓':'📍 Cómo llegar ↑';}
+
+const ATLAS_LLEGAR={
+  'Lago Conguillío':{maps:'https://www.google.com/maps/search/?api=1&query=Playa+Lago+Conguillio+Chile',instrucciones:'Ruta principal del parque → orilla este del lago, ~10 km desde entrada sur (Melipeuco) o norte (Curacautín). Estacionamiento junto al camping Los Ñirres.'},
+  'Laguna Arcoíris':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Arcoiris+Conguillio+Chile',instrucciones:'Sector sur (Melipeuco). Sendero corto señalizado desde el área de campings, ~3 km ida y vuelta.'},
+  'Laguna Captrén':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Captr%C3%A9n+Conguillio+Chile',instrucciones:'Sector norte (Curacautín). Acceso por sendero Los Carpinteros, ~1.5 km desde el camping. Prohibido nadar.'},
+  'Laguna Verde':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Verde+Quililo+Conguillio+Chile',instrucciones:'Sector sur (Melipeuco). Ruta interna hacia Laguna Verde, ~15 km desde la entrada. Requiere vehículo hasta el acceso.'},
+  'Volcán Llaima':{maps:'https://www.google.com/maps/search/?api=1&query=-38.6919,-71.7293',instrucciones:'Visible desde casi todo el parque. Base: ruta hacia sector Cherquenco (poniente). Ascenso al cráter requiere guía certificado y permiso CONAF previo.'},
+  'Sierra Nevada':{maps:'https://www.google.com/maps/search/?api=1&query=Sierra+Nevada+Conguillio+Chile',instrucciones:'Trailhead señalizado junto al área de campings, sector Curacautín (playa principal del lago). Ver pestaña Senderos para detalles del recorrido.'},
+  'Muralla del Cañón Truful-Truful':{maps:'https://www.google.com/maps/search/?api=1&query=Truful+Truful+Conguillio+Chile',instrucciones:'Sector sureste del parque, entrada Melipeuco. Junto al Salto Truful-Truful, señalizado en la ruta interna. Acceso en vehículo.'},
+  'Escoriales del Llaima':{maps:'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',instrucciones:'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén. Punto de detención señalizado entre Melipeuco y el lago.'},
+  '10 sitios arqueológicos Pehuenche':{maps:null,instrucciones:'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco.'}
+};
+
+function initAtlasLlegar(){
+  const bS='margin-top:8px;margin-right:8px;padding:4px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:6px;color:rgba(255,255,255,.6);font-size:6px;font-family:\'Press Start 2P\',monospace;cursor:pointer;display:inline-block;';
+  const pS='margin-top:6px;padding:10px 12px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.1);';
+  const mS='display:block;padding:5px 10px;background:rgba(30,158,117,.2);border:1px solid rgba(30,200,120,.4);border-radius:6px;color:rgba(30,220,140,.9);font-size:6px;font-family:\'Press Start 2P\',monospace;text-decoration:none;margin-bottom:8px;';
+  const iS='font-size:6px;color:rgba(255,255,255,.42);line-height:2.2;font-family:\'Press Start 2P\',monospace;';
+  document.querySelectorAll('#ap-hitos .atlas-ct').forEach(el=>{
+    if(el.parentElement.querySelector('.llegar-btn'))return;
+    const txt=el.textContent.trim();
+    let data=null;
+    for(const[k,v]of Object.entries(ATLAS_LLEGAR)){if(txt.startsWith(k)){data=v;break;}}
+    if(!data)return;
+    const btn=document.createElement('button');
+    btn.className='llegar-btn';btn.setAttribute('style',bS);btn.textContent='📍 Cómo llegar ↓';
+    btn.onclick=function(){toggleLlegar(this);};
+    let html='';
+    if(data.maps)html+='<a href="'+data.maps+'" target="_blank" rel="noopener" style="'+mS+'">📍 Abrir en Google Maps →</a>';
+    if(data.instrucciones)html+='<div style="'+iS+(data.maps?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);':'')+'">'+data.instrucciones+'</div>';
+    const panel=document.createElement('div');
+    panel.setAttribute('style','display:none;'+pS);panel.innerHTML=html;
+    el.parentElement.appendChild(btn);el.parentElement.appendChild(panel);
+  });
+}
 function selClima(val,btn){document.querySelectorAll('#clima-opts .option-item').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');state.plan.clima=val;setTimeout(()=>planSig(6),280);}
 function planSig(paso){if(paso===1)ir('s-planificar');else if(paso===2)ir('s-planificar-2');else if(paso===3)ir('s-planificar-3');else if(paso===4){renderAccesoStep();ir('s-planificar-4');}else if(paso===5)ir('s-planificar-5');else if(paso==='clima')ir('s-planificar-clima');else if(paso===6)ir('s-planificar-6');else if(paso===7){initPlan7();ir('s-planificar-7');}}
 function renderAccesoStep(){
@@ -1903,7 +1905,9 @@ function generarItinerario(){
   const todasHitoOpts = hitosFiltrados.map(h => ({
     texto: `Visita: ${h.nombre}`,
     detalle: '',
-    badges: getTagBadges(h.tags||[])
+    badges: getTagBadges(h.tags||[]),
+    maps: h.maps || null,
+    instrucciones: h.instrucciones || null
   }));
   const libManOpts = [
     {texto:'Paseo libre por el sector',       detalle:'Explora el entorno a tu ritmo, sin ruta fija.',                                   badges:[]},
@@ -2039,7 +2043,14 @@ function renderPasos(pasos){
         :'';
       const hasAlt=paso.slotId&&state.itinerary&&state.itinerary.slotPools&&state.itinerary.slotPools[paso.slotId]&&state.itinerary.slotPools[paso.slotId].pool.length>1;
       const navBtns=hasAlt?'<div class="itin-nav-btns"><button class="itin-nav-btn" onclick="cambiarOpcion(\''+paso.slotId+'\',-1)">←</button><button class="itin-nav-btn" onclick="cambiarOpcion(\''+paso.slotId+'\',1)">→</button></div>':'';
-      const linkHtml=paso.link?'<br><a href="'+paso.link.url+'" target="_blank" rel="noopener" class="itin-link-btn">'+paso.link.label+' →</a>':'';
+      const llegaHtml=(paso.maps||paso.instrucciones)
+        ?'<br><button onclick="toggleLlegar(this)" class="itin-link-btn" style="cursor:pointer;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.62);">📍 Cómo llegar ↓</button>'
+          +'<div style="display:none;margin-top:8px;padding:10px 12px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.1);">'
+          +(paso.maps?'<a href="'+paso.maps+'" target="_blank" rel="noopener" class="itin-link-btn" style="display:block;margin-bottom:8px;">📍 Abrir en Google Maps →</a>':'')
+          +(paso.instrucciones?'<div style="font-size:6px;color:rgba(255,255,255,.45);line-height:2.2;'+(paso.maps?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);':'')+'">'+paso.instrucciones+'</div>':'')
+          +'</div>'
+        :'';
+      const linkHtml=llegaHtml||(paso.link?'<br><a href="'+paso.link.url+'" target="_blank" rel="noopener" class="itin-link-btn">'+paso.link.label+' →</a>':'');
       row.innerHTML='<div class="itin-hora">'+paso.hora+'</div>'
         +'<div class="itin-texto" style="flex:1"><strong>'+paso.texto+'</strong>'
         +(paso.detalle?'<br><span class="pixel-sm text-muted" style="margin-top:4px;display:block;">'+paso.detalle+'</span>':'')
@@ -2055,7 +2066,7 @@ function cambiarOpcion(slotId,delta=1){
   const opt=slot.pool[slot.idx];
   const pasos=state.itinerary.data.opciones[0].pasos;
   const i=pasos.findIndex(p=>p.slotId===slotId);
-  if(i>=0)Object.assign(pasos[i],{texto:opt.texto,detalle:opt.detalle,badges:opt.badges,link:opt.link||null});
+  if(i>=0)Object.assign(pasos[i],{texto:opt.texto,detalle:opt.detalle,badges:opt.badges,link:opt.link||null,maps:opt.maps||null,instrucciones:opt.instrucciones||null});
   renderPasos(pasos);
 }
 
@@ -2084,9 +2095,12 @@ function registrarRastro(){
     localStorage.setItem(perfilKey('rastros_guardados'),JSON.stringify(guardados.filter(s=>s.id!==r.id)));
   }
   localStorage.setItem(perfilKey('rastros_completados'),JSON.stringify(logros));
-  // Auto-marcar senderos e hitos del rastro como visitados en el atlas
-  if(r&&r.itinerary&&r.itinerary.data&&r.itinerary.data.opciones)
-    marcarVisitadosDesdeRastro(r.itinerary.data.opciones[0]?.pasos);
+  // Marcar solo los items que el usuario chequeó durante el rastro
+  if(r&&r.itinerary&&r.itinerary.data&&r.itinerary.data.opciones){
+    const allPasos=r.itinerary.data.opciones[0]?.pasos||[];
+    const checkedPasos=allPasos.filter((_,i)=>localStorage.getItem('checklist_'+r.id+'_'+i)==='1');
+    marcarVisitadosDesdeRastro(checkedPasos);
+  }
   localStorage.removeItem(perfilKey('rastro_activo'));
   cargarLogros();
   cargarRastrosGuardados();
@@ -2253,28 +2267,32 @@ const INVENTARIO = {
   hitos: {
     'lago-conguillio-playa': {
       nombre: 'Lago Conguillío (playa principal)',
-      tags: ['SOC', 'LOG', 'contemplativo', 'activo', 'agua', 'paisaje-panorámico', 'familia-niños', 'grupo-amigos', 'verano preferente', 'hotspot']
-    },
-    'laguna-caren': {
-      nombre: 'Laguna Carén',
-      tags: ['EXP', 'contemplativo', 'agua', 'solo', 'pareja', 'poca documentación pública', 'poco transitado']
+      tags: ['SOC', 'LOG', 'contemplativo', 'activo', 'agua', 'paisaje-panorámico', 'familia-niños', 'grupo-amigos', 'verano preferente', 'hotspot'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Playa+Lago+Conguillio+Chile',
+      instrucciones: 'Ruta principal del parque → orilla este del lago, ~10 km desde la entrada sur (Melipeuco) o norte (Curacautín). Estacionamiento junto al camping Los Ñirres. Señalizado.'
     },
     'volcan-llaima': {
       nombre: 'Volcán Llaima — 3.125 msnm',
-      tags: ['EXP', 'COM', 'SOC', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'hotspot']
+      tags: ['EXP', 'COM', 'SOC', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'hotspot'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=-38.6919,-71.7293',
+      instrucciones: 'Visible desde casi todo el parque. Acercarse a la base: ruta hacia sector Cherquenco (poniente). Ascenso al cráter requiere guía certificado y permiso CONAF previo — no es libre.'
     },
     'escoriales-llaima': {
       nombre: 'Escoriales del Llaima',
-      tags: ['EXP', 'contemplativo', 'activo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'poco interpretado', 'poco transitado']
+      tags: ['EXP', 'contemplativo', 'activo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'poco interpretado', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',
+      instrucciones: 'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén (entre Melipeuco y el lago). Punto de detención señalizado en el camino. También visibles desde el sendero Pastos Blancos.'
     },
     'sitios-arqueologicos-pehuenche': {
       nombre: '10 sitios arqueológicos Pehuenche',
-      tags: ['EXP', 'LOG', 'contemplativo', 'cultura-pehuenche', 'poco señalizados', 'poco transitado']
+      tags: ['EXP', 'LOG', 'contemplativo', 'cultura-pehuenche', 'poco señalizados', 'poco transitado'],
+      maps: null,
+      instrucciones: 'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco para orientación específica.'
     }
   }
 };
 
-window.onload=function(){iniciarApp();};
+window.onload=function(){iniciarApp();initAtlasLlegar();};
 
 </script>
 </body></html>
