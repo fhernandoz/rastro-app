@@ -1,0 +1,241 @@
+
+const ITINERARIOS={
+E:{
+"1dia":{titulo:"Un día sin multitudes",opciones:[
+{label:"Por el norte — Curacautín",vehiculo:["suv","4x4"],pasos:[
+{hora:"08:30",texto:"Sale desde Curacautín. Para en el pueblo antes de entrar."},
+{hora:"10:00",texto:"Ingresa al parque. Paga entrada (~$6.500 adulto)."},
+{hora:"10:30",texto:"Sendero Contrabandista: araucarias milenarias, casi sin gente. 2h en silencio."},
+{hora:"13:00",texto:"Laguna Arcoíris: formada en 1703 por el Llaima. Coihues sobre roca volcánica."},
+{hora:"14:30",texto:"Playa sur del lago por Sendero de la Playa. Come con el volcán de frente."},
+{hora:"16:30",texto:"Centro CONAF: paneles sobre sitios arqueológicos Pehuenche."},
+{hora:"17:30",texto:"Salida. Evalúa si quedarte a dormir mañana."}
+]},
+{label:"Por el sur — Melipeuco",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"09:00",texto:"Llega a Melipeuco. Para en la panadería del pueblo."},
+{hora:"10:00",texto:"Ingresa por Truful-Truful. Paga entrada."},
+{hora:"10:30",texto:"Muralla del Cañón: 75 metros con 13.000 años de erupciones visibles."},
+{hora:"11:30",texto:"Salto Truful-Truful: el sonido del río que desagua la Laguna Verde."},
+{hora:"13:00",texto:"Laguna Verde / Quililo: playa volcánica sin nadie. Picnic aquí."},
+{hora:"15:00",texto:"Sendero Ensenada: borde del lago, vista al volcán, sin turistas."},
+{hora:"17:00",texto:"Salida."}
+]}
+],nota:"Evita Sierra Nevada en fin de semana — más de 200 personas. El Contrabandista puede que te lo tengas solo."},
+"2dias":{titulo:"Dos días, dos sectores distintos",opciones:[{label:"Norte + Sur",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1 — Sector Norte",texto:""},
+{hora:"09:30",texto:"Ingresa por Curacautín. Instálate en Camping Los Ñirres o Los Carpinteros."},
+{hora:"11:00",texto:"Sendero Contrabandista: el más subexplorado del parque."},
+{hora:"15:00",texto:"Laguna Arcoíris al atardecer: pocos visitantes a esa hora."},
+{hora:"20:00",texto:"Noche en el camping. Fogata con vista al volcán."},
+{hora:"DÍA 2 — Sector Sur",texto:""},
+{hora:"09:00",texto:"Traslado a Melipeuco (1h). Vale la pena."},
+{hora:"10:30",texto:"Muralla geológica del Cañón Truful-Truful."},
+{hora:"13:00",texto:"Laguna Verde: la playa del sur. Sin nadie."},
+{hora:"16:00",texto:"Vuelve por Melipeuco. Busca artesanía Pehuenche en el pueblo."}
+]}],nota:"Si no quieres mover el campamento, el día 2 explora Sector Los Paraguas (Cherquenco)."},
+"3dias":{titulo:"Tres días — el parque en profundidad",opciones:[{label:"Norte + Sur + Cherquenco",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1 — Sector Norte",texto:""},
+{hora:"10:00",texto:"Contrabandista + Laguna Arcoíris + playa sur del lago."},
+{hora:"DÍA 2 — Sector Sur",texto:""},
+{hora:"10:00",texto:"Muralla geológica + Salto Truful-Truful + Laguna Verde."},
+{hora:"DÍA 3 — Sector Los Paraguas",texto:""},
+{hora:"10:00",texto:"Acceso por Cherquenco. El sector que casi nadie conoce."},
+{hora:"Tarde",texto:"Regreso. Baño en el lago antes de salir."}
+]}],nota:"Considera cambiar de base entre sectores para acortar distancias."},
+"4-5dias":{titulo:"4–5 días — el explorador completo",opciones:[{label:"Los tres sectores + zonas ocultas",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Sector Norte: Contrabandista + Laguna Arcoíris."},
+{hora:"DÍA 2",texto:"Lago principal: playa sur + Sendero de la Playa en bici."},
+{hora:"DÍA 3",texto:"Sector Sur: Muralla + Salto + Laguna Verde."},
+{hora:"DÍA 4",texto:"Sector Los Paraguas (Cherquenco): el menos visitado."},
+{hora:"DÍA 5",texto:"Sendero Los Coigües + sitios arqueológicos Pehuenche."}
+]}],nota:"Con 4–5 días cubres zonas que la mayoría nunca llega a ver."},
+"6-7dias":{titulo:"6–7 días — conocer el parque de verdad",opciones:[{label:"Semana completa",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1",texto:"Llegada sector norte. Laguna Arcoíris para ambientarse."},
+{hora:"DÍA 2",texto:"Contrabandista completo + tarde en el lago."},
+{hora:"DÍA 3",texto:"Playa sur + Los Coigües + sitios arqueológicos."},
+{hora:"DÍA 4",texto:"Traslado a Melipeuco. Muralla + Salto + Laguna Verde."},
+{hora:"DÍA 5",texto:"Sector Los Paraguas (Cherquenco). El más solitario."},
+{hora:"DÍA 6",texto:"Día libre. Kayak, leer en la orilla, explorar sin destino."},
+{hora:"DÍA 7",texto:"Los Carpinteros + Araucaria Madre + despedida."}
+]}],nota:"7 días es ideal para salir sabiendo que conociste el parque, no que lo fotografiaste."},
+"mas7":{titulo:"Más de una semana — haz tu propio rastro",opciones:[{label:"Base flexible",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"Semana 1",texto:"Sigue el itinerario de 6–7 días."},
+{hora:"Semana 2",texto:"Repite los senderos favoritos a distinta hora. Los paisajes cambian completamente."},
+{hora:"Extra",texto:"Habla con los guardaparques — conocen zonas que no están en ningún mapa."}
+]}],nota:"Con más de 7 días, el parque te empieza a revelar cosas que no aparecen en las guías."}
+},
+L:{
+"1dia":{titulo:"Un día que se va a sentir completo",opciones:[
+{label:"Sierra Nevada — los 3 miradores",vehiculo:["suv","4x4"],pasos:[
+{hora:"07:30",texto:"Sale temprano. Sierra Nevada requiere empezar antes del calor."},
+{hora:"09:00",texto:"Ingresa por Curacautín. Estaciona en la playa del lago."},
+{hora:"09:30",texto:"Inicio Sierra Nevada. Primer mirador a los 60 min: vista del lago y el Llaima."},
+{hora:"11:00",texto:"Segundo mirador: araucarias y lenga en contraste. Apto para familias."},
+{hora:"13:00",texto:"Tercer mirador + laguna glaciar azul turquesa en la cima. El objetivo."},
+{hora:"15:30",texto:"Descenso. Para en Cafetería Pewen al llegar (dic–mar)."},
+{hora:"17:00",texto:"Playa lago: baño o kayak antes de salir."}
+]},
+{label:"Los Carpinteros + Araucaria Madre + Laguna Captrén",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"09:30",texto:"Ingresa al parque. Inicio Sendero Los Carpinteros."},
+{hora:"10:00",texto:"Araucaria Madre a los 30 min — 1.800–2.500 años, 50 m de alto."},
+{hora:"12:00",texto:"Laguna Captrén: reflejo del volcán Llaima."},
+{hora:"13:30",texto:"Almuerzo en el picnic del sector lago."},
+{hora:"15:00",texto:"Sendero Las Vertientes (40 min)."},
+{hora:"16:30",texto:"Playa lago + kayak si hay arriendo."}
+]}
+],nota:"Sierra Nevada tiene 3 miradores con nombre y laguna glaciar en la cima. El sendero más completo."},
+"2dias":{titulo:"Dos días — dos hitos cumplidos",opciones:[{label:"Sierra Nevada + Circuito Captrén",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1 — Sierra Nevada",texto:""},
+{hora:"07:30",texto:"Sale temprano. Lleva comida para el camino."},
+{hora:"13:00",texto:"Laguna glaciar en la cima. El objetivo del día."},
+{hora:"18:00",texto:"Camping Los Ñirres o Los Carpinteros."},
+{hora:"DÍA 2 — Circuito Captrén",texto:""},
+{hora:"09:00",texto:"Los Carpinteros + Araucaria Madre: 2.000 años, 50 metros."},
+{hora:"11:00",texto:"Laguna Captrén: reflejo del Llaima."},
+{hora:"14:00",texto:"Playa lago + kayak."},
+{hora:"17:00",texto:"Salida."}
+]}],nota:"Reserva camping con anticipación. Llama a Sendas: +56 9 8825 4877"},
+"3dias":{titulo:"Tres días — completar el parque",opciones:[{label:"Hitos principales",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Sierra Nevada completo (5–6h) + tarde en la playa del lago."},
+{hora:"DÍA 2",texto:"Los Carpinteros + Araucaria Madre + Laguna Captrén + Laguna Arcoíris."},
+{hora:"DÍA 3",texto:"Melipeuco: Salto Truful-Truful + Muralla + Laguna Verde."}
+]}],nota:"Con 3 días cubres los principales hitos de ambos sectores."},
+"4-5dias":{titulo:"4–5 días — el parque en detalle",opciones:[{label:"Norte a Sur",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Sierra Nevada completo al tercer mirador."},
+{hora:"DÍA 2",texto:"Los Carpinteros + Araucaria Madre + Laguna Captrén."},
+{hora:"DÍA 3",texto:"Laguna Arcoíris + Sendero de la Playa + kayak."},
+{hora:"DÍA 4",texto:"Melipeuco: Salto Truful-Truful + Muralla + Laguna Verde."},
+{hora:"DÍA 5",texto:"Sector Los Paraguas (Cherquenco)."}
+]}],nota:"5 días permite cubrir todos los accesos a buen ritmo."},
+"6-7dias":{titulo:"6–7 días — cada sendero habilitado",opciones:[{label:"Semana completa",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1",texto:"Laguna Arcoíris + Las Araucarias + playa del lago."},
+{hora:"DÍA 2",texto:"Sierra Nevada completo."},
+{hora:"DÍA 3",texto:"Los Carpinteros + Araucaria Madre + Laguna Captrén."},
+{hora:"DÍA 4",texto:"Salto Truful-Truful + Muralla (sector Melipeuco)."},
+{hora:"DÍA 5",texto:"Laguna Verde + Sendero Ensenada."},
+{hora:"DÍA 6",texto:"Sector Los Paraguas (Cherquenco)."},
+{hora:"DÍA 7",texto:"Las Vertientes + Los Coigües + despedida en la playa."}
+]}],nota:"7 días alcanza para hacer los 11 senderos habilitados."},
+"mas7":{titulo:"Más de una semana — desafío extra",opciones:[{label:"7 días + extras",vehiculo:["suv","4x4"],pasos:[
+{hora:"Semana 1",texto:"Completa el itinerario de 6–7 días (todos los senderos principales)."},
+{hora:"Extra",texto:"Intenta Pastos Blancos si estás en forma. Alta montaña, 8h ida/vuelta."},
+{hora:"Extra",texto:"Pide en CONAF info sobre los sitios arqueológicos Pehuenche."}
+]}],nota:"Con los senderos marcados, el itinerario más completo registrado."}
+},
+S:{
+"1dia":{titulo:"Un día sin apuros",opciones:[
+{label:"Circuito suave del sector principal",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"10:00",texto:"Llega al sector lago. Recepción Sendas Conguillío."},
+{hora:"10:30",texto:"Sendero Las Araucarias (1h): 12 paneles educativos, bosque, cascada."},
+{hora:"12:00",texto:"Laguna Arcoíris (45 min): la más fotogénica del parque."},
+{hora:"13:30",texto:"Almuerzo en Cafetería Pewen (dic–mar) o picnic en la playa."},
+{hora:"15:00",texto:"Playa del Lago: arena volcánica. Baño o kayak."},
+{hora:"16:30",texto:"Sendero Las Vertientes (40 min): muy accesible."},
+{hora:"17:30",texto:"Salida sin apuros."}
+]},
+{label:"Con niños o movilidad reducida",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"10:00",texto:"Llegada. Centro de Información CONAF: oriéntate."},
+{hora:"10:30",texto:"Sendero Las Vertientes (800 m, 40 min): plano, apto para todos."},
+{hora:"11:30",texto:"Sendero Las Araucarias (1h): paneles + cascada — al ritmo de los chicos."},
+{hora:"13:30",texto:"Playa lago: arena volcánica negra. Los niños van a amar esto."},
+{hora:"15:30",texto:"Mirador del lago desde el camino vehicular (sin sendero)."},
+{hora:"16:30",texto:"Salida tranquila."}
+]}
+],nota:"El ritmo importa. Entre paradas y fotos, el tiempo vuela — no sobrecargues el día."},
+"2dias":{titulo:"Dos días sin apuros",opciones:[{label:"Lago + excursión suave",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1 — Llegada",texto:""},
+{hora:"10:00",texto:"Check-in en camping. Los Ñirres está a 300m del lago."},
+{hora:"12:00",texto:"Sendero Las Araucarias (1h)."},
+{hora:"14:00",texto:"Laguna Arcoíris: la foto del viaje."},
+{hora:"16:00",texto:"Playa lago + kayak (temporada alta)."},
+{hora:"20:00",texto:"Fogata. Noche de estrellas."},
+{hora:"DÍA 2 — Mañana tranquila",texto:""},
+{hora:"09:00",texto:"Amanecer en la playa. Lago en calma refleja el volcán."},
+{hora:"11:00",texto:"Los Carpinteros hasta la Araucaria Madre (ritmo suave, 2h)."},
+{hora:"14:00",texto:"Cafetería Pewen (dic–mar) o picnic en el lago."},
+{hora:"16:30",texto:"Salida."}
+]}],nota:"Reserva camping con anticipación. El Hoyón tiene la mejor playa privada."},
+"3dias":{titulo:"Tres días para no olvidar",opciones:[{label:"Experiencia completa a buen ritmo",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1",texto:"Llegada. Laguna Arcoíris. Sendero Las Araucarias. Playa + kayak."},
+{hora:"DÍA 2",texto:"Los Carpinteros + Araucaria Madre + Laguna Captrén. Tarde libre en el lago."},
+{hora:"DÍA 3",texto:"Las Vertientes (mañana). Salida sin apuros. Almuerzo en Melipeuco."}
+]}],nota:"3 días es el tiempo ideal. Sin carreras, todo lo que vale la pena."},
+"4-5dias":{titulo:"4–5 días — el parque con calma",opciones:[{label:"Todo el norte + excursión sur",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1",texto:"Llegada. Ambientación. Las Araucarias + playa."},
+{hora:"DÍA 2",texto:"Laguna Arcoíris + Los Carpinteros + Araucaria Madre."},
+{hora:"DÍA 3",texto:"Laguna Captrén + kayak + tarde libre."},
+{hora:"DÍA 4",texto:"Excursión a Melipeuco: Salto Truful-Truful + Muralla."},
+{hora:"DÍA 5",texto:"Mañana tranquila en el lago. Salida a mediodía."}
+]}],nota:"4–5 días permite quedarse donde hay más que ver, sin apuros."},
+"6-7dias":{titulo:"6–7 días — la experiencia completa",opciones:[{label:"Semana familiar",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"DÍA 1",texto:"Llegada. Sector lago. Laguna Arcoíris."},
+{hora:"DÍA 2",texto:"Las Araucarias + playa + kayak."},
+{hora:"DÍA 3",texto:"Los Carpinteros + Araucaria Madre + Laguna Captrén."},
+{hora:"DÍA 4",texto:"Día libre en el lago. Nada, juega, lee."},
+{hora:"DÍA 5",texto:"Melipeuco: Salto Truful-Truful + Muralla geológica."},
+{hora:"DÍA 6",texto:"Laguna Verde + playa volcánica del sur."},
+{hora:"DÍA 7",texto:"Las Vertientes + despedida. Almuerzo en Melipeuco."}
+]}],nota:"Con una semana, la familia puede vivir el parque sin prisas y con variedad real."},
+"mas7":{titulo:"Más de una semana — máxima relajación",opciones:[{label:"Tu ritmo",vehiculo:["city","suv","4x4","bus"],pasos:[
+{hora:"Semana 1",texto:"Sigue el itinerario de 6–7 días."},
+{hora:"Extra",texto:"Repite lo que más gustó. Cada sendero tiene algo distinto de mañana a tarde."},
+{hora:"Consejo",texto:"El primer mirador de Sierra Nevada al amanecer — casi nadie va tan temprano."}
+]}],nota:"Con más de una semana, el parque se convierte en casa."}
+},
+C:{
+"1dia":{titulo:"Un día al límite",opciones:[
+{label:"Pastos Blancos — el más exigente del parque",vehiculo:["suv","4x4"],pasos:[
+{hora:"07:00",texto:"OBLIGATORIO: sale muy temprano. 8h ida/vuelta, sin sombra en la parte alta."},
+{hora:"08:30",texto:"Ingresa por Curacautín. Avisa en guardería adónde vas."},
+{hora:"09:00",texto:"Inicio sendero hacia Pastos Blancos: faldas del Volcán Llaima."},
+{hora:"11:00",texto:"Paisaje cambia: arbustos achaparrados, roca volcánica, escorial."},
+{hora:"13:00",texto:"Zona alta: pasto blanquecino. Posibilidad de avistar cóndores."},
+{hora:"15:30",texto:"Descenso. No subestimes el cansancio acumulado."},
+{hora:"17:30",texto:"Salida. Mínimo 2L de agua por persona."}
+]},
+{label:"Sierra Nevada al tercer mirador",vehiculo:["suv","4x4"],pasos:[
+{hora:"07:30",texto:"Sale temprano. 5–6h completas."},
+{hora:"09:00",texto:"Inicio Sierra Nevada desde la playa del lago."},
+{hora:"13:00",texto:"Laguna glaciar en la cima. El objetivo."},
+{hora:"15:30",texto:"Descenso."},
+{hora:"17:30",texto:"Si tienes energía: kayak en el lago."}
+]}
+],nota:"Llevar: 2L agua, bloqueador, snack calórico, ropa abrigada para la cumbre. Avisa siempre adónde vas."},
+"2dias":{titulo:"Dos días de máximo esfuerzo",opciones:[{label:"Pastos Blancos + Sierra Nevada",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1 — Pastos Blancos",texto:""},
+{hora:"07:00",texto:"Sale muy temprano. 8h ida/vuelta."},
+{hora:"13:00",texto:"Cumbre. Escorial, pasto blanquecino, posibles cóndores."},
+{hora:"18:00",texto:"Regreso al camping. Recuperación seria."},
+{hora:"DÍA 2 — Sierra Nevada",texto:""},
+{hora:"08:00",texto:"Sale en buenas condiciones."},
+{hora:"13:30",texto:"Laguna glaciar. Dos días, dos montañas."},
+{hora:"17:00",texto:"Salida del parque."}
+]}],nota:"La recuperación entre días importa: hidratación, comida calórica, descanso real."},
+"3dias":{titulo:"Tres días intensos",opciones:[{label:"Los tres desafíos",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Pastos Blancos (8h). El más exigente del parque."},
+{hora:"DÍA 2",texto:"Sierra Nevada completo al tercer mirador + laguna glaciar."},
+{hora:"DÍA 3",texto:"Contrabandista en bici + Laguna Captrén + Laguna Arcoíris."}
+]}],nota:"Día 3 más suave para recuperar."},
+"4-5dias":{titulo:"4–5 días — alta intensidad",opciones:[{label:"Máxima exigencia",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Pastos Blancos."},
+{hora:"DÍA 2",texto:"Sierra Nevada tercer mirador."},
+{hora:"DÍA 3",texto:"Descanso activo: kayak + Laguna Captrén + Los Carpinteros."},
+{hora:"DÍA 4",texto:"Melipeuco: Truful-Truful + sector sur."},
+{hora:"DÍA 5",texto:"Sector Los Paraguas (Cherquenco) en bici si tienes."}
+]}],nota:"Alterna días duros con días de recuperación activa."},
+"6-7dias":{titulo:"6–7 días — expedición completa",opciones:[{label:"Semana de alta exigencia",vehiculo:["suv","4x4"],pasos:[
+{hora:"DÍA 1",texto:"Aclimatación: Laguna Arcoíris + playa."},
+{hora:"DÍA 2",texto:"Sierra Nevada completo."},
+{hora:"DÍA 3",texto:"Pastos Blancos. El día más duro."},
+{hora:"DÍA 4",texto:"Descanso activo: kayak, Laguna Captrén, Los Carpinteros."},
+{hora:"DÍA 5",texto:"Sector Sur: Truful-Truful + Muralla + Laguna Verde."},
+{hora:"DÍA 6",texto:"Sector Los Paraguas (Cherquenco)."},
+{hora:"DÍA 7",texto:"Sendero de la Playa en bici + despedida."}
+]}],nota:"7 días permite hacer Pastos Blancos y Sierra Nevada sin comprometer la recuperación."},
+"mas7":{titulo:"Más de una semana — entrenamiento en montaña",opciones:[{label:"Expedición extendida",vehiculo:["suv","4x4"],pasos:[
+{hora:"Semana 1",texto:"Sigue el itinerario de 6–7 días."},
+{hora:"Extra",texto:"Repite Pastos Blancos y Sierra Nevada: la segunda vez vas más rápido."},
+{hora:"Extra",texto:"Consulta el ascenso al Volcán Llaima desde Malalcahuello (fuera del parque, guía obligatorio)."}
+]}],nota:"El Llaima tiene registro activo. Solo con guía certificado. Consulta estado en CONAF."}
+}
+};

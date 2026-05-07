@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Rastro · Testeo Conguillío</title>
+<style>
+:root {
+  --bg:#09040f; --bg2:#0d1218; --bg3:#111820;
+  --glass:rgba(255,255,255,.06); --glass-hi:rgba(255,255,255,.10);
+  --border:rgba(255,255,255,.11); --border-hi:rgba(255,255,255,.24);
+  --green:#1DC88C; --green-d:rgba(29,200,140,.14); --green-b:rgba(29,200,140,.45);
+  --amber:#EF9F27; --amber-d:rgba(239,159,39,.14); --amber-b:rgba(239,159,39,.45);
+  --purple:#9F77DD; --purple-d:rgba(159,119,221,.14); --purple-b:rgba(159,119,221,.45);
+  --coral:#E25050; --coral-d:rgba(226,80,80,.14); --coral-b:rgba(226,80,80,.45);
+  --blue:#5A9FE8; --blue-d:rgba(90,159,232,.14); --blue-b:rgba(90,159,232,.45);
+  --text:rgba(255,255,255,.9); --text-dim:rgba(255,255,255,.52);
+  --text-faint:rgba(255,255,255,.3); --r:13px; --r-sm:8px; --r-pill:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;
+  padding:16px 16px 80px;max-width:640px;margin:0 auto;
+}
+/* HEADER */
+.hdr{display:flex;align-items:center;gap:10px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);flex-shrink:0;}
+.hdr-title{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--text);}
+.hdr-sub{font-size:11px;color:var(--text-faint);margin-left:auto;}
+/* TABS */
+.tabs{display:flex;gap:5px;margin-bottom:24px;flex-wrap:wrap;}
+.tab{
+  padding:7px 14px;border-radius:var(--r-pill);font-size:12px;font-weight:600;
+  cursor:pointer;border:1px solid var(--border);background:var(--glass);
+  color:var(--text-dim);transition:all .15s;letter-spacing:.02em;-webkit-appearance:none;appearance:none;
+}
+.tab:hover{background:var(--glass-hi);color:var(--text);border-color:var(--border-hi);}
+.tab.on{background:var(--green);color:#061610;border-color:transparent;box-shadow:0 2px 14px rgba(29,200,140,.35);}
+.pnl{display:none;}.pnl.on{display:block;}
+/* TYPE */
+.lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin:0 0 10px;}
+.ct{font-size:14px;font-weight:600;margin:0 0 5px;color:var(--text);}
+.cs{font-size:13px;color:var(--text-dim);line-height:1.65;margin:0;}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);letter-spacing:.04em;}
+.tg{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
+.ta{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.tp{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
+.tc{background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);}
+.tb{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+/* CARDS */
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;}
+.card-g{border-left:3px solid var(--green);}.card-a{border-left:3px solid var(--amber);}
+.card-p{border-left:3px solid var(--purple);}.card-c{border-left:3px solid var(--coral);}
+.div{border:none;border-top:1px solid var(--border);margin:20px 0;}
+/* CALLOUTS */
+.note{background:var(--amber-d);border-left:3px solid var(--amber);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:10px 14px;font-size:13px;color:var(--text-dim);line-height:1.6;margin:10px 0;}
+.tip{background:var(--purple-d);border-left:3px solid var(--purple);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:10px 14px;font-size:13px;color:var(--text-dim);line-height:1.6;margin:10px 0;}
+.ok{background:var(--green-d);border-left:3px solid var(--green);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:10px 14px;font-size:13px;color:var(--text-dim);line-height:1.6;margin:10px 0;}
+/* STATS */
+.sts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.st{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;flex:1;min-width:80px;text-align:center;}
+.sn{font-size:24px;font-weight:700;color:var(--green);}
+.sl{font-size:11px;color:var(--text-dim);margin-top:4px;line-height:1.4;}
+/* SESSIONS */
+.ses{border-radius:var(--r);border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.ssh{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.sg{background:var(--green-d);border-bottom:1px solid var(--green-b);}
+.sp{background:var(--purple-d);border-bottom:1px solid var(--purple-b);}
+.sa{background:var(--amber-d);border-bottom:1px solid var(--amber-b);}
+.sb{padding:14px 16px;}
+/* PHASE */
+.fase{border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;}
+.fh{padding:12px 16px;display:flex;align-items:center;gap:10px;background:var(--glass);border-bottom:1px solid var(--border);}
+.fn{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.ng{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
+.na{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.np{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
+.nc{background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);}
+.nb{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+.ft{font-size:14px;font-weight:600;flex:1;}.fti{font-size:11px;color:var(--text-faint);white-space:nowrap;}
+.fb{padding:14px 16px;}
+/* QUOTES */
+.q{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:8px;font-size:13px;line-height:1.65;}
+.ql{font-size:10px;font-weight:700;color:var(--text-faint);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase;}
+.qt{color:var(--text);font-style:italic;}.qs{font-size:12px;color:var(--text-dim);margin-top:5px;line-height:1.5;}
+/* BULLETS */
+.rr{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.rd{width:5px;height:5px;border-radius:50%;background:var(--green);margin-top:7px;flex-shrink:0;opacity:.7;}
+.rt{font-size:13px;color:var(--text-dim);line-height:1.55;}
+/* FLOW PILLS */
+.fl{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:12px 0 4px;}
+.fp{background:var(--glass-hi);border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--text-dim);}
+.fa{color:var(--text-faint);font-size:13px;}
+/* TOOL ROWS */
+.tool{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.ti{font-size:18px;flex-shrink:0;margin-top:1px;}.tit{font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text);}
+.tid{font-size:12px;color:var(--text-dim);line-height:1.5;}
+/* CHECKBOXES */
+.chk{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;cursor:pointer;user-select:none;}
+.chk-box{
+  width:20px;height:20px;border:1.5px solid var(--border-hi);border-radius:6px;
+  flex-shrink:0;margin-top:0px;background:var(--glass);display:flex;align-items:center;
+  justify-content:center;transition:all .15s;cursor:pointer;
+}
+.chk-box.done{background:var(--green);border-color:var(--green);}
+.chk-box.done::after{content:'✓';font-size:12px;color:#061610;font-weight:700;}
+.chk-txt{font-size:13px;color:var(--text-dim);line-height:1.5;flex:1;padding-top:1px;}
+.chk-txt.done{color:var(--text-faint);text-decoration:line-through;}
+/* FORMS */
+.form-group{margin-bottom:14px;}
+.form-row{display:flex;gap:10px;}
+.form-row .form-group{flex:1;}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:7px;}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:inherit;
+  padding:11px 13px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green-b);background:rgba(29,200,140,.04);}
+.form-textarea{resize:vertical;min-height:80px;line-height:1.65;}
+.form-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.35)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
+.form-select option{background:#12101e;color:white;}
+/* RADIO-OPT */
+.radio-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.radio-opt{
+  padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--border);
+  background:var(--glass);font-size:12px;color:var(--text-dim);cursor:pointer;
+  transition:all .15s;user-select:none;line-height:1;
+}
+.radio-opt:hover{border-color:var(--border-hi);color:var(--text);}
+.radio-opt.sel{background:var(--green-d);border-color:var(--green-b);color:var(--green);font-weight:600;}
+/* FORM TABS (Registro sub-tabs) */
+.ftabs{display:flex;gap:6px;margin-bottom:20px;}
+.ftab{
+  flex:1;padding:11px;text-align:center;background:var(--glass);
+  border:1px solid var(--border);border-radius:var(--r-sm);
+  font-size:12px;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .15s;
+}
+.ftab.on{background:var(--purple-d);border-color:var(--purple-b);color:var(--purple);}
+.reg-pnl{display:none;}.reg-pnl.on{display:block;}
+/* SUBMIT */
+.btn-submit{
+  width:100%;padding:14px;background:var(--green);color:#061610;border:none;
+  border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;
+  transition:all .15s;margin-top:6px;font-family:inherit;
+  box-shadow:0 4px 20px rgba(29,200,140,.3);letter-spacing:.03em;
+}
+.btn-submit:hover{background:#22e09c;box-shadow:0 4px 28px rgba(29,200,140,.45);}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;}
+.form-status{margin-top:10px;padding:11px 14px;border-radius:var(--r-sm);font-size:13px;display:none;line-height:1.5;}
+.form-status.ok{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);display:block;}
+.form-status.err{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);display:block;}
+/* PENDING */
+.pending-bar{
+  background:var(--amber-d);border:1px solid var(--amber-b);border-radius:var(--r-sm);
+  padding:10px 14px;margin-bottom:16px;display:none;font-size:12px;
+  color:var(--amber);align-items:center;gap:10px;
+}
+.pending-bar.show{display:flex;}
+.btn-sync{
+  margin-left:auto;padding:6px 12px;border-radius:var(--r-pill);
+  background:var(--amber);color:#1a0e00;font-size:11px;font-weight:700;
+  border:none;cursor:pointer;font-family:inherit;flex-shrink:0;
+}
+/* SCREEN LABEL (Sistema screens list) */
+.screen-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.screen-pill{
+  background:var(--glass-hi);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:5px 12px;font-size:12px;font-weight:600;color:var(--text-dim);
+  min-width:170px;white-space:nowrap;
+}
+.screen-pill.final{background:var(--green-d);border-color:var(--green-b);color:var(--green);}
+.screen-desc{font-size:12px;color:var(--text-faint);}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-dot"></div>
+  <div class="hdr-title">RASTRO / TESTEO</div>
+  <div class="hdr-sub">Conguillío · Mayo 2026</div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="go('resumen',this)">Resumen</button>
+  <button class="tab" onclick="go('sesiones',this)">3 sesiones</button>
+  <button class="tab" onclick="go('flujo',this)">Flujo</button>
+  <button class="tab" onclick="go('desconocidos',this)">Desconocidos</button>
+  <button class="tab" onclick="go('checklist',this)">Checklist</button>
+  <button class="tab" onclick="go('registro',this)">Registro</button>
+  <button class="tab" onclick="go('sistema',this)">Sistema</button>
+</div>
+
+<!-- ══ RESUMEN ══ -->
+<div class="pnl on" id="p-resumen">
+  <div class="sts">
+    <div class="st"><div class="sn">3</div><div class="sl">sesiones con conocidos</div></div>
+    <div class="st"><div class="sn">6–8</div><div class="sl">conversaciones desconocidos</div></div>
+    <div class="st"><div class="sn">16–23</div><div class="sl">mayo, desde Temuco</div></div>
+  </div>
+
+  <div class="card card-p">
+    <div class="ct">Pregunta central</div>
+    <div class="cs">¿El sistema ayuda a decidir hacia dónde ir según el perfil del visitante y su grupo, y esa recomendación calza con lo que experimentan en terreno?</div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">Cómo funciona el testeo</div>
+
+  <div class="ok">El prototipo está completo y corre en el teléfono sin internet. No hay materiales impresos. Tú muestras la app pantalla a pantalla mientras conversan, y los participantes van al sendero recomendado.</div>
+
+  <div class="tool">
+    <div class="ti">📱</div>
+    <div>
+      <div class="tit">Rastro — prototipo HTML (offline)</div>
+      <div class="tid">Quiz Bartle → perfil automático → 6 pasos de planificación (tipo de viaje, grupo, vehículo, temporada, acceso, días + focos + modo + presupuesto) → itinerario completo → van al sendero.</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">Qué se evalúa</div>
+  <div class="card">
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Pertinencia del perfil</strong> — ¿El perfil Bartle que arroja el quiz los representa bien?</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Pertinencia de la recomendación</strong> — ¿El sendero recomendado calza con lo que querían hacer?</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Redistribución</strong> — ¿La app los lleva a un lugar que no habrían elegido solos?</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Función de grupo</strong> — ¿El sistema captura bien la dinámica del grupo al planificar?</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Incentivo</strong> — ¿Los textos de los senderos subexplorados generan interés real?</div></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">Calendario</div>
+  <div class="ses">
+    <div class="ssh sg"><div class="ct">Sesión 1 — 16 y 17 mayo</div><span class="tag tg">Familia / usuario mayor</span></div>
+    <div class="sb"><div class="cs">Viaje familiar con alojamiento en cabaña fuera del parque. La visita al parque es solo un día (17 mayo). Perfil probable: Socializador o contemplativo. Testea legibilidad del quiz y función de grupo con usuario menos familiarizado con apps.</div></div>
+  </div>
+  <div class="ses">
+    <div class="ssh sp"><div class="ct">Sesión 2 — 19 mayo</div><span class="tag tp">Amigo/s</span></div>
+    <div class="sb"><div class="cs">Perfil probable: Explorador o Logrador. Más disposición a explorar. Ideal para probar si el incentivo de los senderos subexplorados funciona.</div></div>
+  </div>
+  <div class="ses">
+    <div class="ssh sa"><div class="ct">Sesión 3 — 23 mayo</div><span class="tag ta">Pareja — por el día</span></div>
+    <div class="sb"><div class="cs">Dos perfiles distintos, visita de un día. Una persona del grupo responde el quiz. La app genera una recomendación para la pareja basada en ese perfil y en lo que declaren en la función de grupo.</div></div>
+  </div>
+</div>
+
+<!-- ══ SESIONES ══ -->
+<div class="pnl" id="p-sesiones">
+  <div class="ses">
+    <div class="ssh sg"><div class="ct">Sesión 1 — Familia / usuario mayor</div><span class="tag tg">16–17 mayo</span></div>
+    <div class="sb">
+      <div class="note" style="margin-top:0;margin-bottom:12px;">Viaje familiar con alojamiento en cabaña fuera del parque (noche del 16). La visita al parque es solo el 17 de mayo — un día completo.</div>
+      <div class="lbl" style="margin-top:2px;">Foco del testeo</div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿El quiz es comprensible para alguien menos familiarizado con apps? ¿Necesita ayuda para leer las opciones?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿La función de grupo captura bien las necesidades cuando hay un adulto mayor o niños?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿La recomendación generada por la app es apropiada para ese perfil y grupo?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿Los textos de los senderos accesibles (Las Vertientes, Laguna Arcoíris, Las Araucarias) son suficientemente atractivos?</div></div>
+      <div class="tip">Si necesitan ayuda para leer el quiz, anótalo — es dato de legibilidad directa, no de diseño del quiz.</div>
+      <div class="div"></div>
+      <div class="lbl">Preguntas post-recorrido</div>
+      <div class="q"><div class="ql">Perfil</div><div class="qt">"¿El perfil que te salió te representa bien como visitante de parques, o hay algo que no calzó?"</div></div>
+      <div class="q"><div class="ql">Recomendación</div><div class="qt">"¿El sendero que te sugirió era el que habrían elegido solos, o fue una sorpresa?"</div><div class="qs">Si lo habrían elegido igual: ¿qué habrían necesitado ver para ir a otro lugar?</div></div>
+      <div class="q"><div class="ql">Grupo</div><div class="qt">"¿Sintieron que la app consideró bien a todos en el grupo, o faltó algo?"</div></div>
+      <div class="q"><div class="ql">Contenido</div><div class="qt">"¿Había algo en la información del sendero que no correspondía con lo que encontraron?"</div></div>
+      <div class="q"><div class="ql">Uso futuro</div><div class="qt">"¿La usarían antes de entrar a un parque la próxima vez?"</div><div class="qs">Escucha el por qué, no solo el sí o no.</div></div>
+    </div>
+  </div>
+
+  <div class="ses">
+    <div class="ssh sp"><div class="ct">Sesión 2 — Amigo/s</div><span class="tag tp">19 mayo</span></div>
+    <div class="sb">
+      <div class="lbl" style="margin-top:2px;">Foco del testeo</div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿El perfil Bartle lo representa bien?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿La recomendación lo lleva a un sendero subexplorado que no habría elegido solo?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿El texto de incentivo del sendero subexplorado genera interés real o indiferencia?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿Sigue la recomendación o la cuestiona? Ambas respuestas son dato válido.</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿El "Modo del día" le resulta útil o confuso?</div></div>
+      <div class="tip">Pídele que piense en voz alta mientras navega la app. "¿Qué estás pensando ahora?" es suficiente para sacar observaciones valiosas.</div>
+      <div class="div"></div>
+      <div class="lbl">Preguntas post-recorrido</div>
+      <div class="q"><div class="ql">Perfil</div><div class="qt">"¿El perfil te representó bien o sentiste que faltaba algo?"</div></div>
+      <div class="q"><div class="ql">Recomendación</div><div class="qt">"¿La sugerencia de sendero calzó con lo que querías hacer hoy, o habrías preferido otra cosa?"</div></div>
+      <div class="q"><div class="ql">Incentivo</div><div class="qt">"¿El texto que explicaba por qué ir a ese sendero te convenció, o te pareció que faltaba algo para que fuera más atractivo?"</div><div class="qs">Esta es la pregunta más importante para esta sesión.</div></div>
+      <div class="q"><div class="ql">Redistribución</div><div class="qt">"¿Habrías ido a ese mismo sendero sin la app, o te llevó a algo diferente a lo que habrías elegido?"</div></div>
+      <div class="q"><div class="ql">Uso futuro</div><div class="qt">"¿La usarías en un parque que no conoces?"</div></div>
+    </div>
+  </div>
+
+  <div class="ses">
+    <div class="ssh sa"><div class="ct">Sesión 3 — Pareja por el día</div><span class="tag ta">23 mayo</span></div>
+    <div class="sb">
+      <div class="note" style="margin-top:0;margin-bottom:12px;">Visita de un día, sin camping. Una persona de la pareja responde el quiz. La función de grupo captura el contexto de que van en pareja y ajusta la recomendación.</div>
+      <div class="lbl" style="margin-top:2px;">Foco del testeo</div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿Los dos perfiles combinados generan una recomendación coherente para un solo día?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿La app logra integrar dos perfiles distintos en una ruta que satisface a ambos?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿El itinerario de un día tiene un arco claro — comienzo, desarrollo y cierre?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">¿Hay tensión entre los dos perfiles en la elección del sendero? ¿Cómo la resuelve la app?</div></div>
+      <div class="fl">
+        <div class="fp">Quiz — una persona</div><div class="fa">→</div>
+        <div class="fp">Función de grupo</div><div class="fa">→</div>
+        <div class="fp">Recomendación</div><div class="fa">→</div>
+        <div class="fp">Recorrido</div><div class="fa">→</div>
+        <div class="fp">Conversación post</div>
+      </div>
+      <div class="div"></div>
+      <div class="lbl">Preguntas post-recorrido</div>
+      <div class="q"><div class="ql">Integración de perfiles</div><div class="qt">"¿Sintieron que la ruta consideró los dos perfiles, o se inclinó demasiado hacia uno de los dos?"</div></div>
+      <div class="q"><div class="ql">Negociación</div><div class="qt">"¿Hubo algún momento en que los dos querían cosas distintas? ¿Cómo lo resolvió la app?"</div></div>
+      <div class="q"><div class="ql">Contenido</div><div class="qt">"¿La información del sendero calzó con lo que encontraron en terreno?"</div></div>
+      <div class="q"><div class="ql">Cierre</div><div class="qt">"¿Sintieron que el día estuvo bien aprovechado según lo que cada uno quería?"</div></div>
+      <div class="q"><div class="ql">Uso futuro</div><div class="qt">"¿La usarían para planificar una salida en pareja o grupo a un parque nuevo?"</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FLUJO TESTEO ══ -->
+<div class="pnl" id="p-flujo">
+  <div class="ok">Ya no es Wizard of Oz clásico. El participante usa la app real en tu teléfono. Tú muestras pantalla a pantalla y observas, pero el sistema opera solo — no hay carpetas ni decisiones manuales de tu parte.</div>
+  <div class="div"></div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn ng">1</div><div class="ft">Introducción</div><div class="fti">1–2 min · antes de abrir la app</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Frase de entrada</div><div class="qt">"Estoy diseñando una app para ayudar a las personas a elegir qué hacer en un parque nacional según cómo son como visitantes. ¿Te interesa probarla antes de entrar?"</div></div>
+      <div class="note">No expliques cómo funciona. Deja que lo descubra al usarla. La reacción espontánea es el dato más valioso.</div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn ng">2</div><div class="ft">Quiz de perfil</div><div class="fti">~8 min · onboarding</div></div>
+    <div class="fb">
+      <div class="tool">
+        <div class="ti">📱</div>
+        <div><div class="tit">Onboarding + quiz Bartle (8 preguntas)</div><div class="tid">Muéstrale el teléfono. Tú vas pasando las pantallas del onboarding. En el quiz, el participante elige las respuestas directamente — tú solo sostienes el teléfono si lo necesita.</div></div>
+      </div>
+      <div class="tip">Observa si duda en alguna pregunta. Si duda más de 10 segundos, eso es dato — anota cuál fue.</div>
+      <div class="q"><div class="ql">Al aparecer el resultado</div><div class="qs">No lo comentes de inmediato. Deja un silencio de 3-4 segundos y observa qué dice o hace el participante antes de que tú digas algo.</div></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn na">3</div><div class="ft">Planificación del rastro</div><div class="fti">~5 min · juntos</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Frase de transición</div><div class="qt">"Ahora la app te pregunta un par de cosas sobre tu viaje para darte una recomendación de recorrido a tu medida."</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 1:</strong> tipo de viaje — ¿solo o en grupo?</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 2:</strong> composición del grupo — pareja, familia, familia con niños, movilidad reducida, amigos (selección múltiple)</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 3:</strong> vehículo — auto ciudad, SUV, 4x4, bus o a pie</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 4:</strong> temporada — la app la usa para filtrar condiciones del sendero</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 5:</strong> acceso — por qué sector entran (Melipeuco, Curacautín o Cherquenco)</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 6:</strong> clima — condición actual del tiempo (despejado, nublado, llovizna, lluvia, nieve)</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Paso 7:</strong> focos de interés + Modo del día + presupuesto</div></div>
+      <div class="tip">El paso 6 (clima) es nuevo — observa si los participantes lo entienden de inmediato o dudan. La selección ajusta el ranking de senderos en tiempo real: lluvia favorece senderos de bosque y penaliza senderos expuestos; nieve aplica filtro duro sobre senderos desafiantes.</div>
+      <div class="note">El paso 2 usa selección múltiple. Si el grupo incluye niños o movilidad reducida, la app aplica filtros duros — senderos desafiantes desaparecen del itinerario sin aviso explícito. Lo mismo ocurre con nieve + senderos desafiantes.</div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn na">4</div><div class="ft">Recomendación de ruta</div><div class="fti">~3 min · antes de salir</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Al aparecer la recomendación</div><div class="qs">Vuelve a dejar silencio. ¿Leen el texto de incentivo del sendero? ¿Comentan algo sobre el lugar sugerido? ¿Lo cuestionan?</div></div>
+      <div class="q"><div class="ql">Pregunta en este momento</div><div class="qt">"¿Te convence ir ahí, o habrías preferido otro sendero?"</div><div class="qs">Si dicen que habrían preferido otro: "¿Qué habría tenido que mostrar la app para que te convenciera?"</div></div>
+      <div class="note">Si la recomendación no calza con el acceso o vehículo del participante, la app lo maneja sola — pero anota si la alternativa generada también les parece bien o mal.</div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn np">5</div><div class="ft">Recorrido en terreno</div><div class="fti">durante el sendero</div></div>
+    <div class="fb">
+      <div class="rr"><div class="rd"></div><div class="rt">Llevan el teléfono. Si en algún punto del sendero quieren consultar la app, pueden hacerlo.</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">Tú observas. Si dicen algo espontáneo sobre el lugar ("no sabía que esto existía", "es muy parecido a lo que decía la app"), anótalo textualmente.</div></div>
+      <div class="rr"><div class="rd"></div><div class="rt">No intervengas con preguntas durante el recorrido — interrumpe la experiencia.</div></div>
+      <div class="tip">La conversación más honesta pasa mientras caminan, no al final. Activa grabación de audio si te dan permiso.</div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn nb">6</div><div class="ft">Conversación post-recorrido</div><div class="fti">~15 min · al bajar</div></div>
+    <div class="fb">
+      <div class="cs" style="margin-bottom:12px;">Las preguntas específicas dependen de la sesión — ver pestaña "3 sesiones". Las preguntas transversales son:</div>
+      <div class="q"><div class="ql">Transversal 1 — redistribución</div><div class="qt">"¿Habrían ido a este mismo lugar sin la app, o fue algo distinto a lo que habrían elegido solos?"</div></div>
+      <div class="q"><div class="ql">Transversal 2 — incentivo</div><div class="qt">"¿El texto que explicaba por qué ir a ese sendero te llamó la atención, o lo ignoraste?"</div></div>
+      <div class="q"><div class="ql">Transversal 3 — uso futuro</div><div class="qt">"¿La usarías en un parque que no conoces? ¿Y en uno que sí conoces?"</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DESCONOCIDOS ══ -->
+<div class="pnl" id="p-desconocidos">
+  <div class="card" style="margin-bottom:16px;">
+    <div class="cs">Conversaciones de 5 minutos máximo con visitantes que no conoces. El objetivo es validar si el concepto resuena con personas que no tienen ningún contexto previo. Mejor en zona de picnic, salida de sendero o entrada al parque.</div>
+  </div>
+  <div class="note">No les pides que cambien su comportamiento — solo que reflexionen sobre cómo decidieron. La app como estímulo, no como tarea.</div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn nc">1</div><div class="ft">Abordaje</div><div class="fti">30 seg</div></div>
+    <div class="fb"><div class="q"><div class="ql">Frase de entrada</div><div class="qt">"Hola, estoy haciendo mi tesis sobre parques nacionales y ando buscando a alguien que me dé su opinión. ¿Tienen cinco minutos?"</div></div></div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn nc">2</div><div class="ft">Contexto rápido</div><div class="fti">~1 min</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Pregunta 1</div><div class="qt">"¿Cómo decidieron qué sendero hacer hoy?"</div><div class="qs">¿Usaron Google, AllTrails, recomendaciones de otros, llegaron sin info?</div></div>
+      <div class="q"><div class="ql">Pregunta 2</div><div class="qt">"¿Sintieron que había partes del parque que ni sabían que existían, o que no alcanzaron a explorar?"</div></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn nc">3</div><div class="ft">Mostrar la app</div><div class="fti">~1 min</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Frase de introducción</div><div class="qt">"Estoy diseñando una app que te sugiere qué sendero hacer según tu perfil como visitante — y también considera con quién vienes."</div></div>
+      <div class="tool"><div class="ti">📱</div><div><div class="tit">Mostrar resultado del quiz + ficha de sendero</div><div class="tid">Muéstrales la pantalla de resultado del quiz con un perfil ya calculado y la pantalla de recomendación. No el quiz completo — solo el resultado. Deja que lo miren solos unos segundos.</div></div></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="fh"><div class="fn nc">4</div><div class="ft">Validación</div><div class="fti">~2 min</div></div>
+    <div class="fb">
+      <div class="q"><div class="ql">Pregunta contrafactual — la más importante</div><div class="qt">"Si hubieran tenido esto antes de entrar al parque hoy, ¿habría cambiado algo en cómo planificaron su día?"</div><div class="qs">Si dicen "no sé": "¿Qué habría tenido que mostrarles para que cambiara algo?"</div></div>
+      <div class="q"><div class="ql">Pregunta de grupo</div><div class="qt">"¿Les parece útil que la app considere también a las personas con quienes viajan?"</div></div>
+      <div class="q"><div class="ql">Pregunta de cierre</div><div class="qt">"¿Lo usarían en una próxima visita a un parque nacional?"</div><div class="qs">Escucha el por qué, no solo el sí o no.</div></div>
+    </div>
+  </div>
+  <div class="note">Meta: 6 a 8 conversaciones distribuidas entre las tres visitas. No necesitas hacer todas el mismo día.</div>
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div class="pnl" id="p-checklist">
+
+  <div class="lbl">Antes del 17 de mayo</div>
+  <div class="card">
+    <div class="chk" onclick="toggleChk('c1')"><div class="chk-box" id="c1"></div><div class="chk-txt" id="c1t">Subir el prototipo actualizado a Netlify</div></div>
+    <div class="chk" onclick="toggleChk('c2')"><div class="chk-box" id="c2"></div><div class="chk-txt" id="c2t">Probar el flujo completo en el teléfono — quiz → planificación (6 pasos) → recomendación</div></div>
+    <div class="chk" onclick="toggleChk('c3')"><div class="chk-box" id="c3"></div><div class="chk-txt" id="c3t">Verificar que el localStorage funciona (cerrar y reabrir la app mantiene el perfil)</div></div>
+    <div class="chk" onclick="toggleChk('c4')"><div class="chk-box" id="c4"></div><div class="chk-txt" id="c4t">Probar el botón "Cambiar perfil" para resetear entre sesiones</div></div>
+    <div class="chk" onclick="toggleChk('c5')"><div class="chk-box" id="c5"></div><div class="chk-txt" id="c5t">Tener la app precargada en el teléfono antes de entrar al parque (sin internet)</div></div>
+    <div class="chk" onclick="toggleChk('c6')"><div class="chk-box" id="c6"></div><div class="chk-txt" id="c6t">Revisar que el quiz de terreno (sin encuesta) esté listo como alternativa</div></div>
+    <div class="chk" onclick="toggleChk('c7')"><div class="chk-box" id="c7"></div><div class="chk-txt" id="c7t">Tener este plan de testeo leído y las preguntas memorizadas</div></div>
+    <div class="chk" onclick="toggleChk('c8')"><div class="chk-box" id="c8"></div><div class="chk-txt" id="c8t">Configurar SheetDB y verificar que el formulario de Registro envía datos correctamente</div></div>
+  </div>
+
+  <div class="lbl" style="margin-top:16px;">Sesión 1 — antes de salir (17 mayo)</div>
+  <div class="card">
+    <div class="chk" onclick="toggleChk('s1a')"><div class="chk-box" id="s1a"></div><div class="chk-txt" id="s1at">Batería del teléfono al 100% + power bank cargado</div></div>
+    <div class="chk" onclick="toggleChk('s1b')"><div class="chk-box" id="s1b"></div><div class="chk-txt" id="s1bt">App abierta y funcionando sin internet</div></div>
+    <div class="chk" onclick="toggleChk('s1c')"><div class="chk-box" id="s1c"></div><div class="chk-txt" id="s1ct">Perfil anterior borrado (botón "Cambiar perfil")</div></div>
+    <div class="chk" onclick="toggleChk('s1d')"><div class="chk-box" id="s1d"></div><div class="chk-txt" id="s1dt">Grabadora o app de audio lista (si la familia da permiso)</div></div>
+    <div class="chk" onclick="toggleChk('s1e')"><div class="chk-box" id="s1e"></div><div class="chk-txt" id="s1et">Cuaderno o notas del teléfono listo para reacciones espontáneas</div></div>
+  </div>
+
+  <div class="lbl" style="margin-top:16px;">Sesión 2 — antes de salir (19 mayo)</div>
+  <div class="card">
+    <div class="chk" onclick="toggleChk('s2a')"><div class="chk-box" id="s2a"></div><div class="chk-txt" id="s2at">Batería al 100% + power bank</div></div>
+    <div class="chk" onclick="toggleChk('s2b')"><div class="chk-box" id="s2b"></div><div class="chk-txt" id="s2bt">App funcionando sin internet</div></div>
+    <div class="chk" onclick="toggleChk('s2c')"><div class="chk-box" id="s2c"></div><div class="chk-txt" id="s2ct">Perfil anterior borrado</div></div>
+    <div class="chk" onclick="toggleChk('s2d')"><div class="chk-box" id="s2d"></div><div class="chk-txt" id="s2dt">Audio lista si hay permiso</div></div>
+  </div>
+
+  <div class="lbl" style="margin-top:16px;">Sesión 3 — antes de salir (23 mayo)</div>
+  <div class="card">
+    <div class="chk" onclick="toggleChk('s3a')"><div class="chk-box" id="s3a"></div><div class="chk-txt" id="s3at">Batería al 100% + power bank</div></div>
+    <div class="chk" onclick="toggleChk('s3b')"><div class="chk-box" id="s3b"></div><div class="chk-txt" id="s3bt">App funcionando sin internet</div></div>
+    <div class="chk" onclick="toggleChk('s3c')"><div class="chk-box" id="s3c"></div><div class="chk-txt" id="s3ct">Perfil anterior borrado</div></div>
+    <div class="chk" onclick="toggleChk('s3d')"><div class="chk-box" id="s3d"></div><div class="chk-txt" id="s3dt">Audio lista si hay permiso</div></div>
+  </div>
+
+  <div class="lbl" style="margin-top:16px;">Después de cada sesión</div>
+  <div class="card">
+    <div class="chk" onclick="toggleChk('d1')"><div class="chk-box" id="d1"></div><div class="chk-txt" id="d1t">Completar el formulario de Registro antes de que empiece la siguiente sesión</div></div>
+    <div class="chk" onclick="toggleChk('d2')"><div class="chk-box" id="d2"></div><div class="chk-txt" id="d2t">Anotar la cita textual más interesante de la sesión</div></div>
+    <div class="chk" onclick="toggleChk('d3')"><div class="chk-box" id="d3"></div><div class="chk-txt" id="d3t">Anotar si hubo algo que la app no pudo resolver o que el participante necesitó y no encontró</div></div>
+    <div class="chk" onclick="toggleChk('d4')"><div class="chk-box" id="d4"></div><div class="chk-txt" id="d4t">Sincronizar registros pendientes cuando haya señal (botón en pestaña Registro)</div></div>
+  </div>
+
+  <div class="tip">Si el teléfono se queda sin batería en terreno, todo el testeo de esa sesión se cae. Power bank es obligatorio.</div>
+  <div style="margin-top:16px;text-align:center;">
+    <button onclick="resetChecks()" style="padding:8px 18px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--glass);color:var(--text-dim);font-size:12px;cursor:pointer;font-family:inherit;">Resetear todos los checks</button>
+  </div>
+</div>
+
+<!-- ══ REGISTRO ══ -->
+<div class="pnl" id="p-registro">
+
+  <div id="verify-bar" style="background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="font-size:12px;color:var(--text-dim);flex:1;">Verificar conexión con Google Sheets</span>
+    <button onclick="verificarSheetDB()" id="btn-verify" style="padding:6px 14px;border-radius:var(--r-pill);background:var(--glass-hi);border:1px solid var(--border-hi);color:var(--text-dim);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;">Verificar</button>
+  </div>
+  <div id="verify-status" style="display:none;margin-bottom:10px;padding:10px 14px;border-radius:var(--r-sm);font-size:13px;line-height:1.5;"></div>
+
+  <div class="pending-bar" id="pending-bar">
+    <span id="pending-count">0 registros pendientes de sincronizar</span>
+    <button class="btn-sync" onclick="syncPending()">Sincronizar ahora</button>
+  </div>
+
+  <div class="ftabs">
+    <div class="ftab on" onclick="switchReg('sesion',this)">Sesión con conocido</div>
+    <div class="ftab" onclick="switchReg('desc',this)">Conversación desconocido</div>
+  </div>
+
+  <!-- FORMULARIO SESIÓN -->
+  <div class="reg-pnl on" id="rp-sesion">
+
+    <div class="lbl">Identificación</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label class="form-label">Sesión</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_sesion" data-value="1" onclick="selRad('ses_sesion',this)">1 · Familia</div>
+          <div class="radio-opt" data-radio="ses_sesion" data-value="2" onclick="selRad('ses_sesion',this)">2 · Amigo/s</div>
+          <div class="radio-opt" data-radio="ses_sesion" data-value="3" onclick="selRad('ses_sesion',this)">3 · Pareja</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Fecha</label>
+          <input type="date" class="form-input" id="ses_fecha" data-field="fecha">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Edad aprox.</label>
+          <input type="text" class="form-input" id="ses_edad" placeholder="ej. 45" data-field="edad">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Participante (alias o relación)</label>
+        <input type="text" class="form-input" id="ses_participante" placeholder="ej. tío Jorge, mamá, amigo Felipe..." data-field="participante">
+      </div>
+    </div>
+
+    <div class="lbl">Perfil resultante</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Primario</label>
+          <select class="form-select" id="ses_perfil_primario" data-field="perfil_primario">
+            <option value="">—</option>
+            <option value="E">Explorador (E)</option>
+            <option value="L">Logrador (L)</option>
+            <option value="S">Socializador (S)</option>
+            <option value="C">Competidor (C)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Secundario</label>
+          <select class="form-select" id="ses_perfil_secundario" data-field="perfil_secundario">
+            <option value="">—</option>
+            <option value="E">Explorador (E)</option>
+            <option value="L">Logrador (L)</option>
+            <option value="S">Socializador (S)</option>
+            <option value="C">Competidor (C)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Intensidad</label>
+          <select class="form-select" id="ses_intensidad" data-field="intensidad">
+            <option value="">—</option>
+            <option value="contemplativo">Contemplativo</option>
+            <option value="activo">Activo</option>
+            <option value="exigente">Exigente</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Planificación declarada</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Vehículo</label>
+          <select class="form-select" id="ses_vehiculo" data-field="vehiculo">
+            <option value="">—</option>
+            <option value="auto ciudad">Auto ciudad</option>
+            <option value="SUV">SUV</option>
+            <option value="4x4">4x4</option>
+            <option value="bus">Bus</option>
+            <option value="a pie">A pie</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Acceso</label>
+          <select class="form-select" id="ses_acceso" data-field="acceso">
+            <option value="">—</option>
+            <option value="Melipeuco">Melipeuco</option>
+            <option value="Curacautín">Curacautín</option>
+            <option value="Cherquenco">Cherquenco</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Composición del grupo</label>
+        <input type="text" class="form-input" id="ses_grupo" placeholder="ej. pareja + 2 adultos mayores" data-field="grupo">
+      </div>
+    </div>
+
+    <div class="lbl">Condición climática declarada</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Clima al momento del testeo</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_clima" data-value="despejado" onclick="selRad('ses_clima',this)">☀️ Despejado</div>
+          <div class="radio-opt" data-radio="ses_clima" data-value="nublado" onclick="selRad('ses_clima',this)">⛅ Nublado</div>
+          <div class="radio-opt" data-radio="ses_clima" data-value="llovizna" onclick="selRad('ses_clima',this)">🌦 Llovizna</div>
+          <div class="radio-opt" data-radio="ses_clima" data-value="lluvia" onclick="selRad('ses_clima',this)">🌧 Lluvia</div>
+          <div class="radio-opt" data-radio="ses_clima" data-value="nieve" onclick="selRad('ses_clima',this)">❄️ Nieve</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Recomendación</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label class="form-label">Sendero recomendado por la app</label>
+        <input type="text" class="form-input" id="ses_sendero_rec" placeholder="nombre del sendero" data-field="sendero_recomendado">
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">¿Fue al sendero recomendado?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_fue" data-value="sí" onclick="selRad('ses_fue',this)">Sí, fue al mismo</div>
+          <div class="radio-opt" data-radio="ses_fue" data-value="parcialmente" onclick="selRad('ses_fue',this)">Parcialmente</div>
+          <div class="radio-opt" data-radio="ses_fue" data-value="no" onclick="selRad('ses_fue',this)">No, eligió otro</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lbl">Reacciones</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label class="form-label">Reacción al perfil resultante</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_reac_perf" data-value="identificación" onclick="selRad('ses_reac_perf',this)">Se identificó</div>
+          <div class="radio-opt" data-radio="ses_reac_perf" data-value="sorpresa positiva" onclick="selRad('ses_reac_perf',this)">Sorpresa positiva</div>
+          <div class="radio-opt" data-radio="ses_reac_perf" data-value="rechazo parcial" onclick="selRad('ses_reac_perf',this)">Rechazo parcial</div>
+          <div class="radio-opt" data-radio="ses_reac_perf" data-value="rechazo total" onclick="selRad('ses_reac_perf',this)">Rechazo total</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notas sobre la reacción al perfil</label>
+        <textarea class="form-textarea" id="ses_notas_perfil" placeholder="¿Qué dijo exactamente? ¿Qué le sorprendió o no le calzó?" data-field="notas_reaccion_perfil"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Reacción a la recomendación</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_reac_rec" data-value="convenció de inmediato" onclick="selRad('ses_reac_rec',this)">Convenció de inmediato</div>
+          <div class="radio-opt" data-radio="ses_reac_rec" data-value="generó dudas" onclick="selRad('ses_reac_rec',this)">Generó dudas</div>
+          <div class="radio-opt" data-radio="ses_reac_rec" data-value="la ignoró" onclick="selRad('ses_reac_rec',this)">La ignoró</div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Notas sobre la recomendación</label>
+        <textarea class="form-textarea" id="ses_notas_rec" placeholder="¿Qué comentó? ¿Qué habría querido ver para ir a otro sendero?" data-field="notas_reaccion_recomendacion"></textarea>
+      </div>
+    </div>
+
+    <div class="lbl">Observaciones adicionales</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label class="form-label">¿Mencionó algo sobre senderos subexplorados?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_subexp" data-value="sí" onclick="selRad('ses_subexp',this)">Sí</div>
+          <div class="radio-opt" data-radio="ses_subexp" data-value="no" onclick="selRad('ses_subexp',this)">No</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Qué dijo sobre senderos subexplorados?</label>
+        <textarea class="form-textarea" id="ses_subexp_txt" placeholder="Si aplica..." data-field="texto_subexplorado" style="min-height:60px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Alguna pantalla resultó difícil o confusa?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="ses_dif" data-value="sí" onclick="selRad('ses_dif',this)">Sí</div>
+          <div class="radio-opt" data-radio="ses_dif" data-value="no" onclick="selRad('ses_dif',this)">No</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Cuál pantalla y qué pasó?</label>
+        <textarea class="form-textarea" id="ses_pantalla" placeholder="Si aplica..." data-field="pantalla_dificil" style="min-height:60px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Información que faltó en la app</label>
+        <textarea class="form-textarea" id="ses_info_falta" placeholder="¿Qué necesitó el participante que la app no le dio?" data-field="info_faltante"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Observaciones durante el recorrido</label>
+        <textarea class="form-textarea" id="ses_obs" placeholder="Reacciones espontáneas, comentarios mientras caminaban..." data-field="observaciones"></textarea>
+      </div>
+    </div>
+
+    <div class="lbl">Cita textual</div>
+    <div class="card" style="margin-bottom:16px;border-color:var(--purple-b);">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Cita más interesante de la sesión</label>
+        <textarea class="form-textarea" id="ses_cita" placeholder='"..."' data-field="cita_textual" style="min-height:100px;border-color:var(--purple-b);"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="btn-sesion" onclick="submitForm('sesion')">Enviar registro a Google Sheets →</button>
+    <div class="form-status" id="status-sesion"></div>
+  </div>
+
+  <!-- FORMULARIO DESCONOCIDO -->
+  <div class="reg-pnl" id="rp-desc">
+
+    <div class="lbl">Identificación</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Fecha</label>
+          <input type="date" class="form-input" id="des_fecha" data-field="fecha">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Conversación n°</label>
+          <select class="form-select" id="des_n" data-field="conversacion_n">
+            <option value="">—</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Edad aprox.</label>
+          <input type="text" class="form-input" id="des_edad" placeholder="ej. 35" data-field="edad">
+        </div>
+        <div class="form-group">
+          <label class="form-label">¿Primera vez en Conguillío?</label>
+          <div class="radio-group" style="margin-top:6px;">
+            <div class="radio-opt" data-radio="des_primera" data-value="sí" onclick="selRad('des_primera',this)">Sí</div>
+            <div class="radio-opt" data-radio="des_primera" data-value="no" onclick="selRad('des_primera',this)">No</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Composición del grupo</label>
+        <input type="text" class="form-input" id="des_grupo" placeholder="ej. pareja, familia 4 personas, solo..." data-field="grupo">
+      </div>
+    </div>
+
+    <div class="lbl">Contexto de decisión</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">¿Cómo decidieron qué sendero hacer hoy?</label>
+        <textarea class="form-textarea" id="des_como" placeholder="¿Google, AllTrails, guardaparque, llegaron sin info, recomendación de conocido...?" data-field="como_decidieron"></textarea>
+      </div>
+    </div>
+
+    <div class="lbl">Reacción a la app</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label class="form-label">Reacción al ver la pantalla de resultado + recomendación</label>
+        <textarea class="form-textarea" id="des_reaccion" placeholder="¿Qué dijeron al ver la pantalla? ¿Curiosidad, escepticismo, interés...?" data-field="reaccion_pantalla"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Respuesta contrafactual — ¿cambiaría algo?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="des_cambio" data-value="sí" onclick="selRad('des_cambio',this)">Sí</div>
+          <div class="radio-opt" data-radio="des_cambio" data-value="no" onclick="selRad('des_cambio',this)">No</div>
+          <div class="radio-opt" data-radio="des_cambio" data-value="tal vez" onclick="selRad('des_cambio',this)">Tal vez</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Qué específicamente cambiaría?</label>
+        <textarea class="form-textarea" id="des_contrafact" placeholder="Si aplica..." data-field="respuesta_contrafactual" style="min-height:60px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿La función de grupo les pareció útil?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="des_grupo_util" data-value="sí" onclick="selRad('des_grupo_util',this)">Sí</div>
+          <div class="radio-opt" data-radio="des_grupo_util" data-value="no" onclick="selRad('des_grupo_util',this)">No</div>
+          <div class="radio-opt" data-radio="des_grupo_util" data-value="indiferente" onclick="selRad('des_grupo_util',this)">Indiferente</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Lo usarían?</label>
+        <div class="radio-group">
+          <div class="radio-opt" data-radio="des_usarian" data-value="sí" onclick="selRad('des_usarian',this)">Sí</div>
+          <div class="radio-opt" data-radio="des_usarian" data-value="no" onclick="selRad('des_usarian',this)">No</div>
+          <div class="radio-opt" data-radio="des_usarian" data-value="tal vez" onclick="selRad('des_usarian',this)">Tal vez</div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">¿Por qué?</label>
+        <textarea class="form-textarea" id="des_porque" placeholder="La razón detrás del sí o no — eso es lo que importa" data-field="por_que"></textarea>
+      </div>
+    </div>
+
+    <div class="lbl">Cita textual</div>
+    <div class="card" style="margin-bottom:16px;border-color:var(--purple-b);">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Cita más interesante de la conversación</label>
+        <textarea class="form-textarea" id="des_cita" placeholder='"..."' data-field="cita_textual" style="min-height:100px;border-color:var(--purple-b);"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="btn-desc" onclick="submitForm('desc')">Enviar registro a Google Sheets →</button>
+    <div class="form-status" id="status-desc"></div>
+  </div>
+</div>
+
+<!-- ══ SISTEMA ══ -->
+<div class="pnl" id="p-sistema">
+
+  <div class="card card-p" style="margin-bottom:16px;">
+    <div class="ct">¿Cómo decide Rastro qué sendero mostrarte?</div>
+    <div class="cs">El sistema combina un perfil de visitante construido desde el quiz con los datos del viaje (grupo, vehículo, acceso, temporada, focos) para puntuar cada sendero del parque y armar un itinerario día a día. No hay reglas fijas — es un sistema de puntaje ponderado con filtros duros de accesibilidad.</div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">1 · Quiz y asignación de perfil</div>
+  <div class="card">
+    <div class="cs" style="margin-bottom:10px;">El quiz tiene 8 preguntas. Cada respuesta suma puntos a uno de cuatro perfiles:</div>
+    <div class="rr"><div class="rd" style="background:var(--green)"></div><div class="rt"><strong style="color:var(--text);">E — Explorador</strong> · descubrimiento, rutas poco conocidas, curiosidad por lo raro</div></div>
+    <div class="rr"><div class="rd" style="background:var(--amber)"></div><div class="rt"><strong style="color:var(--text);">L — Logrador</strong> · completitud, eficiencia, rutas estructuradas con hitos claros</div></div>
+    <div class="rr"><div class="rd" style="background:var(--purple)"></div><div class="rt"><strong style="color:var(--text);">S — Socializador</strong> · comunidad, fotografía, accesibilidad, experiencias compartidas</div></div>
+    <div class="rr"><div class="rd" style="background:var(--coral)"></div><div class="rt"><strong style="color:var(--text);">C — Competidor</strong> · desafío físico, rendimiento, superar límites</div></div>
+    <div class="cs" style="margin-top:10px;">Además se calcula un puntaje de <strong>intensidad</strong>: <strong>contemplativo</strong> (ritmo tranquilo), <strong>activo</strong> (equilibrado) o <strong>exigente</strong> (busca el límite). El perfil con mayor puntaje es el primario; el segundo es el secundario.</div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">2 · Inputs de planificación (6 pasos)</div>
+  <div class="card">
+    <div class="fl" style="margin:0 0 12px;">
+      <div class="fp">Tipo de viaje</div><div class="fa">→</div>
+      <div class="fp">Grupo</div><div class="fa">→</div>
+      <div class="fp">Vehículo</div><div class="fa">→</div>
+      <div class="fp">Temporada</div><div class="fa">→</div>
+      <div class="fp">Acceso</div><div class="fa">→</div>
+      <div class="fp">Clima</div><div class="fa">→</div>
+      <div class="fp">Días + focos + modo + presupuesto</div>
+    </div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Tipo de viaje:</strong> solo o en grupo. Cambia qué filtros de compatibilidad social se aplican.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Grupo:</strong> selección múltiple — pareja, familia, familia con niños, movilidad reducida, amigos. Si se selecciona movilidad reducida o niños, se activan filtros duros.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Vehículo:</strong> auto ciudad, SUV/4x4, bus, a pie. Determina qué senderos son accesibles.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Temporada:</strong> otoño, invierno, primavera, verano. Usada para condicionar senderos y condiciones.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Acceso:</strong> Melipeuco, Curacautín o Cherquenco. Afecta qué senderos están disponibles.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Focos de interés:</strong> flora, fauna, fotografía, etc. Cada foco que coincide con etiquetas del sendero suma puntos.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Modo del día:</strong> selector opcional que sobreescribe el perfil base solo para ese viaje. El perfil guardado no cambia.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Presupuesto:</strong> bajo, medio, alto. Filtra el pool de alojamientos sugeridos.</div></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">3 · Filtros duros (se aplican antes de puntuar)</div>
+  <div class="card">
+    <div class="note" style="margin-top:0;">Estos filtros eliminan senderos del pool antes de cualquier cálculo de puntaje.</div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Vehículo:</strong> auto ciudad solo puede acceder a senderos sin requerimiento de doble tracción.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Familia con niños:</strong> excluye automáticamente todos los senderos etiquetados como "desafiante".</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Movilidad reducida:</strong> solo incluye senderos accesibles o de duración menor a 1h.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt"><strong style="color:var(--text);">Senderos ya visitados:</strong> reciben penalización de −50 puntos.</div></div>
+    <div class="rr"><div class="rd" style="background:var(--coral)"></div><div class="rt"><strong style="color:var(--text);">Nieve + desafiante:</strong> filtro duro — el sendero desaparece del pool completamente.</div></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">4 · Sistema de puntaje</div>
+  <div class="card">
+    <div class="cs" style="margin-bottom:12px;">Después de los filtros duros, cada sendero recibe una puntuación:</div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+25</div><div><div class="tit">Modo del día coincide con etiqueta del sendero</div><div class="tid">Si hay modo sobreescrito, reemplaza al perfil primario en este cálculo.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+25</div><div><div class="tit">Perfil primario coincide con etiqueta del sendero</div><div class="tid">Aplica solo si no hay modo sobreescrito activo.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+30</div><div><div class="tit">Focos de interés (distribuidos)</div><div class="tid">Los 30 puntos se dividen entre el número de focos seleccionados.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+20</div><div><div class="tit">Sendero poco transitado</div><div class="tid">Bonus de redistribución — premia senderos subexplorados del parque.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+20</div><div><div class="tit">Compatibilidad con el tipo de grupo</div><div class="tid">El sendero tiene etiqueta que coincide con el grupo declarado.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--green);min-width:38px;">+20</div><div><div class="tit">Intensidad coincide exactamente</div><div class="tid">La intensidad del sendero coincide con la del perfil del visitante.</div></div></div>
+    <div class="tool"><div class="ti" style="font-size:14px;font-weight:700;color:var(--coral);min-width:38px;">−10</div><div><div class="tit">Sendero hotspot (muy visitado)</div><div class="tid">Penalización leve; −20 para hitos icónicos sobrecargados.</div></div></div>
+    <div class="tool" style="margin-bottom:6px;"><div class="ti" style="font-size:14px;font-weight:700;color:var(--coral);min-width:38px;">−50</div><div><div class="tit">Sendero ya visitado anteriormente</div><div class="tid">La app recuerda visitas previas guardadas en el dispositivo.</div></div></div>
+    <div class="tool" style="margin-bottom:6px;border-color:var(--blue-b);"><div class="ti" style="font-size:14px;font-weight:700;color:var(--blue);min-width:38px;">−20</div><div><div class="tit">Clima lluvia + sendero expuesto</div><div class="tid">Senderos con panorama, desafiantes o geológicos se penalizan con lluvia. Con llovizna la penalización es −10.</div></div></div>
+    <div class="tool" style="margin-bottom:0;border-color:var(--blue-b);"><div class="ti" style="font-size:14px;font-weight:700;color:var(--blue);min-width:38px;">+15</div><div><div class="tit">Clima lluvia + sendero de bosque</div><div class="tid">Senderos con flora, fauna o cultura Pehuenche se favorecen bajo lluvia. Con llovizna suman +8.</div></div></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">5 · Generación del itinerario</div>
+  <div class="card">
+    <div class="fl" style="margin:0 0 12px;">
+      <div class="fp">Mañana — sendero</div><div class="fa">+</div>
+      <div class="fp">Tarde — hito o actividad</div><div class="fa">+</div>
+      <div class="fp">Noche — alojamiento</div>
+    </div>
+    <div class="rr"><div class="rd"></div><div class="rt">Cada slot tiene un pool de alternativas intercambiables con flechas izquierda/derecha.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt">Si el sendero de mañana es "desafiante" y es un viaje de un día, la tarde se ajusta a descanso.</div></div>
+    <div class="rr"><div class="rd"></div><div class="rt">Si no hay senderos disponibles, el slot cae en exploración libre ("paseo libre por el sector", "fotografía al amanecer", etc.).</div></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="lbl">6 · Flujo completo de pantallas</div>
+  <div class="fase">
+    <div class="fh" style="background:transparent;border-bottom:none;"><div class="ft" style="font-size:13px;">Secuencia de pantallas en la app</div></div>
+    <div class="fb" style="padding-top:0;">
+      <div class="screen-row"><div class="screen-pill">Splash</div><div class="screen-desc">Pantalla de inicio / logo</div></div>
+      <div class="screen-row"><div class="screen-pill">Selector de perfil</div><div class="screen-desc">Cargar perfil existente o crear uno nuevo</div></div>
+      <div class="screen-row"><div class="screen-pill">Onboarding</div><div class="screen-desc">9 pantallas narrativas que introducen los perfiles</div></div>
+      <div class="screen-row"><div class="screen-pill">Quiz (8 preguntas)</div><div class="screen-desc">El participante elige respuestas directamente</div></div>
+      <div class="screen-row"><div class="screen-pill">Resultado — texto</div><div class="screen-desc">Descripción narrativa del perfil primario + secundario</div></div>
+      <div class="screen-row"><div class="screen-pill">Resultado — visual</div><div class="screen-desc">Nombre del perfil, intensidad y gráfico radar</div></div>
+      <div class="screen-row"><div class="screen-pill">Nombre del perfil</div><div class="screen-desc">El participante puede personalizarlo</div></div>
+      <div class="screen-row"><div class="screen-pill">Hub principal</div><div class="screen-desc">Pantalla central, opción de iniciar planificación</div></div>
+      <div class="screen-row"><div class="screen-pill">Planificación (7 pasos)</div><div class="screen-desc">Tipo · grupo · vehículo · temporada · acceso · clima · días+focos+modo+presupuesto</div></div>
+      <div class="screen-row"><div class="screen-pill final">Itinerario</div><div class="screen-desc">Resultado final con slots intercambiables por día</div></div>
+    </div>
+  </div>
+
+  <div class="tip">Esta sección es de referencia interna — te ayuda a anticipar qué está calculando la app en cada momento del testeo y a interpretar por qué recomienda lo que recomienda para cada participante.</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  SHEETDB — Reemplaza con tu ID de SheetDB
+//  Crea una Google Sheet con dos pestañas:
+//    "sesiones" y "desconocidos"
+//  Conecta en sheetdb.io y copia el ID aquí:
+const SHEETDB_ID = 'u0fotbstz50qk';
+// ═══════════════════════════════════════════════
+
+const radios = {};
+
+function go(id, btn) {
+  document.querySelectorAll('.pnl').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('p-' + id).classList.add('on');
+  btn.classList.add('on');
+  if (id === 'registro') updatePendingBar();
+}
+
+function switchReg(id, btn) {
+  document.querySelectorAll('.reg-pnl').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('on'));
+  document.getElementById('rp-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+function selRad(group, el) {
+  document.querySelectorAll(`[data-radio="${group}"]`).forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  radios[group] = el.dataset.value;
+}
+
+// ── CHECKBOXES ──────────────────────────────────
+function toggleChk(id) {
+  const box = document.getElementById(id);
+  const txt = document.getElementById(id + 't');
+  const isDone = box.classList.toggle('done');
+  if (txt) txt.classList.toggle('done', isDone);
+  const state = JSON.parse(localStorage.getItem('rastro_checks') || '{}');
+  state[id] = isDone;
+  localStorage.setItem('rastro_checks', JSON.stringify(state));
+}
+
+function loadCheckboxes() {
+  const state = JSON.parse(localStorage.getItem('rastro_checks') || '{}');
+  Object.entries(state).forEach(([id, done]) => {
+    const box = document.getElementById(id);
+    const txt = document.getElementById(id + 't');
+    if (box && done) { box.classList.add('done'); if (txt) txt.classList.add('done'); }
+  });
+}
+
+function resetChecks() {
+  if (!confirm('¿Resetear todos los checks?')) return;
+  localStorage.removeItem('rastro_checks');
+  document.querySelectorAll('.chk-box').forEach(b => b.classList.remove('done'));
+  document.querySelectorAll('.chk-txt').forEach(t => t.classList.remove('done'));
+}
+
+// ── FORM DATA ───────────────────────────────────
+function collectSesion() {
+  const g = id => document.getElementById(id)?.value || '';
+  return {
+    sesion:                  radios['ses_sesion'] || '',
+    fecha:                   g('ses_fecha'),
+    participante:            g('ses_participante'),
+    edad:                    g('ses_edad'),
+    perfil_primario:         g('ses_perfil_primario'),
+    perfil_secundario:       g('ses_perfil_secundario'),
+    intensidad:              g('ses_intensidad'),
+    vehiculo:                g('ses_vehiculo'),
+    acceso:                  g('ses_acceso'),
+    grupo:                   g('ses_grupo'),
+    clima:                   radios['ses_clima'] || '',
+    sendero_recomendado:     g('ses_sendero_rec'),
+    fue_al_sendero:          radios['ses_fue'] || '',
+    reaccion_perfil:         radios['ses_reac_perf'] || '',
+    notas_reaccion_perfil:   g('ses_notas_perfil'),
+    reaccion_recomendacion:  radios['ses_reac_rec'] || '',
+    notas_reaccion_rec:      g('ses_notas_rec'),
+    menciono_subexplorado:   radios['ses_subexp'] || '',
+    texto_subexplorado:      g('ses_subexp_txt'),
+    pantalla_dificil:        radios['ses_dif'] || '',
+    cual_pantalla:           g('ses_pantalla'),
+    info_faltante:           g('ses_info_falta'),
+    observaciones:           g('ses_obs'),
+    cita_textual:            g('ses_cita'),
+    timestamp:               new Date().toISOString()
+  };
+}
+
+function collectDesc() {
+  const g = id => document.getElementById(id)?.value || '';
+  return {
+    fecha:                g('des_fecha'),
+    conversacion_n:       g('des_n'),
+    edad:                 g('des_edad'),
+    primera_vez:          radios['des_primera'] || '',
+    grupo:                g('des_grupo'),
+    como_decidieron:      g('des_como'),
+    reaccion_pantalla:    g('des_reaccion'),
+    cambio_algo:          radios['des_cambio'] || '',
+    respuesta_contrafact: g('des_contrafact'),
+    funcion_grupo_util:   radios['des_grupo_util'] || '',
+    lo_usarian:           radios['des_usarian'] || '',
+    por_que:              g('des_porque'),
+    cita_textual:         g('des_cita'),
+    timestamp:            new Date().toISOString()
+  };
+}
+
+// ── SUBMIT ──────────────────────────────────────
+async function submitForm(type) {
+  const btn = document.getElementById('btn-' + type);
+  const statusEl = document.getElementById('status-' + type);
+  const data = type === 'sesion' ? collectSesion() : collectDesc();
+  const sheet = type === 'sesion' ? 'sesiones' : 'desconocidos';
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  statusEl.style.display = 'none';
+
+  if (SHEETDB_ID === 'TU_SHEETDB_ID') {
+    saveOffline(sheet, data);
+    statusEl.className = 'form-status err';
+    statusEl.textContent = '⚙ SheetDB no configurado — datos guardados localmente. Configura el SHEETDB_ID en el script.';
+    btn.disabled = false;
+    btn.textContent = 'Enviar registro a Google Sheets →';
+    updatePendingBar();
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://sheetdb.io/api/v1/${SHEETDB_ID}?sheet=${sheet}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data })
+    });
+    if (res.ok) {
+      statusEl.className = 'form-status ok';
+      statusEl.textContent = '✓ Registro enviado correctamente a Google Sheets.';
+      resetFormFields(type);
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch (e) {
+    saveOffline(sheet, data);
+    statusEl.className = 'form-status err';
+    statusEl.textContent = '⚡ Sin conexión — registro guardado localmente. Se enviará cuando sincronices.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Enviar registro a Google Sheets →';
+  updatePendingBar();
+}
+
+// ── OFFLINE QUEUE ────────────────────────────────
+function saveOffline(sheet, data) {
+  const pending = JSON.parse(localStorage.getItem('rastro_pending') || '[]');
+  pending.push({ sheet, data, savedAt: new Date().toISOString() });
+  localStorage.setItem('rastro_pending', JSON.stringify(pending));
+}
+
+async function syncPending() {
+  const pending = JSON.parse(localStorage.getItem('rastro_pending') || '[]');
+  if (!pending.length) return;
+  const btn = document.querySelector('.btn-sync');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sincronizando...'; }
+
+  if (SHEETDB_ID === 'TU_SHEETDB_ID') {
+    alert('Configura el SHEETDB_ID antes de sincronizar.');
+    if (btn) { btn.disabled = false; btn.textContent = 'Sincronizar ahora'; }
+    return;
+  }
+
+  const remaining = [];
+  for (const item of pending) {
+    try {
+      const res = await fetch(`https://sheetdb.io/api/v1/${SHEETDB_ID}?sheet=${item.sheet}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: item.data })
+      });
+      if (!res.ok) remaining.push(item);
+    } catch { remaining.push(item); }
+  }
+
+  localStorage.setItem('rastro_pending', JSON.stringify(remaining));
+  if (btn) { btn.disabled = false; btn.textContent = 'Sincronizar ahora'; }
+  updatePendingBar();
+}
+
+function updatePendingBar() {
+  const pending = JSON.parse(localStorage.getItem('rastro_pending') || '[]');
+  const bar = document.getElementById('pending-bar');
+  const count = document.getElementById('pending-count');
+  if (pending.length > 0) {
+    bar.classList.add('show');
+    count.textContent = `${pending.length} registro${pending.length > 1 ? 's' : ''} pendiente${pending.length > 1 ? 's' : ''} de sincronizar`;
+  } else {
+    bar.classList.remove('show');
+  }
+}
+
+// ── RESET FORM ───────────────────────────────────
+function resetFormFields(type) {
+  const prefix = type === 'sesion' ? 'ses_' : 'des_';
+  document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = '';
+    else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+  });
+  document.querySelectorAll('.radio-opt').forEach(el => {
+    if (type === 'sesion' && el.dataset.radio?.startsWith('ses_')) el.classList.remove('sel');
+    if (type === 'desc' && el.dataset.radio?.startsWith('des_')) el.classList.remove('sel');
+  });
+  const radioKeys = type === 'sesion'
+    ? ['ses_sesion','ses_fue','ses_reac_perf','ses_reac_rec','ses_subexp','ses_dif']
+    : ['des_primera','des_cambio','des_grupo_util','des_usarian'];
+  radioKeys.forEach(k => delete radios[k]);
+}
+
+// ── VERIFICAR SHEETDB ────────────────────────────
+async function verificarSheetDB() {
+  const btn = document.getElementById('btn-verify');
+  const statusEl = document.getElementById('verify-status');
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+  statusEl.style.display = 'none';
+
+  if (SHEETDB_ID === 'TU_SHEETDB_ID') {
+    statusEl.style.cssText = 'display:block;padding:10px 14px;border-radius:var(--r-sm);font-size:13px;background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);';
+    statusEl.textContent = '⚙ SheetDB no configurado — reemplaza TU_SHEETDB_ID en el script.';
+    btn.disabled = false; btn.textContent = 'Verificar';
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://sheetdb.io/api/v1/${SHEETDB_ID}/count`, { method: 'GET' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const rows = Object.values(data).reduce((a, b) => a + Number(b), 0);
+    statusEl.style.cssText = 'display:block;padding:10px 14px;border-radius:var(--r-sm);font-size:13px;background:var(--green-d);color:var(--green);border:1px solid var(--green-b);';
+    statusEl.innerHTML = `✓ Conexión correcta con Google Sheets.<br><span style="font-size:12px;opacity:.8;">Registros en la hoja: ${rows > 0 ? rows + ' fila' + (rows > 1 ? 's' : '') : 'hoja vacía, lista para recibir datos'}.</span>`;
+  } catch (e) {
+    statusEl.style.cssText = 'display:block;padding:10px 14px;border-radius:var(--r-sm);font-size:13px;background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);';
+    statusEl.textContent = '✗ No se pudo conectar con SheetDB. Revisa el ID o tu conexión a internet.';
+  }
+
+  btn.disabled = false; btn.textContent = 'Verificar';
+}
+
+// ── INIT ─────────────────────────────────────────
+loadCheckboxes();
+updatePendingBar();
+</script>
+</body>
+</html>

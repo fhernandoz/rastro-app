@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generar icono — Rastro</title>
+<style>
+  body { background:#0d0a1e; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:system-ui,sans-serif; color:white; gap:20px; padding:20px; }
+  canvas { border-radius:22px; box-shadow:0 0 50px rgba(29,200,140,.25); }
+  .btn { padding:13px 30px; background:#1DC88C; color:#061610; border:none; border-radius:100px; font-size:15px; font-weight:700; cursor:pointer; letter-spacing:.03em; }
+  .btn:hover { background:#22e09c; }
+  p { color:rgba(255,255,255,.45); font-size:13px; text-align:center; max-width:320px; line-height:1.6; margin:0; }
+  code { background:rgba(255,255,255,.08); padding:2px 7px; border-radius:5px; font-size:12px; }
+</style>
+</head>
+<body>
+
+<canvas id="c" width="180" height="180"></canvas>
+<button class="btn" onclick="descargar()">Descargar apple-touch-icon.png</button>
+<p>Descarga el archivo y súbelo a Netlify en la raíz del sitio (junto a <code>index.html</code>). No hace falta renombrarlo.</p>
+
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+const W = 180, H = 180;
+
+function draw() {
+  // ── Fondo ──
+  ctx.fillStyle = '#0a051e';
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Gradiente de cielo ──
+  const sky = ctx.createLinearGradient(0, 0, 0, 130);
+  sky.addColorStop(0, '#0a051e');
+  sky.addColorStop(1, '#0c1a18');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, 130);
+
+  // ── Estrellas ──
+  const stars = [
+    [14,11,1.4,.75],[36,21,1,.5],[54,7,1.2,.65],[78,17,1,.45],
+    [103,9,1.4,.7],[128,24,1,.5],[153,13,1.2,.6],[168,34,1,.45],
+    [163,7,1,.65],[24,37,0.8,.4],[143,41,1,.5],[48,44,0.8,.35],
+    [118,36,1,.5],[89,5,1.4,.8],[9,54,0.8,.35],[67,32,0.9,.4],[158,50,0.8,.35]
+  ];
+  stars.forEach(([x,y,r,a]) => {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${a})`;
+    ctx.fill();
+  });
+
+  // ── Volcán Llaima ──
+  // Sombra exterior
+  ctx.beginPath();
+  ctx.moveTo(90, 36);
+  ctx.lineTo(152, 130);
+  ctx.lineTo(28, 130);
+  ctx.closePath();
+  ctx.fillStyle = '#081410';
+  ctx.fill();
+
+  // Cuerpo principal
+  ctx.beginPath();
+  ctx.moveTo(90, 40);
+  ctx.lineTo(148, 130);
+  ctx.lineTo(32, 130);
+  ctx.closePath();
+  ctx.fillStyle = '#0c1e14';
+  ctx.fill();
+
+  // Cara iluminada (izquierda, luz verde de la aurora)
+  ctx.beginPath();
+  ctx.moveTo(90, 40);
+  ctx.lineTo(58, 105);
+  ctx.lineTo(32, 130);
+  ctx.closePath();
+  ctx.fillStyle = '#0e2418';
+  ctx.fill();
+
+  // Nieve / cráter
+  ctx.beginPath();
+  ctx.moveTo(90, 40);
+  ctx.lineTo(100, 62);
+  ctx.lineTo(80, 62);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(180,220,200,.45)';
+  ctx.fill();
+
+  // Brillo del pico (aurora boreal tenue)
+  const peak = ctx.createRadialGradient(90, 48, 0, 90, 48, 28);
+  peak.addColorStop(0, 'rgba(29,200,140,.28)');
+  peak.addColorStop(1, 'rgba(29,200,140,0)');
+  ctx.fillStyle = peak;
+  ctx.fillRect(60, 25, 60, 55);
+
+  // ── Araucarias ──
+  araucaria(48, 130, 48);
+  araucaria(132, 130, 42);
+
+  // ── Suelo ──
+  ctx.fillStyle = '#081410';
+  ctx.fillRect(0, 130, W, H - 130);
+
+  // Brillo horizonte
+  const horiz = ctx.createLinearGradient(0, 120, 0, 132);
+  horiz.addColorStop(0, 'rgba(29,200,140,.18)');
+  horiz.addColorStop(1, 'rgba(29,200,140,0)');
+  ctx.fillStyle = horiz;
+  ctx.fillRect(0, 120, W, 12);
+
+  // ── Texto RASTRO ──
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#1DC88C';
+  ctx.font = 'bold 12px monospace';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('RASTRO', 92, 152);
+
+  // Puntitos decorativos
+  ctx.fillStyle = 'rgba(29,200,140,.38)';
+  ctx.font = '7px monospace';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('· · ·', 90, 167);
+
+  // Borde interior sutil
+  ctx.strokeStyle = 'rgba(29,200,140,.1)';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(1, 1, W-2, H-2);
+}
+
+function araucaria(x, baseY, h) {
+  const col = '#16472c';
+  const colHi = '#1e6038';
+
+  // Tronco
+  ctx.fillStyle = '#0e2a18';
+  ctx.fillRect(x - 2, baseY - h, 4, h - 8);
+
+  // Pisos de la araucaria (de abajo a arriba, cada vez más angosta)
+  const tiers = [
+    { w: 28, yo: 0 },
+    { w: 22, yo: 10 },
+    { w: 16, yo: 20 },
+    { w: 10, yo: 30 },
+    { w: 6,  yo: 38 },
+  ];
+
+  tiers.forEach(({ w, yo }, i) => {
+    const ty = baseY - 14 - yo;
+    ctx.fillStyle = i % 2 === 0 ? col : colHi;
+    // Rama horizontal
+    ctx.fillRect(x - w/2, ty, w, 5);
+    // Punta verde más brillante (textura)
+    ctx.fillStyle = 'rgba(29,200,140,.12)';
+    ctx.fillRect(x - w/2, ty, w/3, 2);
+  });
+
+  // Cima puntuda
+  ctx.fillStyle = colHi;
+  ctx.beginPath();
+  ctx.moveTo(x, baseY - h);
+  ctx.lineTo(x + 4, baseY - h + 10);
+  ctx.lineTo(x - 4, baseY - h + 10);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function descargar() {
+  const a = document.createElement('a');
+  a.download = 'apple-touch-icon.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
+draw();
+</script>
+</body>
+</html>
