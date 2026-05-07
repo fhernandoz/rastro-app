@@ -1717,16 +1717,14 @@ function toggleLlegar(btn){
   const open=panel.style.display==='block';
   panel.style.display=open?'none':'block';
   btn.textContent=open?'📍 Cómo llegar ↓':'📍 Cómo llegar ↑';
-  if(!open){
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      const sc=btn.closest('.scroll-area');
-      if(!sc)return;
-      const pRect=panel.getBoundingClientRect();
-      const cRect=sc.getBoundingClientRect();
-      const overflow=pRect.bottom-cRect.bottom+24;
-      if(overflow>0)sc.scrollTop+=overflow;
-    }));
-  }
+  if(!open)requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const sc=btn.closest('.scroll-area');
+    if(!sc)return;
+    const pRect=panel.getBoundingClientRect();
+    const cRect=sc.getBoundingClientRect();
+    const overflow=pRect.bottom-cRect.bottom+24;
+    if(overflow>0)sc.scrollTop+=overflow;
+  }));
 }
 
 const ATLAS_LLEGAR={
@@ -1760,7 +1758,8 @@ function initAtlasLlegar(){
     if(data.instrucciones)html+='<div style="'+iS+(data.maps?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);':'')+'">'+data.instrucciones+'</div>';
     const panel=document.createElement('div');
     panel.setAttribute('style','display:none;'+pS);panel.innerHTML=html;
-    el.parentElement.appendChild(btn);el.parentElement.appendChild(panel);
+    el.parentElement.appendChild(btn);
+    el.parentElement.appendChild(panel);
   });
 }
 function selClima(val,btn){document.querySelectorAll('#clima-opts .option-item').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');state.plan.clima=val;setTimeout(()=>planSig(6),280);}
@@ -2077,6 +2076,7 @@ function renderPasos(pasos){
       cont.appendChild(row);
     }
   });
+  const sp=document.createElement('div');sp.style.cssText='height:240px;pointer-events:none;flex-shrink:0;';cont.appendChild(sp);
 }
 function cambiarOpcion(slotId,delta=1){
   const slot=state.itinerary.slotPools[slotId];
@@ -2091,14 +2091,14 @@ function cambiarOpcion(slotId,delta=1){
 function mostrarGuardarRastro(){if(!state.itinerary)return;const itin=state.itinerary;const diasLabels={'1dia':'Por el día','2dias':'2 días','3dias':'3 días','4-5dias':'4–5 días','6-7dias':'6–7 días','mas7':'Más de 7 días'};document.getElementById('guardar-resumen').textContent=itin.data.titulo+' · '+(NOMBRES[itin.tipo]||itin.tipo)+' · '+diasLabels[itin.dias];document.getElementById('rastro-nombre-input').value='';ir('s-guardar-rastro');}
 function guardarRastro(){const nombre=document.getElementById('rastro-nombre-input').value.trim()||'Rastro '+new Date().toLocaleDateString('es-CL');const rastros=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]');rastros.push({id:Date.now(),nombre,fecha:new Date().toLocaleDateString('es-CL'),itinerary:state.itinerary,plan:state.plan});localStorage.setItem(perfilKey('rastros_guardados'),JSON.stringify(rastros));ir('s-rastro');cargarRastrosGuardados();}
 function cargarRastrosGuardados(){const rastros=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]');const diasLabels={'1dia':'Por el día','2dias':'2 días','3dias':'3 días','4-5dias':'4–5 días','6-7dias':'6–7 días','mas7':'Más de 7 días'};['rastros-lista','seleccion-rastros-lista'].forEach(id=>{const cont=document.getElementById(id);if(!cont)return;if(rastros.length===0){cont.innerHTML='<div class="pixel-sm text-muted" style="text-align:center;padding:24px 0;font-size:6px;">No tienes rastros guardados aún.</div>';return;}cont.innerHTML=rastros.map((r,i)=>'<button class="rastro-item" onclick="verRastroGuardado('+i+')"><div><div class="pixel-sm" style="margin-bottom:4px;">'+r.nombre+'</div><div class="pixel-sm text-muted" style="font-size:5.5px;">'+(r.itinerary?diasLabels[r.itinerary.dias]||'':'')+(r.fecha?' · '+r.fecha:'')+'</div></div><div class="pixel-sm" style="color:rgba(30,200,120,.8);">→</div></button>').join('');});}
-function verRastroGuardado(idx){const rastros=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]');if(!rastros[idx])return;const r=rastros[idx];if(r.id == localStorage.getItem(perfilKey('rastro_activo'))){continuarRastro();return;}state.rastroActualIdx=idx;document.getElementById('ver-rastro-nombre').textContent=r.nombre;const diasLabels={'1dia':'Por el día','2dias':'2 días','3dias':'3 días','4-5dias':'4–5 días','6-7dias':'6–7 días','mas7':'Más de 7 días'};document.getElementById('ver-rastro-meta').textContent=(r.itinerary?diasLabels[r.itinerary.dias]||'':'')+(r.fecha?' · Guardado: '+r.fecha:'');const cont=document.getElementById('ver-rastro-itin');cont.innerHTML='';if(r.itinerary&&r.itinerary.data){const nota=document.createElement('div');nota.className='itin-nota';nota.style.marginBottom='16px';nota.textContent=r.itinerary.data.titulo+(r.itinerary.data.nota?' — '+r.itinerary.data.nota:'');cont.appendChild(nota);if(r.itinerary.data.opciones&&r.itinerary.data.opciones[0]){r.itinerary.data.opciones[0].pasos.forEach(paso=>{if(paso.hora.startsWith('DÍA')||paso.hora.startsWith('Semana')){const d=document.createElement('div');d.className='itin-dia';d.textContent=paso.hora+(paso.texto?' — '+paso.texto:'');cont.appendChild(d);}else if(paso.hora==='Noche'){const n=document.createElement('div');n.className='itin-noche';const nb=paso.badges&&paso.badges.length?'<div class="itin-badges" style="margin-top:5px;">'+paso.badges.map(b=>'<span class="itin-badge itin-badge-'+b.type+'">'+b.label+'</span>').join('')+'</div>':'';n.innerHTML='<div style="flex:1">🌙 <strong>'+paso.texto+'</strong>'+(paso.detalle?'<br><span class="pixel-sm text-muted">'+paso.detalle+'</span>':'')+nb+'</div>';cont.appendChild(n);}else if(paso.texto){const row=document.createElement('div');row.className='itin-paso';row.innerHTML='<div class="itin-hora">'+paso.hora+'</div><div class="itin-texto" style="flex:1"><strong>'+paso.texto+'</strong>'+(paso.detalle?'<br><span class="pixel-sm text-muted">'+paso.detalle+'</span>':'')+buildLinkHtml(paso)+'</div>';cont.appendChild(row);}});}}ir('s-ver-rastro');}
+function verRastroGuardado(idx){const rastros=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]');if(!rastros[idx])return;const r=rastros[idx];if(r.id == localStorage.getItem(perfilKey('rastro_activo'))){continuarRastro();return;}state.rastroActualIdx=idx;document.getElementById('ver-rastro-nombre').textContent=r.nombre;const diasLabels={'1dia':'Por el día','2dias':'2 días','3dias':'3 días','4-5dias':'4–5 días','6-7dias':'6–7 días','mas7':'Más de 7 días'};document.getElementById('ver-rastro-meta').textContent=(r.itinerary?diasLabels[r.itinerary.dias]||'':'')+(r.fecha?' · Guardado: '+r.fecha:'');const cont=document.getElementById('ver-rastro-itin');cont.innerHTML='';if(r.itinerary&&r.itinerary.data){const nota=document.createElement('div');nota.className='itin-nota';nota.style.marginBottom='16px';nota.textContent=r.itinerary.data.titulo+(r.itinerary.data.nota?' — '+r.itinerary.data.nota:'');cont.appendChild(nota);if(r.itinerary.data.opciones&&r.itinerary.data.opciones[0]){r.itinerary.data.opciones[0].pasos.forEach(paso=>{if(paso.hora.startsWith('DÍA')||paso.hora.startsWith('Semana')){const d=document.createElement('div');d.className='itin-dia';d.textContent=paso.hora+(paso.texto?' — '+paso.texto:'');cont.appendChild(d);}else if(paso.hora==='Noche'){const n=document.createElement('div');n.className='itin-noche';const nb=paso.badges&&paso.badges.length?'<div class="itin-badges" style="margin-top:5px;">'+paso.badges.map(b=>'<span class="itin-badge itin-badge-'+b.type+'">'+b.label+'</span>').join('')+'</div>':'';n.innerHTML='<div style="flex:1">🌙 <strong>'+paso.texto+'</strong>'+(paso.detalle?'<br><span class="pixel-sm text-muted">'+paso.detalle+'</span>':'')+nb+'</div>';cont.appendChild(n);}else if(paso.texto){const row=document.createElement('div');row.className='itin-paso';row.innerHTML='<div class="itin-hora">'+paso.hora+'</div><div class="itin-texto" style="flex:1"><strong>'+paso.texto+'</strong>'+(paso.detalle?'<br><span class="pixel-sm text-muted">'+paso.detalle+'</span>':'')+buildLinkHtml(paso)+'</div>';cont.appendChild(row);}});const sp=document.createElement('div');sp.style.cssText='height:240px;pointer-events:none;flex-shrink:0;';cont.appendChild(sp);}}ir('s-ver-rastro');}
 function eliminarRastroActual(){if(state.rastroActualIdx===null)return;const rastros=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]');rastros.splice(state.rastroActualIdx,1);localStorage.setItem(perfilKey('rastros_guardados'),JSON.stringify(rastros));state.rastroActualIdx=null;ir('s-rastro');cargarRastrosGuardados();}
 function comenzarRastroDesde(idx=null){if(idx===null)idx=state.rastroActualIdx;if(idx===null)return;const r=JSON.parse(localStorage.getItem(perfilKey('rastros_guardados'))||'[]')[idx];if(!r)return;state.currentRastro=r;localStorage.setItem(perfilKey('rastro_activo'),r.id);renderChecklist();ir('s-checklist-rastro');}
 function renderChecklist(){const r=state.currentRastro;document.getElementById('checklist-titulo').textContent=r.nombre;const cont=document.getElementById('checklist-pasos');cont.innerHTML='';if(r.itinerary&&r.itinerary.data){const nota=document.createElement('div');nota.className='itin-nota';nota.style.marginBottom='16px';nota.textContent=r.itinerary.data.titulo+(r.itinerary.data.nota?' — '+r.itinerary.data.nota:'');cont.appendChild(nota);if(r.itinerary.data.opciones&&r.itinerary.data.opciones[0]){r.itinerary.data.opciones[0].pasos.forEach((paso,i)=>{
   if(paso.hora.startsWith('DÍA')||paso.hora.startsWith('Semana')){const h=document.createElement('div');h.className='checklist-dia-header';h.textContent=paso.hora+(paso.texto?' — '+paso.texto:'');cont.appendChild(h);return;}
   if(paso.hora==='Noche'){const n=document.createElement('div');n.className='itin-noche';n.innerHTML='🌙 <strong>'+paso.texto+'</strong>'+(paso.detalle?'<br><span class="pixel-sm text-muted">'+paso.detalle+'</span>':'');cont.appendChild(n);return;}
   const key='checklist_'+r.id+'_'+i;const checked=localStorage.getItem(key)==='1';const item=document.createElement('div');item.className='checklist-item';item.innerHTML='<label class="checklist-label"><input type="checkbox" class="checklist-checkbox" onchange="toggleChecklist('+i+',this.checked)" '+(checked?'checked':'')+'><span class="checklist-text"><strong class="checklist-hora">'+paso.hora+'</strong> '+paso.texto+'</span></label>'+buildLinkHtml(paso);cont.appendChild(item);
-});}}ir('s-checklist-rastro');}
+});const sp=document.createElement('div');sp.style.cssText='height:240px;pointer-events:none;flex-shrink:0;';cont.appendChild(sp);}}ir('s-checklist-rastro');}
 function toggleChecklist(idx,checked){const key='checklist_'+state.currentRastro.id+'_'+idx;localStorage.setItem(key,checked?'1':'0');}
 function finalizarRastro(){localStorage.removeItem(perfilKey('rastro_activo'));ir('s-main');}
 function confirmarRegistrarRastro(){const m=document.getElementById('modal-registrar');if(m){m.style.display='flex';}}
