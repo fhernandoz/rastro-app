@@ -134,8 +134,8 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 /* ── ATLAS TABS ── */
 .atlas-tab{flex-shrink:0;font-family:'Press Start 2P',monospace;font-size:8px;padding:9px 8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;cursor:pointer;color:rgba(255,255,255,.6);white-space:nowrap;word-break:normal;line-height:1.6;transition:all .15s;-webkit-appearance:none;text-align:center;}
 .atlas-tab.active{background:rgba(255,255,255,.92);color:#1a1a0a;border-color:transparent;}
-.atlas-pnl{display:none;}
-.atlas-pnl.active{display:block;}
+.atlas-pnl{height:0;overflow:hidden;pointer-events:none;}
+.atlas-pnl.active{height:auto;overflow:visible;pointer-events:auto;}
 .atlas-stat-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
 .atlas-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;flex:1;min-width:70px;text-align:center;}
 .atlas-stat-n{font-size:10px;color:white;margin-bottom:4px;}
