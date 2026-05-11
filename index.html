@@ -224,6 +224,16 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .itin-nav-btns{display:flex;gap:4px;flex-shrink:0;align-self:center;}
 .itin-nav-btn{font-family:'Press Start 2P',monospace;font-size:9px;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.45);border-radius:6px;color:rgba(30,220,140,.85);cursor:pointer;padding:5px 7px;-webkit-appearance:none;transition:all .15s;line-height:1;}
 .itin-nav-btn:hover{background:rgba(30,158,117,.3);border-color:rgba(30,200,120,.8);color:rgba(30,220,140,1);}
+.itin-drag-handle{padding:4px 6px 4px 2px;cursor:grab;color:rgba(255,255,255,.22);font-size:11px;flex-shrink:0;touch-action:none;user-select:none;line-height:1;}
+.itin-ctrl{display:flex;gap:4px;align-items:center;flex-shrink:0;margin-left:4px;}
+.itin-ctrl-btn{padding:3px 7px;border-radius:6px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);font-family:'Press Start 2P',monospace;font-size:5.5px;cursor:pointer;-webkit-appearance:none;appearance:none;line-height:1;}
+.itin-ctrl-btn.del{color:rgba(226,80,80,.7);border-color:rgba(226,80,80,.25);}
+.itin-paso.drag-over{border:1px solid rgba(30,200,140,.5)!important;background:rgba(30,200,140,.07)!important;}
+.itin-paso.dragging{opacity:.4;}
+.itin-add-row{padding:3px 0;}
+.itin-add-btn{width:100%;padding:8px;border-radius:8px;border:1px dashed rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.32);font-family:'Press Start 2P',monospace;font-size:5.5px;cursor:pointer;-webkit-appearance:none;appearance:none;}
+.itin-add-panel{background:rgba(10,5,30,.97);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:6px;margin-top:4px;max-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
+.itin-add-opt{padding:9px 10px;border-radius:6px;font-size:6px;color:rgba(255,255,255,.6);cursor:pointer;font-family:'Press Start 2P',monospace;line-height:1.8;}
 .checklist-dia-header{font-family:'Press Start 2P',monospace;font-size:7px;color:rgba(30,200,120,.9);padding:12px 0 6px;margin-top:6px;border-bottom:1px solid rgba(30,200,120,.2);margin-bottom:8px;}
 
 /* ── RASTRO GUARDADO ── */
@@ -479,8 +489,8 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
           </div>
         </div>
         <div class="atlas-stat-row">
-          <div class="atlas-stat"><div class="atlas-stat-n">11</div><div class="atlas-stat-l">senderos habilitados</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">9</div><div class="atlas-stat-l">hitos</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">15</div><div class="atlas-stat-l">senderos habilitados</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">17</div><div class="atlas-stat-l">hitos</div></div>
           <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">flora y fauna</div></div>
           <div class="atlas-stat"><div class="atlas-stat-n">7</div><div class="atlas-stat-l">servicios</div></div>
         </div>
@@ -566,9 +576,32 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 
         <div class="atlas-card atlas-card-hidden">
           <div class="atlas-ct-row"><div class="atlas-ct">Los Coigües</div><span class="badge badge-sub">Subexplorado</span></div>
-          <div class="atlas-tags"><span class="badge-meta">1 km</span><span class="badge-meta">10 min</span><span class="badge-meta">+2 m</span><span class="badge badge-verde">Baja</span></div>
+          <div class="atlas-tags"><span class="badge-meta">379 m</span><span class="badge-meta">20 min</span><span class="badge-meta">+2 m</span><span class="badge badge-verde">Baja</span></div>
           <div class="atlas-cs">Pequeño sendero entre la playa del lago y el Centro de Información CONAF. Muy poco conocido. Todo el año.</div>
           <a href="https://es.wikiloc.com/rutas-senderismo/sendero-los-coihues-conguillio-98542341" target="_blank" rel="noopener" class="atlas-link-btn">Abrir en Wikiloc →</a>
+        </div>
+        <div class="atlas-divider"></div>
+        <div class="atlas-lbl">Sector Los Paraguas <span class="badge badge-coral" style="margin-left:6px;vertical-align:middle;">Solo acceso Cherquenco</span></div>
+        <div class="atlas-card atlas-card-hidden">
+          <div class="atlas-ct-row"><div class="atlas-ct">Salto Lan Lan</div><span class="badge badge-sub">Subexplorado</span></div>
+          <div class="atlas-tags"><span class="badge-meta">1 km</span><span class="badge-meta">30 min</span><span class="badge-meta">+20 m</span><span class="badge badge-verde">Baja</span></div>
+          <div class="atlas-cs">Catarata de 26 metros sobre coladas de lava del Llaima. Desde la guardería CONAF, sendero corto señalizado. Tres estratos de lava de más de 3.000 años son visibles en la roca. Geositio 10 de la Georruta 3.</div>
+        </div>
+        <div class="atlas-card atlas-card-hidden">
+          <div class="atlas-ct-row"><div class="atlas-ct">Cascada de Lava</div><span class="badge badge-sub">Subexplorado</span></div>
+          <div class="atlas-tags"><span class="badge-meta">5 km</span><span class="badge-meta">2–3 h</span><span class="badge-meta">+380 m</span><span class="badge badge-amber">Media</span></div>
+          <div class="atlas-cs">Una colada de lava solidificada cae como cascada desde un acantilado a 1.500 msnm. El sendero cruza bosques de araucaria centenaria antes de salir a terreno volcánico descubierto con vistas directas al Llaima.</div>
+        </div>
+        <div class="atlas-card atlas-card-hidden">
+          <div class="atlas-ct-row"><div class="atlas-ct">Laguna Amarilla</div><span class="badge badge-sub">Subexplorado</span></div>
+          <div class="atlas-tags"><span class="badge-meta">2.6 km</span><span class="badge-meta">&lt;1 h</span><span class="badge-meta">+8 m</span><span class="badge badge-verde">Baja</span></div>
+          <div class="atlas-cs">Laguna volcánica de tonalidad amarilla formada por una colada de lava que represa el agua. Geositio de la Georruta 3. Verificar acceso — puede incluir tramo por propiedad privada.</div>
+          <a href="https://es.wikiloc.com/rutas-senderismo/sendero-laguna-amarilla-117182101" target="_blank" rel="noopener" class="atlas-link-btn">Abrir en Wikiloc →</a>
+        </div>
+        <div class="atlas-card atlas-card-hidden">
+          <div class="atlas-ct-row"><div class="atlas-ct">Cerro Colorado</div><span class="badge badge-sub">Subexplorado</span></div>
+          <div class="atlas-tags"><span class="badge-meta">20 km</span><span class="badge-meta">7–8 h</span><span class="badge-meta">+800 m</span><span class="badge badge-coral">Alta</span></div>
+          <div class="atlas-cs">Cono piroclástico de 1.900 msnm con vista panorámica a 8 volcanes andinos — Llaima, Villarrica, Lanín y cinco más. Una de las panorámicas más espectaculares de la Araucanía. Ruta de día completo por coladas de lava aa.</div>
         </div>
       </div>
 
@@ -588,6 +621,16 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
         <div class="atlas-divider"></div>
         <div class="atlas-lbl">Sitios culturales</div>
         <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">10 sitios arqueológicos Pehuenche</div><div class="atlas-cs">Hallados alrededor del lago. Evidencia de presencia estacional para recolección de piñones. El pewén (araucaria) fue su árbol sagrado. Conguillío = "agua con piñones" en mapudungún.</div></div>
+        <div class="atlas-divider"></div>
+        <div class="atlas-lbl">Sector Los Paraguas <span class="badge badge-coral" style="margin-left:6px;vertical-align:middle;">Solo acceso Cherquenco</span></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Salto Lan Lan <span class="badge badge-sub" style="margin-left:4px;">Geositio 10</span></div><div class="atlas-cs">Catarata de 26 metros sobre coladas de lava de más de 3.000 años. Tres estratos eruptivos visibles en la roca. Acceso fácil desde la guardería CONAF. Parte de la Georruta 3 del Geoparque Kütralkura.</div></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Panorama Cerro Colorado</div><div class="atlas-cs">Cono piroclástico de 1.900 msnm con vista simultánea a 8 volcanes andinos. Parte de la Georruta 3 — guía obligatorio, sendero no señalizado. Una de las cimas con mayor densidad volcánica visible de Chile.</div></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Cerro Japonés</div><div class="atlas-cs">Cono volcánico del Llaima en el sector Los Paraguas. Parte de la Georruta 3 junto a Cerro Colorado. Guía obligatorio — sendero no señalizado. Vista privilegiada del Llaima desde su flanco occidental.</div></div>
+
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Cerro Los Mellizos</div><div class="atlas-cs">Formación de roca ígnea antigua del Llaima. Dos conos gemelos que emergen de las coladas. Parte de la Georruta 3, sector Los Paraguas. Guía obligatorio.</div></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Laguna Amarilla</div><div class="atlas-cs">Pequeña laguna volcánica formada por una colada de lava que represa el agua. Tonalidad amarilla por minerales volcánicos. Geositio 120 de la Georruta 3. Verificar acceso — puede incluir propiedad privada.</div></div>
+        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Mirador El Descanso de las Araucarias</div><div class="atlas-cs">Mirador accesible en vehículo 4x2. Vista a araucarias centenarias con perspectiva del parque. Señalizado dentro del sector. Apto para familias y grupos de cualquier nivel físico.</div></div>
+        <div class="atlas-card"><div class="atlas-ct">Centro de ski Las Araucarias</div><div class="atlas-cs">350 hectáreas de esquí de junio a septiembre, 1.550–1.950 msnm. Tres andariveles, pistas para todos los niveles. La única estación de ski del parque y la más cercana a un volcán activo en Chile.</div></div>
       </div>
 
       <!-- SERVICIOS -->
@@ -1166,6 +1209,7 @@ const SENDERO_HITO_LINKS={
   'Ensenada – Laguna Verde': ['Laguna Verde / Quililo'],
   'Pastos Blancos':          ['Escoriales del Llaima'],
   'Las Vertientes':          ['Lago Conguillío'],
+  'Laguna Amarilla':         ['Laguna Amarilla'],
 };
 const INTENSIDAD={contemplativo:"contemplativos",activo:"activos",exigente:"desafiantes"};
 const BADGE_COLS={E:"badge-purpura",L:"badge-verde",S:"badge-amber",C:"badge-coral"};
@@ -1499,6 +1543,9 @@ function seleccionarPerfil(id){
   const perfiles=JSON.parse(localStorage.getItem('rastro_perfiles')||'[]');
   const p=perfiles.find(x=>x.id==id);if(!p)return;
   state.perfil=p.perfil;state.secundario=p.secundario;state.intensidad=p.intensidad;state.scores=p.scores;state.nombrePerfil=p.nombre;state.perfilId=p.id;
+  state.respuestas=[];state.preguntasMezcladas=[];state.preguntaIdx=0;
+  state.plan={modo:null,grupo:null,grupoTypes:null,acceso:null,vehiculo:null,dias:null,noches:undefined,temporada:null,clima:null,presupuesto:null,foco:[]};
+  state.itinerary=null;
   localStorage.setItem('rastro_perfil_activo',String(p.id));
   localStorage.setItem('rastro_perfil',JSON.stringify({perfil:p.perfil,secundario:p.secundario,intensidad:p.intensidad,scores:p.scores}));
   actualizarMain();actualizarPerfil();if(state.scores)dibujarRadarPerfil();cargarRastrosGuardados();cargarLogros();ir('s-main');
@@ -1510,6 +1557,9 @@ function iniciarCrearPerfil(){
   if(a&&_musicaLista&&a.paused)a.play().catch(()=>{});
   iniciarMusica();
   state.perfil=null;state.secundario=null;state.intensidad=null;state.scores=null;state.nombrePerfil=null;state.perfilId=null;
+  state.respuestas=[];state.preguntasMezcladas=[];state.preguntaIdx=0;
+  state.plan={modo:null,grupo:null,grupoTypes:null,acceso:null,vehiculo:null,dias:null,noches:undefined,temporada:null,clima:null,presupuesto:null,foco:[]};
+  state.itinerary=null;
   state.onboardingIdx=0;ir('s-onboarding-texto');mostrarOnboardingTexto();
 }
 function guardarPerfilConNombre(){
@@ -1677,17 +1727,18 @@ function toggleFaunaItem(nombre,tipo,btn){
   btn.classList.toggle('active',!!f[nombre][tipo]);
   actualizarProgresoAtlas();
 }
+const LIBRE_HITO_LINKS={'Playa del lago':'Lago Conguillío','Mañana en la playa del lago':'Lago Conguillío','Tarde junto al lago':'Lago Conguillío','Baño o kayak en el lago':'Lago Conguillío','Kayak o paseo en bote':'Lago Conguillío'};
 function marcarVisitadosDesdeRastro(pasos){
   if(!pasos)return;
   const v=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
   let changed=false;
   pasos.forEach(paso=>{
-    if(paso.hora==='Mañana'||paso.hora==='Tarde'){
+    const esActividad=paso.hora==='Mañana'||paso.hora==='Tarde'||/^\d+:\d+$/.test(paso.hora||'');
+    if(esActividad){
       const m=paso.texto?.match(/^(?:Sendero|Visita): (.+)$/);
-      if(m&&m[1]){
-        v[m[1]]=true;changed=true;
-        (SENDERO_HITO_LINKS[m[1]]||[]).forEach(h=>{v[h]=true;changed=true;});
-      }
+      if(m&&m[1]){v[m[1]]=true;changed=true;(SENDERO_HITO_LINKS[m[1]]||[]).forEach(h=>{v[h]=true;changed=true;});}
+      const hitoLib=LIBRE_HITO_LINKS[paso.texto];
+      if(hitoLib){v[hitoLib]=true;changed=true;}
     }
   });
   if(changed)localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(v));
@@ -1736,7 +1787,15 @@ const ATLAS_LLEGAR={
   'Sierra Nevada':{maps:'https://www.google.com/maps/search/?api=1&query=Sierra+Nevada+Conguillio+Chile',instrucciones:'Trailhead señalizado junto al área de campings, sector Curacautín (playa principal del lago). Ver pestaña Senderos para detalles del recorrido.'},
   'Muralla del Cañón Truful-Truful':{maps:'https://www.google.com/maps/search/?api=1&query=Truful+Truful+Conguillio+Chile',instrucciones:'Sector sureste del parque, entrada Melipeuco. Junto al Salto Truful-Truful, señalizado en la ruta interna. Acceso en vehículo.'},
   'Escoriales del Llaima':{maps:'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',instrucciones:'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén. Punto de detención señalizado entre Melipeuco y el lago.'},
-  '10 sitios arqueológicos Pehuenche':{maps:null,instrucciones:'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco.'}
+  'Mirador El Descanso de las Araucarias':{maps:'https://maps.app.goo.gl/gqdUQBFeeeiZGbyY9',instrucciones:'Accesible en vehículo 4x2. Señalizado dentro del parque. Consulta la ubicación exacta en el mapa CONAF de la entrada.'},
+  '10 sitios arqueológicos Pehuenche':{maps:null,instrucciones:'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco.'},
+  'Salto Lan Lan':{maps:'https://www.google.com/maps/search/?api=1&query=Salto+Lan+Lan+Los+Paraguas+Conguillio+Chile',instrucciones:'Sector Los Paraguas (acceso Cherquenco). Desde la guardería CONAF, sendero corto señalizado ~30 min.'},
+  'Panorama Cerro Colorado':{maps:'https://www.google.com/maps/search/?api=1&query=Cerro+Colorado+Los+Paraguas+Llaima+Chile',instrucciones:'Sector Los Paraguas (acceso Cherquenco). Cono a 1.900 msnm. Jornada completa — sale desde la guardería CONAF. Requiere buena condición física. Guía obligatorio.'},
+  'Centro de ski Las Araucarias':{maps:'https://www.google.com/maps/search/?api=1&query=Las+Araucarias+ski+Conguillio+Chile',instrucciones:'Sector Los Paraguas (acceso Cherquenco). ~10 km desde la entrada. Operativo junio–septiembre. Restaurante abierto todo el año.'},
+  'Cerro Japonés':{maps:'https://www.google.com/maps/search/?api=1&query=Cerro+Japon%C3%A9s+Los+Paraguas+Llaima+Chile',instrucciones:'Sector Los Paraguas (Cherquenco). Georruta 3. Guía obligatorio — sendero no señalizado. Coordinar en guardería CONAF o con Geoparque Kütralkura (kutralkura.cl).'},
+
+  'Cerro Los Mellizos':{maps:'https://www.google.com/maps/search/?api=1&query=Cerro+Los+Mellizos+Los+Paraguas+Llaima+Chile',instrucciones:'Sector Los Paraguas (Cherquenco). Geositio 81, Georruta 3. Guía obligatorio. Coordinar con Geoparque Kütralkura.'},
+  'Laguna Amarilla':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Amarilla+Los+Paraguas+Llaima+Chile',instrucciones:'Sector Los Paraguas (Cherquenco). Verificar acceso con oficina de turismo de Vilcún — puede incluir propiedad privada. Guía obligatorio.'}
 };
 
 function initAtlasLlegar(){
@@ -1832,8 +1891,11 @@ function generarItinerario(){
       if (vLevel < Math.max(accesoLevel, seneroLevel)) return false;
     }
     if (esFamilia && s.tags.includes('desafiante')) return false;
-    if (esMovilidad) return s.tags.includes('movilidad-reducida') || s.tags.includes('<1h');
+    if (esMovilidad && s.tags.includes('desafiante')) return false;
     if (clima === 'nieve' && s.tags.includes('desafiante')) return false;
+    const esCherquenco = accStr.toLowerCase().includes('cherquenco');
+    if (esCherquenco && !s.tags.includes('sector-paraguas')) return false;
+    if (!esCherquenco && s.tags.includes('sector-paraguas')) return false;
     return true;
   });
 
@@ -1850,7 +1912,7 @@ function generarItinerario(){
     if (grupoTypes.includes('pareja') && s.tags.includes('pareja')) score += 20;
     if ((grupoTypes.includes('amigos')||grupoTypes.includes('familia')||grupoTypes.includes('grupo_amigos')) && s.tags.includes('amigos')) score += 20;
     if (grupoTypes.includes('familia_ninos') && s.tags.includes('familia-niños')) score += 20;
-    if (grupoTypes.includes('movilidad_reducida') && s.tags.includes('movilidad-reducida')) score += 20;
+    if (grupoTypes.includes('movilidad_reducida') && s.tags.includes('<1h')) score += 20;
     // Intensidad — prioriza sin excluir
     if (intensidad === 'contemplativo') {
       if (s.tags.includes('contemplativo')) score += 20;
@@ -1878,7 +1940,13 @@ function generarItinerario(){
   });
   senderosFiltrados.sort((a,b) => b.score - a.score);
 
-  let hitosFiltrados = Object.values(INVENTARIO.hitos);
+  const esCherquencoH = (plan.acceso||'').toLowerCase().includes('cherquenco');
+  let hitosFiltrados = Object.values(INVENTARIO.hitos).filter(h => {
+    if (esCherquencoH && !h.tags.includes('sector-paraguas')) return false;
+    if (!esCherquencoH && h.tags.includes('sector-paraguas')) return false;
+    if (esMovilidad && !h.tags.includes('drive-to')) return false;
+    return true;
+  });
   hitosFiltrados.forEach(h => {
     let score = 0;
     if (h.tags.includes(perfilTag)) score += 15;
@@ -1891,7 +1959,8 @@ function generarItinerario(){
     if (grupoTypes.includes('pareja') && h.tags.includes('pareja')) score += 20;
     if ((grupoTypes.includes('amigos')||grupoTypes.includes('familia')||grupoTypes.includes('grupo_amigos')) && h.tags.includes('amigos')) score += 20;
     if (grupoTypes.includes('familia_ninos') && h.tags.includes('familia-niños')) score += 20;
-    if (grupoTypes.includes('movilidad_reducida') && h.tags.includes('movilidad-reducida')) score += 20;
+    if (grupoTypes.includes('movilidad_reducida') && h.tags.includes('drive-to')) score += 35;
+    if (grupoTypes.includes('movilidad_reducida') && h.tags.includes('<1h')) score += 20;
     h.score = score;
   });
   hitosFiltrados.sort((a,b) => b.score - a.score);
@@ -1908,87 +1977,150 @@ function generarItinerario(){
   ];
 
   // Opciones completas con badges para usar en pools
+  const parseTH=t=>{if(!t)return 2;t=t.toLowerCase();if(t.includes('min'))return(parseInt(t.match(/\d+/)?.[0]||60))/60;if(t.startsWith('<'))return(parseInt(t.match(/\d+/)?.[0]||1))*0.7;const n=(t.match(/\d+/g)||[]).map(Number);return n.length>=2?(n[0]+n[1])/2:n[0]||2;};
+  const fmtH=gFmtH;
   const todasSendOpts = senderosFiltrados.map(s => {
     const badges = getTagBadges(s.tags);
     if (temporada === 'invierno' && (s.nombre === 'Sierra Nevada' || s.nombre === 'Pastos Blancos'))
       badges.push({label:'❄ Raquetas recomendadas', type:'warning'});
     if (temporada === 'invierno' && accStr.includes('Curacautín'))
       badges.push({label:'⚠ Verificar apertura acceso norte', type:'danger'});
-    return {texto: `Sendero: ${s.nombre}`, detalle: [s.meta.distancia, s.meta.tiempo, s.meta.desnivel].filter(Boolean).join(' · '), badges, link: s.link||null};
+    return {texto: `Sendero: ${s.nombre}`, detalle: [s.meta.distancia, s.meta.tiempo, s.meta.desnivel].filter(Boolean).join(' · '), duracion: parseTH(s.meta.tiempo)+0.5, badges, link: s.link||null};
   });
   const todasHitoOpts = hitosFiltrados.map(h => ({
     texto: `Visita: ${h.nombre}`,
     detalle: '',
+    duracion: h.tags.includes('drive-to') ? 1.0 : 1.5,
+    _driveTo: h.tags.includes('drive-to'),
     badges: getTagBadges(h.tags||[]),
     maps: h.maps || null,
     instrucciones: h.instrucciones || null
   }));
   const libManOpts = [
-    {texto:'Paseo libre por el sector',       detalle:'Explora el entorno a tu ritmo, sin ruta fija.',                                   badges:[]},
-    {texto:'Fotografía al amanecer',           detalle:'El lago y el volcán al alba son de los momentos más recordados del parque.',     badges:[]},
-    {texto:'Observación de flora y aves',      detalle:'Araucarias centenarias, coigüe y carpintero magallánico sin apuro.',             badges:[]},
-    {texto:'Exploración tranquila del entorno',detalle:'Sin destino fijo — deja que el parque se revele solo.',                          badges:[]},
+    {texto:'Paseo libre por el sector',        detalle:'Explora el entorno a tu ritmo, sin ruta fija.',                                                      badges:[]},
+    {texto:'Fotografía al amanecer',            detalle:'El lago y el volcán al alba son de los momentos más recordados del parque.',                        badges:[]},
+    {texto:'Observación de flora y aves',       detalle:'Araucarias centenarias, coigüe y carpintero magallánico sin apuro.',                               badges:[]},
+    {texto:'Mañana en la playa del lago',       detalle:'Arena volcánica negra y agua fría de deshielo glaciar. Uno de los espacios más únicos del parque.', badges:[]},
+    {texto:'Exploración tranquila del entorno', detalle:'Sin destino fijo — deja que el parque se revele solo.',                                             badges:[]},
+    {texto:'Kayak o paseo en bote',             detalle:'Arriendo disponible en temporada estival. Perspectiva única del Llaima desde el agua.',             badges:[]},
+    {texto:'Visita al Centro de Información',   detalle:'CONAF · Mapas, historia geológica y fauna del parque. Buena parada antes de planificar el día.',   badges:[]},
   ];
   const libTarOpts = [
-    {texto:'Tarde junto al lago',              detalle:'Descanso y contemplación en la orilla del Lago Conguillío.',                     badges:[]},
-    {texto:'Almuerzo con vista al volcán',     detalle:'Busca un punto panorámico para comer con vista al Llaima.',                      badges:[]},
-    {texto:'Tarde libre',                      detalle:'Sin agenda — lee, descansa o prepara la próxima jornada.',                       badges:[]},
-    {texto:'Atardecer y avistamiento de aves', detalle:'La hora dorada es ideal para observar vida silvestre cerca del agua.',           badges:[]},
+    {texto:'Tarde junto al lago',               detalle:'Descanso y contemplación en la orilla del Lago Conguillío.',                                        badges:[]},
+    {texto:'Almuerzo con vistas panorámicas',       detalle:'Busca un punto panorámico para comer con vista al Llaima.',                                        badges:[]},
+    {texto:'Tarde libre',                        detalle:'Sin agenda — lee, descansa o prepara la próxima jornada.',                                         badges:[]},
+    {texto:'Baño o kayak en el lago',            detalle:'La playa de arena volcánica es uno de los atractivos más singulares del parque.',                  badges:[]},
+    {texto:'Atardecer y avistamiento de aves',   detalle:'La hora dorada es ideal para observar vida silvestre cerca del agua.',                             badges:[]},
+    {texto:'Piñones y cultura Pehuenche',        detalle:'En otoño el pewén produce piñones. Conversa con los guardaparques sobre la historia Pehuenche.',  badges:[]},
+    {texto:'Fotografía y contemplación',         detalle:'El lago refleja el volcán en días despejados — uno de los encuadres más buscados de la Araucanía.',badges:[]},
   ];
 
-  // Pool completo por tipo de slot
-  const fullManPool = [...todasSendOpts, ...todasHitoOpts, ...libManOpts];
-  const fullTarPool = [...todasHitoOpts, ...libTarOpts];
+  // Duraciones de actividades libres (horas)
+  const DUR={'Paseo libre por el sector':2,'Fotografía al amanecer':1.5,'Observación de flora y aves':2,'Mañana en la playa del lago':2.5,'Exploración tranquila del entorno':2,'Kayak o paseo en bote':2,'Visita al Centro de Información':0.75,'Tarde junto al lago':2,'Almuerzo con vistas panorámicas':1,'Tarde libre':2,'Baño o kayak en el lago':2.5,'Atardecer y avistamiento de aves':1.5,'Piñones y cultura Pehuenche':1.5,'Fotografía y contemplación':2,'Exploración tranquila':2,'Centro de Información CONAF':0.75,'Playa del lago':2.5,'Atardecer junto al lago':1.5};
+  const getDur=opt=>opt.duracion||DUR[opt.texto]||2;
+  const CAMP_ONLY=new Set(['Fotografía al amanecer','Atardecer y avistamiento de aves','Atardecer junto al lago']);
+  const LAGO_ACTS=new Set(['Playa del lago','Mañana en la playa del lago','Tarde junto al lago','Baño o kayak en el lago','Kayak o paseo en bote','Fotografía y contemplación']);
+  const esCherquencoAcceso=accStr.toLowerCase().includes('cherquenco');
 
   const slotPools = {};
-  let sIdx = 0, htManIdx = 0, htTarIdx = 0, lmIdx = 0, ltIdx = 0;
   const pasos = [];
+  const usedSH = new Set();
 
-  // Precompute accommodation pool: filter by presupuesto
   let alojoBase = ALOJAMIENTOS.filter(a => a.presupuesto.includes(plan.presupuesto||'bajo'));
   if (!alojoBase.length) alojoBase = ALOJAMIENTOS;
 
   for (let d = 0; d < diasNum; d++) {
+    const dayPasosStart = pasos.length;
     pasos.push({hora: `DÍA ${d + 1}`, texto: dayTitulos[d] || `Día ${d + 1}`, detalle: '', badges: []});
 
-    // Mañana: asignar ítem por defecto y construir pool rotado
-    const mSlotId = `m${d}`;
-    let mOpt;
-    if (sIdx < todasSendOpts.length)          mOpt = todasSendOpts[sIdx++];
-    else if (htManIdx < todasHitoOpts.length) mOpt = todasHitoOpts[htManIdx++];
-    else                                       mOpt = libManOpts[lmIdx++ % libManOpts.length];
-    const mStart = fullManPool.findIndex(o => o.texto === mOpt.texto);
-    slotPools[mSlotId] = {pool: mStart >= 0 ? [...fullManPool.slice(mStart), ...fullManPool.slice(0, mStart)] : [mOpt, ...fullManPool], idx: 0};
-    pasos.push({hora: 'Mañana', ...mOpt, slotId: mSlotId});
+    const canCamp = noches > 0 && d > 0;
+    const esCentroDay = d === 0 && noches > 0; // Centro de Info solo día 1 de viajes con noche
+    const libreDisp = [...libManOpts, ...libTarOpts].filter(a => {
+      if (CAMP_ONLY.has(a.texto) && !canCamp) return false;
+      if (LAGO_ACTS.has(a.texto) && esCherquencoAcceso) return false;
+      if ((a.texto === 'Centro de Información CONAF' || a.texto === 'Visita al Centro de Información') && !esCentroDay) return false;
+      return true;
+    });
+    const fullPool = [...todasSendOpts, ...todasHitoOpts, ...libreDisp];
 
-    // Tarde: asignar ítem por defecto y construir pool rotado
-    const tSlotId = `t${d}`;
-    let tOpt;
-    // Si es "por el día" y el sendero de mañana es desafiante → recomendar regreso y descanso
-    const senNombreMañana = mOpt.texto.startsWith('Sendero:') ? mOpt.texto.replace('Sendero: ','') : null;
-    const senObjMañana = senNombreMañana ? senderosFiltrados.find(s => s.nombre === senNombreMañana) : null;
-    const esDesafiantePorElDia = noches === 0 && senObjMañana && senObjMañana.tags.includes('desafiante');
-    if (esDesafiantePorElDia) {
-      tOpt = {texto:'Regreso y descanso', detalle:'Después de un sendero exigente, lo mejor es comenzar el regreso con tiempo. Hidratación, algo caliente y descanso al llegar.', badges:[]};
-      slotPools[tSlotId] = {pool: [tOpt, ...fullTarPool], idx: 0};
-    } else {
-      if (htTarIdx < todasHitoOpts.length) tOpt = todasHitoOpts[htTarIdx++];
-      else                                  tOpt = libTarOpts[ltIdx++ % libTarOpts.length];
-      const tStart = fullTarPool.findIndex(o => o.texto === tOpt.texto);
-      slotPools[tSlotId] = {pool: tStart >= 0 ? [...fullTarPool.slice(tStart), ...fullTarPool.slice(0, tStart)] : [tOpt, ...fullTarPool], idx: 0};
+    let dayPri;
+    if (esMovilidad && d === 0) {
+      const hitosAuto = todasHitoOpts.filter(h => h._driveTo);
+      const hitosOtros = todasHitoOpts.filter(h => !h._driveTo);
+      dayPri = [...hitosAuto, ...todasSendOpts.filter(s=>getDur(s)<=1.5), ...libreDisp, ...hitosOtros, ...todasSendOpts.filter(s=>getDur(s)>1.5)];
+    } else if (esMovilidad) {
+      const hitosAuto = todasHitoOpts.filter(h => h._driveTo);
+      const hitosOtros = todasHitoOpts.filter(h => !h._driveTo);
+      dayPri = [...hitosAuto, ...todasSendOpts.filter(s=>getDur(s)<=1.5), ...libreDisp, ...hitosOtros, ...todasSendOpts.filter(s=>getDur(s)>1.5)];
     }
-    pasos.push({hora: 'Tarde', ...tOpt, slotId: tSlotId});
+    else if (d % 3 === 2)
+      dayPri = [...todasHitoOpts, ...libreDisp, ...todasSendOpts];
+    else
+      dayPri = [...todasSendOpts, ...todasHitoOpts, ...libreDisp];
 
-    // Noche: basado en noches totales del rastro (independiente de días en parque)
+    // Centro de Info siempre va primero si está disponible este día
+    if (esCentroDay) {
+      const ci = dayPri.findIndex(a => a.texto === 'Centro de Información CONAF' || a.texto === 'Visita al Centro de Información');
+      if (ci > 0) { const [c] = dayPri.splice(ci, 1); dayPri.unshift(c); }
+    }
+
+    let budget = 8.0, tp = 9.0, actCount = 0;
+    const usedLibHoy = new Set();
+    let esJornadaCompleta = false;
+
+    for (const c of dayPri) {
+      const isSH = c.texto.startsWith('Sendero:') || c.texto.startsWith('Visita:');
+      if (isSH && usedSH.has(c.texto)) continue;
+      if (!isSH && usedLibHoy.has(c.texto)) continue;
+      const dur = getDur(c);
+      if (dur > budget + 0.5) continue;
+      const sNom = c.texto.startsWith('Sendero: ') ? c.texto.slice(9) : null;
+      const sObj = sNom ? senderosFiltrados.find(s => s.nombre === sNom) : null;
+      if (c.texto === 'Almuerzo con vistas panorámicas' && (tp < 13.0 || tp >= 15.0)) continue;
+      if (isSH) usedSH.add(c.texto); else usedLibHoy.add(c.texto);
+      budget -= dur + 0.25;
+      const slotId = `a${d}_${actCount}`;
+      const pi = fullPool.findIndex(o => o.texto === c.texto);
+      slotPools[slotId] = {pool: pi>=0?[...fullPool.slice(pi),...fullPool.slice(0,pi)]:[c,...fullPool], idx:0};
+      pasos.push({hora: fmtH(tp), ...c, slotId});
+      tp += dur + 0.25;
+      actCount++;
+      // Primer sendero desafiante o de día completo → cerrar el día
+      if (isSH && sObj && (sObj.tags.includes('desafiante') || sObj.tags.includes('día-completo'))) {
+        esJornadaCompleta = true;
+        break;
+      }
+      if (budget < 0.5) break;
+    }
+
+    // Garantizar almuerzo si no fue colocado por el loop
+    const alCand = libreDisp.find(a => a.texto === 'Almuerzo con vistas panorámicas');
+    if (alCand && !usedLibHoy.has(alCand.texto) && actCount > 0) {
+      let insertPos = pasos.length, alHora = 13.0;
+      for (let k = dayPasosStart + 1; k < pasos.length; k++) {
+        const p = pasos[k];
+        if (!p.slotId || p.hora === 'Noche') continue;
+        const endTime = parseHoraStr(p.hora) + (p.duracion || getDur(p) || 2);
+        if (endTime <= 14.5) { insertPos = k + 1; alHora = Math.max(endTime + 0.25, 13.0); }
+      }
+      alHora = Math.min(alHora, 14.5);
+      const alId = `alm_${d}`;
+      slotPools[alId] = {pool:[alCand,...fullPool.filter(o=>o.texto!==alCand.texto)],idx:0};
+      pasos.splice(insertPos, 0, {hora: gFmtH(alHora), ...alCand, slotId: alId});
+      usedLibHoy.add(alCand.texto);
+    }
+
+    // Sendero desafiante o día completo → agregar regreso y descanso
+    if (esJornadaCompleta) {
+      const regresoHora = gFmtH(Math.min(Math.max(tp + 1.25, 14.5), 16.5));
+      pasos.push({hora: regresoHora, texto:'Regreso y descanso', detalle:'Después de una jornada exigente, inicia el regreso con tiempo. Hidratación y descanso al llegar.', badges:[]});
+    }
+
     if (d < noches) {
       const nSlotId = `n${d}`;
-      const nPool = alojoBase.map(a => ({
-        texto: `Alojamiento sugerido: ${a.tipo}`,
-        detalle: `${a.precio} · ${a.descripcion} Consulta: ${a.donde}`,
-        badges: a.badges
-      }));
-      slotPools[nSlotId] = {pool: nPool, idx: 0};
-      pasos.push({hora:'Noche', ...nPool[0], slotId: nSlotId});
+      const nPool = alojoBase.map(a => ({texto:`Alojamiento sugerido: ${a.tipo}`, detalle:`${a.precio} · ${a.descripcion} Consulta: ${a.donde}`, badges:a.badges}));
+      slotPools[nSlotId] = {pool:nPool, idx:0};
+      pasos.push({hora:'Noche', ...nPool[0], slotId:nSlotId});
     }
   }
 
@@ -1997,12 +2129,13 @@ function generarItinerario(){
     const esUltimo = d === noches;
     pasos.push({hora:`DÍA ${d + 1}`, texto: esUltimo ? 'Regreso' : 'Día fuera del parque', detalle:'', badges:[]});
     if (!esUltimo) {
-      const actM = libManOpts[lmIdx++ % libManOpts.length];
-      pasos.push({hora:'Mañana', texto: actM.texto, detalle: actM.detalle, badges:[]});
-      const actT = libTarOpts[ltIdx++ % libTarOpts.length];
-      pasos.push({hora:'Tarde', texto: actT.texto, detalle: actT.detalle, badges:[]});
+      const libExt=[...libManOpts,...libTarOpts].filter(a=>!CAMP_ONLY.has(a.texto));
+      const actM = libExt[d % libExt.length];
+      pasos.push({hora: fmtH(9), texto: actM.texto, detalle: actM.detalle, badges:[]});
+      const actT = libExt[(d+3) % libExt.length];
+      pasos.push({hora: fmtH(14), texto: actT.texto, detalle: actT.detalle, badges:[]});
     } else {
-      pasos.push({hora:'Mañana', texto:'Desayuno · checkout · camino de vuelta', detalle:'', badges:[]});
+      pasos.push({hora: fmtH(9), texto:'Desayuno · checkout · camino de vuelta', detalle:'', badges:[]});
     }
     if (d < noches) {
       const nSlotId = `n${d}`;
@@ -2032,6 +2165,125 @@ function generarItinerario(){
   ir('s-recomendacion');
 }
 
+function gFmtH(h){const hr=Math.floor(h),mn=Math.round((h-hr)*60/15)*15,o=mn>=60;return(o?hr+1:hr)+':'+(o?'00':mn<10?'0'+mn:mn);}
+function parseHoraStr(s){if(!s||!/^\d+:\d+$/.test(s))return 9;const[h,m]=s.split(':').map(Number);return h+m/60;}
+function recalcHoras(pasos){
+  let tp=9.0;
+  pasos.forEach(p=>{
+    if(!p.hora)return;
+    if(p.hora.startsWith('DÍA')||p.hora.startsWith('Semana')){tp=9.0;return;}
+    if(p.hora==='Noche')return;
+    if(!p.slotId)return;
+    p.hora=gFmtH(tp);
+    tp+=(p.duracion||2)+0.25;
+  });
+}
+// ── ITINERARY EDIT ──────────────────────────────────
+function delSlot(slotId){
+  const pasos=state.itinerary.data.opciones[0].pasos;
+  const i=pasos.findIndex(p=>p.slotId===slotId);
+  if(i>=0){pasos.splice(i,1);recalcHoras(pasos);renderPasos(pasos);}
+}
+function nudgeSlot(slotId,dir){
+  const pasos=state.itinerary.data.opciones[0].pasos;
+  const i=pasos.findIndex(p=>p.slotId===slotId);
+  if(i<0)return;
+  let j=i+dir;
+  while(j>=0&&j<pasos.length&&(!pasos[j].slotId||pasos[j].hora==='Noche'))j+=dir;
+  if(j<0||j>=pasos.length||!pasos[j].slotId||pasos[j].hora==='Noche')return;
+  [pasos[i],pasos[j]]=[pasos[j],pasos[i]];
+  renderPasos(pasos);
+}
+let _addPanelDay=null,_addOpts=[];
+function toggleAddPanel(dayIdx,btn){
+  const existing=document.getElementById('itin-add-panel-'+dayIdx);
+  if(existing){existing.remove();_addPanelDay=null;return;}
+  if(_addPanelDay!==null){const p=document.getElementById('itin-add-panel-'+_addPanelDay);if(p)p.remove();}
+  _addPanelDay=dayIdx;
+  const used=new Set(state.itinerary.data.opciones[0].pasos.map(p=>p.texto));
+  const seen=new Set();_addOpts=[];
+  Object.values(state.itinerary.slotPools).forEach(sp=>{
+    sp.pool.forEach(opt=>{
+      if(!seen.has(opt.texto)&&opt.texto&&!opt.texto.startsWith('Alojamiento')){
+        seen.add(opt.texto);_addOpts.push(opt);
+      }
+    });
+  });
+  const panel=document.createElement('div');
+  panel.id='itin-add-panel-'+dayIdx;
+  panel.className='itin-add-panel';
+  panel.innerHTML=_addOpts.map((o,idx)=>'<div class="itin-add-opt" onclick="pickToAdd('+dayIdx+','+idx+')" style="'+(used.has(o.texto)?'opacity:.45;':'')+'">'+o.texto.replace(/^(?:Sendero|Visita): /,'')+'</div>').join('');
+  btn.parentNode.insertBefore(panel,btn.nextSibling);
+  panel.scrollIntoView&&panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function pickToAdd(dayIdx,optIdx){
+  const opt=_addOpts[optIdx];if(!opt)return;
+  const pasos=state.itinerary.data.opciones[0].pasos;
+  const newId='add_'+Date.now();
+  const newPaso={...opt,slotId:newId,hora:'+'};
+  // Insert before Noche or after last activity of this day
+  let insertAt=pasos.length;
+  let inDay=false;
+  for(let i=0;i<pasos.length;i++){
+    if(pasos[i].hora===`DÍA ${dayIdx+1}`)inDay=true;
+    if(inDay&&pasos[i].hora==='Noche'){insertAt=i;break;}
+    if(inDay&&(pasos[i].hora.startsWith('DÍA')&&pasos[i].hora!==`DÍA ${dayIdx+1}`)){insertAt=i;break;}
+  }
+  pasos.splice(insertAt,0,newPaso);
+  state.itinerary.slotPools[newId]={pool:opt?[opt,..._addOpts.filter(o=>o.texto!==opt.texto)]:_addOpts,idx:0};
+  const panel=document.getElementById('itin-add-panel-'+dayIdx);if(panel)panel.remove();
+  _addPanelDay=null;
+  recalcHoras(pasos);renderPasos(pasos);
+}
+// Drag & drop
+let _dragId=null;
+function _dragStart(e,slotId){_dragId=slotId;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
+function _dragEnd(e){e.currentTarget.classList.remove('dragging');_dragId=null;document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));}
+function _dragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function _dragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function _drop(e,slotId){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(!_dragId||_dragId===slotId)return;
+  const pasos=state.itinerary.data.opciones[0].pasos;
+  const i=pasos.findIndex(p=>p.slotId===_dragId);
+  const j=pasos.findIndex(p=>p.slotId===slotId);
+  if(i>=0&&j>=0){pasos.splice(j,0,pasos.splice(i,1)[0]);recalcHoras(pasos);renderPasos(pasos);}
+}
+// Touch drag
+let _tdEl=null,_tdId=null;
+function _touchStart(e,slotId,el){_tdId=slotId;_tdEl=el;el.classList.add('dragging');}
+function _touchMove(e){
+  if(!_tdEl)return;
+  e.preventDefault();
+  const t=e.touches[0];
+  document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+  const over=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-slot-drag]');
+  if(over&&over!==_tdEl)over.classList.add('drag-over');
+}
+function _touchEnd(e){
+  if(!_tdEl)return;
+  const t=e.changedTouches[0];
+  const over=document.elementFromPoint(t.clientX,t.clientY)?.closest('[data-slot-drag]');
+  if(over&&over!==_tdEl){
+    const targetId=over.dataset.slotDrag;
+    const pasos=state.itinerary.data.opciones[0].pasos;
+    const i=pasos.findIndex(p=>p.slotId===_tdId);
+    const j=pasos.findIndex(p=>p.slotId===targetId);
+    if(i>=0&&j>=0){pasos.splice(j,0,pasos.splice(i,1)[0]);recalcHoras(pasos);renderPasos(pasos);}
+  }
+  _tdEl.classList.remove('dragging');
+  document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+  _tdEl=null;_tdId=null;
+}
+// Attach touch-move listener to container (needs passive:false)
+function initItinTouchDrag(){
+  const c=document.getElementById('itin-dias');
+  if(!c||c._touchDragInit)return;
+  c._touchDragInit=true;
+  c.addEventListener('touchmove',_touchMove,{passive:false});
+  c.addEventListener('touchend',_touchEnd,{passive:true});
+}
+
 function buildLinkHtml(paso){
   if(paso.maps||paso.instrucciones)
     return '<br><button onclick="toggleLlegar(this)" class="itin-link-btn" style="cursor:pointer;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.62);">📍 Cómo llegar ↓</button>'
@@ -2047,6 +2299,11 @@ function renderPasos(pasos){
   cont.innerHTML='';
   pasos.forEach(paso=>{
     if(paso.hora.startsWith('DÍA')||paso.hora.startsWith('Semana')){
+      // Add "+" button before next day header (for previous day)
+      if(cont.lastChild&&cont.lastChild.className!=='itin-dia'){
+        const dIdx=parseInt((paso.hora.match(/\d+/)||['1'])[0])-2;
+        if(dIdx>=0){const ar=document.createElement('div');ar.className='itin-add-row';ar.innerHTML='<button class="itin-add-btn" data-add-day="'+dIdx+'" onclick="toggleAddPanel('+dIdx+',this)">+ Agregar plan</button>';cont.appendChild(ar);}
+      }
       const d=document.createElement('div');
       d.className='itin-dia';
       d.textContent=paso.hora+(paso.texto?' — '+paso.texto:'');
@@ -2062,21 +2319,36 @@ function renderPasos(pasos){
     } else if(paso.texto){
       const row=document.createElement('div');
       row.className='itin-paso';
+      const sid=paso.slotId||'';
+      if(sid){row.setAttribute('draggable','true');row.dataset.slotDrag=sid;row.ondragstart=e=>_dragStart(e,sid);row.ondragend=e=>_dragEnd(e);row.ondragover=e=>_dragOver(e);row.ondragleave=e=>_dragLeave(e);row.ondrop=e=>_drop(e,sid);}
       const badgesHtml=paso.badges&&paso.badges.length
         ?'<div class="itin-badges">'+paso.badges.map(b=>'<span class="itin-badge itin-badge-'+b.type+'">'+b.label+'</span>').join('')+'</div>'
         :'';
-      const hasAlt=paso.slotId&&state.itinerary&&state.itinerary.slotPools&&state.itinerary.slotPools[paso.slotId]&&state.itinerary.slotPools[paso.slotId].pool.length>1;
-      const navBtns=hasAlt?'<div class="itin-nav-btns"><button class="itin-nav-btn" onclick="cambiarOpcion(\''+paso.slotId+'\',-1)">←</button><button class="itin-nav-btn" onclick="cambiarOpcion(\''+paso.slotId+'\',1)">→</button></div>':'';
+      const hasAlt=sid&&state.itinerary&&state.itinerary.slotPools&&state.itinerary.slotPools[sid]&&state.itinerary.slotPools[sid].pool.length>1;
+      const navBtns=hasAlt?'<div class="itin-nav-btns"><button class="itin-nav-btn" onclick="cambiarOpcion(\''+sid+'\',-1)">←</button><button class="itin-nav-btn" onclick="cambiarOpcion(\''+sid+'\',1)">→</button></div>':'';
+      const ctrlBtns=sid?'<div class="itin-ctrl"><button class="itin-ctrl-btn del" onclick="delSlot(\''+sid+'\')">✕</button></div>':'';
+      const dragHandle=sid?'<div class="itin-drag-handle" ontouchstart="_touchStart(event,\''+sid+'\',this.closest(\'[data-slot-drag]\'))">⠿</div>':'';
       const linkHtml=buildLinkHtml(paso);
-      row.innerHTML='<div class="itin-hora">'+paso.hora+'</div>'
+      const movilWarn=(paso.texto.startsWith('Sendero:')&&(state.plan?.grupoTypes||[]).includes('movilidad_reducida'))
+        ?'<div style="margin-top:8px;padding:8px 10px;background:rgba(239,159,39,.1);border-left:2px solid rgba(239,159,39,.55);border-radius:0 6px 6px 0;font-size:5.5px;color:rgba(255,255,255,.52);line-height:2.1;font-family:\'Press Start 2P\',monospace;">Conguillío no tiene senderos oficialmente habilitados para movilidad reducida por CONAF. Las opciones sugeridas son cortas y de terreno más plano, pero evalúa las condiciones del grupo antes de ir.</div>'
+        :'';
+      row.innerHTML=dragHandle+'<div class="itin-hora">'+paso.hora+'</div>'
         +'<div class="itin-texto" style="flex:1"><strong>'+paso.texto+'</strong>'
         +(paso.detalle?'<br><span class="pixel-sm text-muted" style="margin-top:4px;display:block;">'+paso.detalle+'</span>':'')
-        +badgesHtml+linkHtml+'</div>'
-        +navBtns;
+        +badgesHtml+linkHtml+movilWarn+'</div>'
+        +navBtns+ctrlBtns;
       cont.appendChild(row);
     }
   });
+  // "+" button for last day
+  const lastDia=([...cont.querySelectorAll('.itin-dia')].pop());
+  if(lastDia){
+    const lastDayIdx=parseInt((lastDia.textContent.match(/\d+/)||['1'])[0])-1;
+    const ar=document.createElement('div');ar.className='itin-add-row';ar.innerHTML='<button class="itin-add-btn" data-add-day="'+lastDayIdx+'" onclick="toggleAddPanel('+lastDayIdx+',this)">+ Agregar plan</button>';
+    cont.appendChild(ar);
+  }
   const sp=document.createElement('div');sp.style.cssText='height:240px;pointer-events:none;flex-shrink:0;';cont.appendChild(sp);
+  initItinTouchDrag();
 }
 function cambiarOpcion(slotId,delta=1){
   const slot=state.itinerary.slotPools[slotId];
@@ -2084,7 +2356,7 @@ function cambiarOpcion(slotId,delta=1){
   const opt=slot.pool[slot.idx];
   const pasos=state.itinerary.data.opciones[0].pasos;
   const i=pasos.findIndex(p=>p.slotId===slotId);
-  if(i>=0)Object.assign(pasos[i],{texto:opt.texto,detalle:opt.detalle,badges:opt.badges,link:opt.link||null,maps:opt.maps||null,instrucciones:opt.instrucciones||null});
+  if(i>=0)Object.assign(pasos[i],{texto:opt.texto,detalle:opt.detalle,badges:opt.badges,link:opt.link||null,maps:opt.maps||null,instrucciones:opt.instrucciones||null,duracion:opt.duracion||null});
   renderPasos(pasos);
 }
 
@@ -2212,7 +2484,7 @@ const INVENTARIO = {
       nombre: 'Laguna Arcoíris',
       meta: {distancia: '1.1 km', tiempo: '< 1 h', desnivel: '+24 m', sector: 'Curacautín-N'},
       link: {label:'Abrir en AllTrails', url:'https://www.alltrails.com/trail/chile/araucania/sendero-laguna-arcoiris'},
-      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'fotografía', 'familia-niños', 'grupo-amigos', 'movilidad-reducida', 'auto-alto preferente', 'todo-el-año', 'otoño preferente', '<1h', 'hotspot'],
+      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'fotografía', 'familia-niños', 'grupo-amigos', 'auto-alto preferente', 'todo-el-año', 'otoño preferente', '<1h', 'hotspot'],
       subHitos: [
         {nombre: 'Borde con coigües sobre roca volcánica', tags: ['EXP', 'SOC', 'geología', 'flora', 'historia-eruptiva']}
       ]
@@ -2221,9 +2493,9 @@ const INVENTARIO = {
       nombre: 'Las Araucarias',
       meta: {distancia: '1.1 km', tiempo: '30–60 min', desnivel: '+56 m', sector: 'Curacautín-N'},
       link: {label:'Abrir en AllTrails', url:'https://www.alltrails.com/trail/chile/araucania/las-araucarias'},
-      tags: ['SOC', 'EXP', 'LOG', 'contemplativo', 'flora', 'geología', 'cultura-pehuenche', 'familia-niños', 'movilidad-reducida', 'auto-bajo nov-mar', 'todo-el-año', '<1h'],
+      tags: ['SOC', 'EXP', 'LOG', 'contemplativo', 'flora', 'geología', 'cultura-pehuenche', 'familia-niños', 'auto-bajo nov-mar', 'todo-el-año', '<1h'],
       subHitos: [
-        {nombre: '12 estaciones interpretativas', tags: ['LOG', 'EXP', 'contemplativo', 'flora', 'cultura-pehuenche', 'familia-niños', 'movilidad-reducida']}
+        {nombre: '12 estaciones interpretativas', tags: ['LOG', 'EXP', 'contemplativo', 'flora', 'cultura-pehuenche', 'familia-niños']}
       ]
     },
     'salto-truful-truful': {
@@ -2232,7 +2504,7 @@ const INVENTARIO = {
       link: {label:'Abrir en AllTrails', url:'https://www.alltrails.com/trail/chile/araucania/sendero-truful-truful'},
       tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'familia-niños', 'grupo-amigos', 'auto-bajo', 'todo-el-año', '<1h'],
       subHitos: [
-        {nombre: 'Mirador del salto principal', tags: ['SOC', 'agua', 'fotografía', 'familia-niños', 'movilidad-reducida']},
+        {nombre: 'Mirador del salto principal', tags: ['SOC', 'agua', 'fotografía', 'familia-niños']},
         {nombre: 'Muralla de 75 m con 13.000 años de estratos', tags: ['EXP', 'LOG', 'contemplativo', 'geología', 'historia-eruptiva']}
       ]
     },
@@ -2249,7 +2521,7 @@ const INVENTARIO = {
       nombre: 'Las Vertientes',
       meta: {distancia: '1.45 km', tiempo: '10–30 min', desnivel: '+18 m', sector: 'Curacautín-N'},
       link: {label:'Abrir en Wikiloc', url:'https://es.wikiloc.com/rutas-senderismo/sendero-las-vertientes-conguillio-98542367'},
-      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'flora', 'familia-niños', 'movilidad-reducida', 'auto-bajo nov-mar', 'todo-el-año', '<1h'],
+      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'flora', 'familia-niños', 'auto-bajo nov-mar', 'todo-el-año', '<1h'],
       subHitos: [
         {nombre: 'Punto de surgencia subterránea', tags: ['SOC', 'EXP', 'agua', 'geología', 'familia-niños']}
       ]
@@ -2276,16 +2548,45 @@ const INVENTARIO = {
     },
     'los-coigües': {
       nombre: 'Los Coigües',
-      meta: {distancia: '1 km', tiempo: '10 min', desnivel: '+2 m', sector: 'Curacautín-N'},
+      meta: {distancia: '379 m', tiempo: '20 min', desnivel: '+2 m', sector: 'Curacautín-N'},
       link: {label:'Abrir en Wikiloc', url:'https://es.wikiloc.com/rutas-senderismo/sendero-los-coihues-conguillio-98542341'},
       tags: ['EXP', 'contemplativo', 'flora', 'solo', 'pareja', 'familia-niños', 'todo-el-año', '<1h', 'poco transitado'],
+      subHitos: []
+    },
+    'salto-lan-lan': {
+      nombre: 'Salto Lan Lan',
+      meta: {distancia: '1 km', tiempo: '30 min', desnivel: '+20 m', sector: 'Los Paraguas-O'},
+      descripcion: 'Catarata de 26 metros sobre coladas de lava del Llaima. Desde la guardería CONAF una caminata corta llega al mirador. Tres estratos de lava de más de 3.000 años son visibles en la roca.',
+      tags: ['SOC', 'EXP', 'LOG', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'familia-niños', 'auto-bajo', 'todo-el-año', '<1h', 'sector-paraguas', 'poco transitado'],
+      subHitos: []
+    },
+    'cascada-de-lava': {
+      nombre: 'Cascada de Lava',
+      meta: {distancia: '5 km', tiempo: '2–3 h', desnivel: '+380 m', sector: 'Los Paraguas-O'},
+      descripcion: 'Una colada de lava solidificada cae como cascada desde un acantilado a 1.500 msnm. El sendero cruza bosques de araucaria centenaria antes de salir a terreno volcánico descubierto.',
+      tags: ['EXP', 'LOG', 'activo', 'geología', 'flora', 'historia-eruptiva', 'paisaje-panorámico', 'auto-bajo', 'verano', 'primavera', 'sector-paraguas', 'poco transitado'],
+      subHitos: []
+    },
+    'laguna-amarilla-send': {
+      nombre: 'Laguna Amarilla',
+      meta: {distancia: '2.6 km', tiempo: '<1 h', desnivel: '+8 m', sector: 'Los Paraguas-O'},
+      descripcion: 'Laguna volcánica de tonalidad amarilla formada por una colada de lava que represa el agua. Parte del recorrido de la Georruta 3 del Geoparque Kütralkura.',
+      link: {label:'Abrir en Wikiloc', url:'https://es.wikiloc.com/rutas-senderismo/sendero-laguna-amarilla-117182101'},
+      tags: ['EXP', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'familia-niños', 'solo', 'pareja', 'auto-bajo', 'todo-el-año', '<1h', 'sector-paraguas', 'poco transitado'],
+      subHitos: []
+    },
+    'cerro-colorado': {
+      nombre: 'Cerro Colorado',
+      meta: {distancia: '20 km', tiempo: '7–8 h', desnivel: '+800 m', sector: 'Los Paraguas-O'},
+      descripcion: 'Cono piroclástico de 1.900 msnm con vista panorámica a 8 volcanes andinos. Ruta de día completo por coladas de lava aa y terreno volcánico abierto. Una de las panorámicas más espectaculares de la Araucanía.',
+      tags: ['EXP', 'COM', 'desafiante', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'solo', 'pareja', 'grupo-amigos', 'auto-bajo', 'verano', 'sector-paraguas', 'poco transitado'],
       subHitos: []
     }
   },
   hitos: {
     'lago-conguillio-playa': {
       nombre: 'Lago Conguillío (playa principal)',
-      tags: ['SOC', 'LOG', 'contemplativo', 'activo', 'agua', 'paisaje-panorámico', 'familia-niños', 'grupo-amigos', 'verano preferente', 'hotspot'],
+      tags: ['SOC', 'LOG', 'contemplativo', 'activo', 'agua', 'paisaje-panorámico', 'familia-niños', 'grupo-amigos', 'verano preferente', 'hotspot', 'drive-to'],
       maps: 'https://www.google.com/maps/search/?api=1&query=Playa+Lago+Conguillio+Chile',
       instrucciones: 'Ruta principal del parque → orilla este del lago, ~10 km desde la entrada sur (Melipeuco) o norte (Curacautín). Estacionamiento junto al camping Los Ñirres. Señalizado.'
     },
@@ -2297,15 +2598,51 @@ const INVENTARIO = {
     },
     'escoriales-llaima': {
       nombre: 'Escoriales del Llaima',
-      tags: ['EXP', 'contemplativo', 'activo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'poco interpretado', 'poco transitado'],
+      tags: ['EXP', 'contemplativo', 'activo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'poco interpretado', 'poco transitado', 'drive-to'],
       maps: 'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',
       instrucciones: 'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén (entre Melipeuco y el lago). Punto de detención señalizado en el camino. También visibles desde el sendero Pastos Blancos.'
+    },
+    'mirador-descanso-araucarias': {
+      nombre: 'Mirador El Descanso de las Araucarias',
+      tags: ['SOC', 'LOG', 'EXP', 'contemplativo', 'flora', 'paisaje-panorámico', 'fotografía', 'familia-niños', 'pareja', 'grupo-amigos', 'auto-bajo', 'todo-el-año', 'sector-paraguas', 'poco transitado', 'drive-to'],
+      maps: 'https://maps.app.goo.gl/gqdUQBFeeeiZGbyY9',
+      instrucciones: 'Accesible en vehículo 4x2 (auto ciudad). Mirador con vista a araucarias centenarias. Señalizado dentro del parque.'
     },
     'sitios-arqueologicos-pehuenche': {
       nombre: '10 sitios arqueológicos Pehuenche',
       tags: ['EXP', 'LOG', 'contemplativo', 'cultura-pehuenche', 'poco señalizados', 'poco transitado'],
       maps: null,
       instrucciones: 'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco para orientación específica.'
+    },
+    'salto-lan-lan-hito': {
+      nombre: 'Salto Lan Lan',
+      tags: ['EXP', 'SOC', 'contemplativo', 'agua', 'geología', 'familia-niños', 'sector-paraguas', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Salto+Lan+Lan+Los+Paraguas+Conguillio+Chile',
+      instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Desde la guardería CONAF, sendero corto señalizado ~30 min.'
+    },
+    'cerro-colorado-vista': {
+      nombre: 'Panorama Cerro Colorado',
+      tags: ['EXP', 'COM', 'desafiante', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'sector-paraguas', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Cerro+Colorado+Los+Paraguas+Llaima+Chile',
+      instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Georruta 3, jornada completa. Guía obligatorio — sendero no señalizado. Consulta en guardería CONAF o con Geoparque Kütralkura.'
+    },
+    'cerro-japones': {
+      nombre: 'Cerro Japonés',
+      tags: ['EXP', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'sector-paraguas', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Cerro+Japon%C3%A9s+Los+Paraguas+Llaima+Chile',
+      instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Guía obligatorio — sendero no señalizado. Parte del recorrido completo de un día.'
+    },
+    'cerro-los-mellizos': {
+      nombre: 'Cerro Los Mellizos',
+      tags: ['EXP', 'geología', 'historia-eruptiva', 'sector-paraguas', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Cerro+Los+Mellizos+Los+Paraguas+Llaima+Chile',
+      instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Formación de roca ígnea antigua del Llaima. Guía obligatorio.'
+    },
+    'laguna-amarilla': {
+      nombre: 'Laguna Amarilla',
+      tags: ['EXP', 'geología', 'agua', 'historia-eruptiva', 'sector-paraguas', 'poco transitado'],
+      maps: 'https://www.google.com/maps/search/?api=1&query=Laguna+Amarilla+Los+Paraguas+Llaima+Chile',
+      instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Laguna formada por colada de lava. Verifica acceso con oficina de turismo de Vilcún — puede estar en propiedad privada.'
     }
   }
 };
