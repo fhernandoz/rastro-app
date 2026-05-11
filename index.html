@@ -119,7 +119,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .conguillio-map{width:100%;border-radius:16px;object-fit:cover;image-rendering:pixelated;}
 
 /* ── SCROLLABLE AREA ── */
-.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;min-height:0;}
+.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 .scroll-area::-webkit-scrollbar{display:none;}
 
 /* ── BOTONES GRANDES MAIN ── */
@@ -1084,7 +1084,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 ═══════════════════════════════════ -->
 <div class="screen" id="s-ver-rastro">
   <div class="bg" style="background:#071509;"></div>
-  <div class="content scroll-area" style="padding:0 24px 140px;">
+  <div class="content scroll-area" style="padding:0 24px 140px;min-height:0;">
     <div style="padding-top:56px;margin-bottom:16px;">
       <button class="btn btn-ghost" onclick="ir('s-rastro')" style="text-align:left;width:auto;padding:0;margin-bottom:16px;">← Mis rastros</button>
       <div class="pixel-sm text-muted" style="margin-bottom:4px;">RASTRO GUARDADO</div>
@@ -1123,7 +1123,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 ═══════════════════════════════════ -->
 <div class="screen" id="s-checklist-rastro">
   <div class="bg" style="background:#071509;"></div>
-  <div class="content scroll-area" style="padding:0 24px 140px;">
+  <div class="content scroll-area" style="padding:0 24px 140px;min-height:0;">
     <div style="padding-top:56px;margin-bottom:16px;">
       <button class="btn btn-ghost" onclick="ir('s-ver-rastro')" style="text-align:left;width:auto;padding:0;margin-bottom:16px;">← Volver</button>
       <div class="pixel-sm text-muted" style="margin-bottom:4px;">CHECKLIST DE RASTRO</div>
@@ -1521,7 +1521,7 @@ function durationAllowed(hitoDuration,dias){if(!hitoDuration)return true;const d
 function getContextoVisitaSeason(hito,temporada){const entry=getContextoVisitaEntry(hito);if(!entry)return null;return entry[normalizeSeasonKey(temporada)]||null;}
 function buildHitoExplanation(result,plan){const reasons=[];if(result.scores.E1!==undefined)reasons.push('Perfil: '+result.scores.E1.toFixed(0)+'/10');if(result.scores.E2!==undefined)reasons.push('Intensidad: '+result.scores.E2.toFixed(0)+'/10');if(result.scores.E3!==undefined)reasons.push('Foco: '+result.scores.E3.toFixed(0)+'/10');if(result.scores.E4!==undefined)reasons.push('Contexto social: '+result.scores.E4.toFixed(0)+'/10');if(result.scores.E7!==undefined)reasons.push('Temporada: '+result.scores.E7.toFixed(0)+'/10');return reasons.join(' · ');}function resetearPerfil(){mostrarSelectorPerfil();}
 
-function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas'){setTimeout(initAtlasVisitados,80);setTimeout(()=>{const sc=document.querySelector('#s-atlas .scroll-area');if(sc){sc.scrollTop=1;sc.scrollTop=0;}},50);}}
+function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(initAtlasVisitados,80);}
 function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');setTimeout(initAtlasVisitados,50);}}
 
 function iniciarApp(){mostrarSelectorPerfil();}
