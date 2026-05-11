@@ -169,7 +169,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-link-btn{display:inline-block;margin-top:10px;font-family:'Press Start 2P',monospace;font-size:5.5px;color:rgba(30,200,120,.85);text-decoration:none;border:1px solid rgba(30,200,120,.3);border-radius:6px;padding:5px 10px;transition:background .15s;}
 .atlas-link-btn:hover{background:rgba(30,200,120,.12);}
 .itin-link-btn{display:inline-block;margin-top:6px;font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(30,200,120,.8);text-decoration:none;border:1px solid rgba(30,200,120,.25);border-radius:5px;padding:4px 8px;}
-.atlas-header-sticky{position:sticky;top:0;z-index:101;background:#0a1a10;}
+.atlas-header-sticky{position:sticky;top:0;z-index:101;background:#0a1a10;-webkit-transform:translateZ(0);transform:translateZ(0);}
 .atlas-tabs-scroll{display:flex;gap:4px;padding:0 24px 4px;overflow-x:auto;overflow-y:hidden;background:#0a1a10;padding-bottom:8px;scrollbar-width:none;}
 .atlas-tabs-scroll::-webkit-scrollbar{display:none;}
 .atlas-action-wrapper{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:120;}
@@ -1521,13 +1521,7 @@ function durationAllowed(hitoDuration,dias){if(!hitoDuration)return true;const d
 function getContextoVisitaSeason(hito,temporada){const entry=getContextoVisitaEntry(hito);if(!entry)return null;return entry[normalizeSeasonKey(temporada)]||null;}
 function buildHitoExplanation(result,plan){const reasons=[];if(result.scores.E1!==undefined)reasons.push('Perfil: '+result.scores.E1.toFixed(0)+'/10');if(result.scores.E2!==undefined)reasons.push('Intensidad: '+result.scores.E2.toFixed(0)+'/10');if(result.scores.E3!==undefined)reasons.push('Foco: '+result.scores.E3.toFixed(0)+'/10');if(result.scores.E4!==undefined)reasons.push('Contexto social: '+result.scores.E4.toFixed(0)+'/10');if(result.scores.E7!==undefined)reasons.push('Temporada: '+result.scores.E7.toFixed(0)+'/10');return reasons.join(' · ');}function resetearPerfil(){mostrarSelectorPerfil();}
 
-function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas'){
-  setTimeout(initAtlasVisitados,80);
-  requestAnimationFrame(()=>{
-    const pnl=document.getElementById('ap-resumen');
-    if(pnl){pnl.classList.remove('active');void pnl.offsetHeight;pnl.classList.add('active');}
-  });
-}}
+function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(initAtlasVisitados,80);}
 function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');setTimeout(initAtlasVisitados,50);}}
 
 function iniciarApp(){mostrarSelectorPerfil();}
