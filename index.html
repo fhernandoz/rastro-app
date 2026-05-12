@@ -189,6 +189,13 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-fauna-btns{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
 .atlas-fauna-btn{font-family:'Press Start 2P',monospace;font-size:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.38);cursor:pointer;padding:4px 8px;-webkit-appearance:none;transition:all .15s;}
 .atlas-fauna-btn.active{background:rgba(30,158,117,.15);border-color:rgba(30,200,120,.4);color:rgba(30,220,140,.9);}
+.atlas-plan-btn{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.35);border-radius:8px;color:rgba(30,220,140,.85);cursor:pointer;padding:5px 9px;margin-top:8px;display:inline-block;-webkit-appearance:none;appearance:none;transition:all .15s;margin-left:6px;}
+.atlas-plan-drawer{background:rgba(10,26,16,.97);border:1px solid rgba(30,200,120,.3);border-radius:10px;padding:12px 14px;margin-top:8px;}
+.atlas-plan-drawer-lbl{font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(255,255,255,.4);margin-bottom:6px;letter-spacing:.06em;}
+.atlas-plan-opts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.atlas-plan-opt{font-family:'Press Start 2P',monospace;font-size:5.5px;padding:5px 9px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;-webkit-appearance:none;appearance:none;transition:all .12s;}
+.atlas-plan-opt.sel{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.5);color:rgba(30,220,140,.9);}
+.atlas-plan-go{width:100%;padding:8px;background:rgba(30,200,120,.9);color:#061610;border:none;border-radius:8px;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;font-weight:700;-webkit-appearance:none;appearance:none;}
 
 /* ── CHECKLIST ── */
 .checklist-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
@@ -1519,7 +1526,7 @@ function durationAllowed(hitoDuration,dias){if(!hitoDuration)return true;const d
 function getContextoVisitaSeason(hito,temporada){const entry=getContextoVisitaEntry(hito);if(!entry)return null;return entry[normalizeSeasonKey(temporada)]||null;}
 function buildHitoExplanation(result,plan){const reasons=[];if(result.scores.E1!==undefined)reasons.push('Perfil: '+result.scores.E1.toFixed(0)+'/10');if(result.scores.E2!==undefined)reasons.push('Intensidad: '+result.scores.E2.toFixed(0)+'/10');if(result.scores.E3!==undefined)reasons.push('Foco: '+result.scores.E3.toFixed(0)+'/10');if(result.scores.E4!==undefined)reasons.push('Contexto social: '+result.scores.E4.toFixed(0)+'/10');if(result.scores.E7!==undefined)reasons.push('Temporada: '+result.scores.E7.toFixed(0)+'/10');return reasons.join(' · ');}function resetearPerfil(){mostrarSelectorPerfil();}
 
-function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(initAtlasVisitados,80);}
+function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(()=>{initAtlasVisitados();initAtlasPlanButtons();},80);}
 function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');setTimeout(initAtlasVisitados,50);}}
 
 function iniciarApp(){mostrarSelectorPerfil();}
@@ -2042,6 +2049,14 @@ function generarItinerario(){
     const fullPool = [...todasSendOpts, ...todasHitoOpts, ...libreDisp];
 
     let dayPri;
+    // Forzar sendero/hito específico primero (desde atlas)
+    let _forzado = null;
+    if (d === 0 && plan.forzarPrimero) {
+      const {tipo, nombre} = plan.forzarPrimero;
+      _forzado = tipo === 'sendero'
+        ? todasSendOpts.find(s => s.texto === `Sendero: ${nombre}`)
+        : todasHitoOpts.find(h => h.texto === `Visita: ${nombre}`);
+    }
     if (esMovilidad && d === 0) {
       const hitosAuto = todasHitoOpts.filter(h => h._driveTo);
       const hitosOtros = todasHitoOpts.filter(h => !h._driveTo);
@@ -2055,6 +2070,11 @@ function generarItinerario(){
       dayPri = [...todasHitoOpts, ...libreDisp, ...todasSendOpts];
     else
       dayPri = [...todasSendOpts, ...todasHitoOpts, ...libreDisp];
+
+    // Aplicar forzado (sobrescribe cualquier orden previo en día 0)
+    if (_forzado) {
+      dayPri = [_forzado, ...dayPri.filter(o => o.texto !== _forzado.texto)];
+    }
 
     // Centro de Info siempre va primero si está disponible este día
     if (esCentroDay) {
@@ -2161,6 +2181,96 @@ function generarItinerario(){
   notaEl.textContent = itin.nota;
   renderPasos(itin.opciones[0].pasos);
   ir('s-recomendacion');
+}
+
+// ── PLANIFICAR DESDE ATLAS ───────────────────────────
+let _planDrawer={el:null,tipo:null,nombre:null,sector:null,dias:'1dia',grupo:'solo'};
+
+function abrirPlanDrawer(btn,tipo,nombre,sector){
+  // Cerrar drawer anterior si existe
+  if(_planDrawer.el){_planDrawer.el.remove();if(_planDrawer.el===btn.nextElementSibling){_planDrawer={el:null,tipo:null,nombre:null,sector:null,dias:'1dia',grupo:'solo'};return;}}
+  _planDrawer.tipo=tipo;_planDrawer.nombre=nombre;_planDrawer.sector=sector;
+  _planDrawer.dias='1dia';_planDrawer.grupo='solo';
+
+  const d=document.createElement('div');
+  d.className='atlas-plan-drawer';
+  d.innerHTML=
+    '<div class="atlas-plan-drawer-lbl">¿Cuántos días?</div>'
+    +'<div class="atlas-plan-opts" id="apd-dias">'
+    +'<button class="atlas-plan-opt sel" onclick="_pdSel(this,\'dias\',\'1dia\')">Por el día</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'2dias\')">2 días</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'3dias\')">3 días</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'4-5dias\')">4–5 días</button>'
+    +'</div>'
+    +'<div class="atlas-plan-drawer-lbl">¿Con quién?</div>'
+    +'<div class="atlas-plan-opts" id="apd-grupo">'
+    +'<button class="atlas-plan-opt sel" onclick="_pdSel(this,\'grupo\',\'solo\')">Solo</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'grupo\',\'pareja\')">Pareja</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'grupo\',\'amigos\')">Amigos</button>'
+    +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'grupo\',\'familia\')">Familia</button>'
+    +'</div>'
+    +'<button class="atlas-plan-go" onclick="_pdGenerar()">Crear rastro desde aquí →</button>';
+  _planDrawer.el=d;
+  btn.parentNode.insertBefore(d,btn.nextSibling);
+  // Scroll to show drawer
+  const sc=btn.closest('.scroll-area');
+  if(sc){requestAnimationFrame(()=>{const r=d.getBoundingClientRect(),c=sc.getBoundingClientRect();const ov=r.bottom-c.bottom+16;if(ov>0)sc.scrollTop+=ov;});}
+}
+
+function _pdSel(btn,campo,val){
+  _planDrawer[campo]=val;
+  const group=btn.closest('.atlas-plan-opts');
+  group.querySelectorAll('.atlas-plan-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function _pdGenerar(){
+  if(_planDrawer.el){_planDrawer.el.remove();_planDrawer.el=null;}
+  const sector=_planDrawer.sector||'';
+  let acceso='Melipeuco';
+  if(sector.includes('Paraguas')||sector.includes('paraguas')||sector.includes('Cherquenco'))acceso='Cherquenco';
+  else if(sector.includes('Curacautín')||sector.includes('N'))acceso='Curacautín';
+
+  const mes=new Date().getMonth();
+  const temporada=mes>=11||mes<=1?'verano':mes>=2&&mes<=4?'otoño':mes>=5&&mes<=7?'invierno':'primavera';
+
+  const grupo=_planDrawer.grupo;
+  const grupoTypes=[grupo==='familia'?'familia':grupo==='amigos'?'grupo_amigos':grupo];
+  const noches={'1dia':0,'2dias':1,'3dias':2,'4-5dias':4}[_planDrawer.dias]??0;
+
+  state.plan={
+    modo:null,grupo,grupoTypes,
+    vehiculo:state.plan?.vehiculo||'suv',
+    temporada,acceso,
+    dias:_planDrawer.dias,noches,
+    presupuesto:state.plan?.presupuesto||'bajo',
+    foco:state.plan?.foco||[],
+    clima:state.plan?.clima||'despejado',
+    forzarPrimero:{tipo:_planDrawer.tipo,nombre:_planDrawer.nombre}
+  };
+  ir('s-planificar-5');
+  setTimeout(()=>generarItinerario(),50);
+}
+
+function initAtlasPlanButtons(){
+  ['#ap-senderos .atlas-card','#ap-hitos .atlas-card'].forEach(sel=>{
+    document.querySelectorAll(sel).forEach(card=>{
+      if(card.querySelector('.atlas-plan-btn'))return;
+      const ct=card.querySelector('.atlas-ct');if(!ct)return;
+      const nombre=([...ct.childNodes].find(n=>n.nodeType===3)?.textContent||ct.textContent).trim();
+      const esSendero=sel.includes('senderos');
+      // Sector desde INVENTARIO
+      let sector='';
+      if(esSendero){const s=Object.values(INVENTARIO.senderos).find(x=>x.nombre===nombre);sector=s?.meta?.sector||'';}
+      else{const h=Object.values(INVENTARIO.hitos).find(x=>x.nombre===nombre||nombre.startsWith(x.nombre));sector=h?.tags?.includes('sector-paraguas')?'paraguas':'';}
+      const tipo=esSendero?'sendero':'hito';
+      const btn=document.createElement('button');
+      btn.className='atlas-plan-btn';
+      btn.textContent='🗺 Planificar desde aquí';
+      btn.onclick=function(){abrirPlanDrawer(this,tipo,nombre,sector);};
+      card.appendChild(btn);
+    });
+  });
 }
 
 function gFmtH(h){const hr=Math.floor(h),mn=Math.round((h-hr)*60/15)*15,o=mn>=60;return(o?hr+1:hr)+':'+(o?'00':mn<10?'0'+mn:mn);}
