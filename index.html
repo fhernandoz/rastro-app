@@ -75,7 +75,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .opcion.selected{background:white;color:#1a4a2e;box-shadow:0 3px 0 rgba(0,0,0,.4);outline:2px solid rgba(255,255,255,.8);}
 
 /* ── BADGE ── */
-.badge{display:inline-block;font-size:7px;padding:3px 10px;border-radius:100px;font-family:'Press Start 2P',monospace;}
+.badge{display:inline-flex;align-items:center;line-height:1;font-size:7px;padding:3px 10px;border-radius:100px;font-family:'Press Start 2P',monospace;}
 .badge-verde{background:rgba(30,158,117,.3);color:#9FE1CB;border:1px solid rgba(30,158,117,.4);}
 .badge-purpura{background:rgba(127,119,221,.3);color:#CECBF6;border:1px solid rgba(127,119,221,.4);}
 .badge-amber{background:rgba(239,159,39,.3);color:#FAC775;border:1px solid rgba(239,159,39,.4);}
@@ -140,7 +140,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-stat-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
 .atlas-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;flex:1;min-width:70px;text-align:center;}
 .atlas-stat-n{font-size:10px;color:white;margin-bottom:4px;}
-.atlas-stat-l{font-family:system-ui,-apple-system,sans-serif;font-size:9px;color:rgba(255,255,255,.5);line-height:1.4;}
+.atlas-stat-l{font-size:18px;line-height:1;margin-top:2px;}
 .atlas-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:13px 14px;margin-bottom:10px;}
 .atlas-card-hot{border-left:3px solid rgba(226,75,74,.7);}
 .atlas-card-hidden{border-left:3px solid rgba(30,158,117,.7);}
@@ -512,10 +512,10 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
           </div>
         </div>
         <div class="atlas-stat-row">
-          <div class="atlas-stat"><div class="atlas-stat-n">15</div><div class="atlas-stat-l">senderos habilitados</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">hitos</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">flora y fauna</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">7</div><div class="atlas-stat-l">servicios</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">15</div><div class="atlas-stat-l">🥾</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">📍</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">🌿</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">7</div><div class="atlas-stat-l">🏕️</div></div>
         </div>
         <div class="atlas-lbl">3 sectores de acceso</div>
         <div class="atlas-card"><div class="atlas-ct">Sur — Melipeuco</div><div style="margin-bottom:8px;"><span class="badge badge-verde">Más accesible</span></div><div class="atlas-cs">City car, SUV, 4x4, bus · Todo el año · ~110 km desde Temuco</div></div>
@@ -2321,7 +2321,7 @@ function initAtlasCollapse(){
       if(allBadges.length){
         const br=document.createElement('div');
         br.className='atlas-card-badges';
-        allBadges.forEach(b=>br.appendChild(b));
+        allBadges.forEach(b=>{b.style.marginLeft='';b.style.verticalAlign='';br.appendChild(b);});
         ns.appendChild(br);
       }
 
