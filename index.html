@@ -92,7 +92,8 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .park-dot.conguillio{top:53%;left:58%;}
 
 /* ── SELECCIÓN OPCIÓN (radio style) ── */
-.option-item{width:100%;padding:12px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;cursor:pointer;font-family:'Press Start 2P',monospace;font-size:7px;line-height:2;color:rgba(255,255,255,.8);text-align:left;margin-bottom:8px;display:flex;align-items:center;gap:12px;-webkit-appearance:none;transition:all .15s;}
+.option-item{width:100%;padding:12px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;cursor:pointer;font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5;color:rgba(255,255,255,.85);text-align:left;margin-bottom:8px;display:flex;align-items:center;gap:12px;-webkit-appearance:none;appearance:none;transition:all .15s;}
+.option-item .pixel-sm{font-family:system-ui,-apple-system,sans-serif;font-size:12px;line-height:1.5;color:rgba(255,255,255,.55);}
 .option-item.selected{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.6);color:white;}
 .option-radio{width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .option-item.selected .option-radio{border-color:white;background:white;}
@@ -168,7 +169,8 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .badge-meta{background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);font-size:7px;padding:3px 10px;border-radius:100px;font-family:'Press Start 2P',monospace;}
 .atlas-link-btn{display:inline-block;margin-top:10px;font-family:system-ui,-apple-system,sans-serif;font-size:11px;font-weight:600;color:rgba(30,200,120,.85);text-decoration:none;border:1px solid rgba(30,200,120,.3);border-radius:8px;padding:6px 12px;transition:background .15s;}
 .atlas-link-btn:hover{background:rgba(30,200,120,.12);}
-.itin-link-btn{display:inline-block;margin-top:6px;font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(30,200,120,.8);text-decoration:none;border:1px solid rgba(30,200,120,.25);border-radius:5px;padding:4px 8px;}
+.itin-link-btn{display:inline-block;margin-top:8px;font-family:system-ui,-apple-system,sans-serif;font-size:11px;font-weight:600;color:rgba(30,200,120,.85);text-decoration:none;border:1px solid rgba(30,200,120,.3);border-radius:8px;padding:6px 12px;transition:background .15s;}
+.itin-link-btn:hover{background:rgba(30,200,120,.12);}
 .atlas-header-sticky{background:#0a1a10;flex-shrink:0;position:relative;z-index:3;}
 .atlas-tabs-scroll{display:flex;gap:4px;padding:0 24px 4px;overflow-x:auto;overflow-y:hidden;background:#0a1a10;padding-bottom:8px;scrollbar-width:none;}
 .atlas-tabs-scroll::-webkit-scrollbar{display:none;}
@@ -196,6 +198,13 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-plan-opt{font-family:'Press Start 2P',monospace;font-size:5.5px;padding:5px 9px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;-webkit-appearance:none;appearance:none;transition:all .12s;}
 .atlas-plan-opt.sel{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.5);color:rgba(30,220,140,.9);}
 .atlas-plan-go{width:100%;padding:8px;background:rgba(30,200,120,.9);color:#061610;border:none;border-radius:8px;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;font-weight:700;-webkit-appearance:none;appearance:none;}
+.atlas-card-header{display:flex;align-items:center;cursor:pointer;user-select:none;gap:8px;}
+.atlas-card-header>:first-child{flex:1;min-width:0;margin-bottom:0;}
+.atlas-card-body{display:none;padding-top:10px;}
+.atlas-card.expanded .atlas-card-body{display:block;}
+.atlas-card-chk{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.3);cursor:pointer;transition:all .15s;-webkit-appearance:none;appearance:none;font-family:system-ui;}
+.atlas-card-chk.visitado{background:rgba(30,158,117,.25);border-color:rgba(30,200,120,.6);color:rgba(30,220,140,.95);}
+.atlas-card-toggle{flex-shrink:0;color:rgba(255,255,255,.3);font-size:10px;line-height:1;}
 .atlas-acceso-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
 .atlas-acceso-tag{font-family:'Press Start 2P',monospace;font-size:7px;padding:3px 10px;border-radius:100px;display:inline-block;}
 .atlas-acceso-tag.auto{background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.3);color:rgba(30,220,140,.85);}
@@ -206,19 +215,22 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .checklist-label{display:flex;align-items:flex-start;gap:12px;width:100%;cursor:pointer;}
 .checklist-checkbox{width:18px;height:18px;margin-top:2px;flex-shrink:0;}
 .checklist-text{line-height:2.1;color:rgba(255,255,255,.8);}
-.checklist-hora{color:rgba(255,255,255,.4);font-size:6px;min-width:40px;padding-top:3px;flex-shrink:0;}
+.checklist-hora{font-family:system-ui,-apple-system,sans-serif;color:rgba(255,255,255,.45);font-size:12px;font-weight:600;min-width:48px;padding-top:1px;flex-shrink:0;}
+.checklist-text{font-family:system-ui,-apple-system,sans-serif;font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;}
 
 /* ── ITINERARIO POR DÍA ── */
 .itin-paso{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;}
 .itin-actions{display:flex;gap:4px;margin-left:auto;}
-.itin-hora{font-size:6px;color:rgba(255,255,255,.4);min-width:40px;padding-top:3px;flex-shrink:0;line-height:1.6;}
-.itin-texto{font-size:7px;line-height:2.1;color:rgba(255,255,255,.8);}
+.itin-hora{font-family:system-ui,-apple-system,sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);min-width:48px;padding-top:2px;flex-shrink:0;line-height:1.6;}
+.itin-texto{font-family:system-ui,-apple-system,sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,.85);}
+.itin-texto strong{font-size:14px;}
+.itin-texto .pixel-sm{font-family:system-ui,-apple-system,sans-serif;font-size:12px;line-height:1.6;}
 .itin-dia{font-size:8px;color:rgba(30,200,120,.9);margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(30,200,120,.2);}
 .itin-opcion-btn{width:100%;padding:12px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;font-family:'Press Start 2P',monospace;font-size:6.5px;color:rgba(255,255,255,.75);text-align:left;cursor:pointer;margin-bottom:8px;-webkit-appearance:none;transition:all .15s;}
 .itin-opcion-btn.active{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.5);color:white;}
-.itin-nota{background:rgba(239,159,39,.1);border-left:3px solid rgba(239,159,39,.5);border-radius:0 10px 10px 0;padding:10px 12px;font-size:6.5px;color:rgba(255,255,255,.65);line-height:2.1;margin-top:14px;}
+.itin-nota{background:rgba(239,159,39,.1);border-left:3px solid rgba(239,159,39,.5);border-radius:0 10px 10px 0;padding:10px 12px;font-family:system-ui,-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.65);line-height:1.65;margin-top:14px;}
 .itin-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
-.itin-badge{font-family:'Press Start 2P',monospace;font-size:5px;padding:2px 6px;border-radius:4px;line-height:1.8;white-space:nowrap;}
+.itin-badge{font-family:system-ui,-apple-system,sans-serif;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;line-height:1.8;white-space:nowrap;}
 .itin-badge-popular{background:rgba(239,159,39,.2);color:rgba(239,200,80,1);border:1px solid rgba(239,159,39,.4);}
 .itin-badge-quiet{background:rgba(30,200,120,.15);color:rgba(30,200,120,.9);border:1px solid rgba(30,200,120,.3);}
 .itin-badge-accesible{background:rgba(30,200,120,.2);color:rgba(30,220,140,1);border:1px solid rgba(30,200,120,.5);}
@@ -231,7 +243,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .itin-otra-btn:hover{background:rgba(30,158,117,.3);border-color:rgba(30,200,120,.8);color:rgba(30,220,140,1);}
 .plan6-select{width:100%;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-family:'Press Start 2P',monospace;font-size:7px;color:rgba(255,255,255,.85);-webkit-appearance:none;appearance:none;outline:none;margin-bottom:4px;line-height:2;cursor:pointer;}
 .plan6-select option{background:#0d1a2e;color:#fff;}
-.itin-noche{font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-bottom:12px;line-height:2;display:flex;gap:12px;align-items:center;}
+.itin-noche{font-family:system-ui,-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-bottom:12px;line-height:1.6;display:flex;gap:12px;align-items:center;}
 .itin-nav-btns{display:flex;gap:4px;flex-shrink:0;align-self:center;}
 .itin-nav-btn{font-family:'Press Start 2P',monospace;font-size:9px;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.45);border-radius:6px;color:rgba(30,220,140,.85);cursor:pointer;padding:5px 7px;-webkit-appearance:none;transition:all .15s;line-height:1;}
 .itin-nav-btn:hover{background:rgba(30,158,117,.3);border-color:rgba(30,200,120,.8);color:rgba(30,220,140,1);}
@@ -1530,7 +1542,7 @@ function durationAllowed(hitoDuration,dias){if(!hitoDuration)return true;const d
 function getContextoVisitaSeason(hito,temporada){const entry=getContextoVisitaEntry(hito);if(!entry)return null;return entry[normalizeSeasonKey(temporada)]||null;}
 function buildHitoExplanation(result,plan){const reasons=[];if(result.scores.E1!==undefined)reasons.push('Perfil: '+result.scores.E1.toFixed(0)+'/10');if(result.scores.E2!==undefined)reasons.push('Intensidad: '+result.scores.E2.toFixed(0)+'/10');if(result.scores.E3!==undefined)reasons.push('Foco: '+result.scores.E3.toFixed(0)+'/10');if(result.scores.E4!==undefined)reasons.push('Contexto social: '+result.scores.E4.toFixed(0)+'/10');if(result.scores.E7!==undefined)reasons.push('Temporada: '+result.scores.E7.toFixed(0)+'/10');return reasons.join(' · ');}function resetearPerfil(){mostrarSelectorPerfil();}
 
-function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(()=>{initAtlasPlanButtons();initAtlasVisitados();},80);}
+function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(()=>{initAtlasPlanButtons();initAtlasVisitados();initAtlasCollapse();},80);}
 function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');setTimeout(initAtlasVisitados,50);}}
 
 function iniciarApp(){mostrarSelectorPerfil();}
@@ -2275,6 +2287,89 @@ function _pdGenerar(){
   };
   ir('s-planificar-5');
   setTimeout(()=>generarItinerario(),50);
+}
+
+function initAtlasCollapse(){
+  ['#ap-senderos .atlas-card','#ap-hitos .atlas-card','#ap-fauna .atlas-card'].forEach(sel=>{
+    document.querySelectorAll(sel).forEach(card=>{
+      if(card.dataset.collapseInit)return;
+      card.dataset.collapseInit='1';
+      const firstEl=card.firstElementChild;
+      if(!firstEl)return;
+
+      // Wrap non-header content in body (keep atlas-tags visible always)
+      const body=document.createElement('div');
+      body.className='atlas-card-body';
+      let el=firstEl.nextElementSibling;
+      while(el){
+        const next=el.nextElementSibling;
+        if(!el.classList.contains('atlas-tags'))body.appendChild(el);
+        el=next;
+      }
+      card.appendChild(body);
+
+      // Header wrapper
+      const header=document.createElement('div');
+      header.className='atlas-card-header';
+      card.insertBefore(header,firstEl);
+      header.appendChild(firstEl);
+
+      // Visitado icon (senderos e hitos only)
+      const isSH=sel.includes('senderos')||sel.includes('hitos');
+      if(isSH){
+        const textBtn=body.querySelector('.atlas-visitado-btn');
+        const isVisitado=textBtn?.classList.contains('atlas-visitado-active');
+        const nombre=textBtn?.dataset.nombre||'';
+
+        // Ícono circular (siempre visible en header)
+        const chk=document.createElement('button');
+        chk.className='atlas-card-chk'+(isVisitado?' visitado':'');
+        chk.title=isVisitado?'Ya lo conozco':'Marcar como visitado';
+        chk.textContent=isVisitado?'✓':'';
+        chk.onclick=e=>{
+          e.stopPropagation();
+          const v=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
+          v[nombre]=!v[nombre];
+          localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(v));
+          const val=!!v[nombre];
+          chk.classList.toggle('visitado',val);
+          chk.textContent=val?'✓':'';
+          chk.title=val?'Ya lo conozco':'Marcar como visitado';
+          if(textBtn){
+            textBtn.textContent=val?'✓ Ya lo conozco':'Marcar como visitado';
+            textBtn.classList.toggle('atlas-visitado-active',val);
+          }
+          actualizarProgresoAtlas();
+        };
+        header.appendChild(chk);
+
+        // Sincronizar botón de texto (en body) → actualiza ícono
+        if(textBtn){
+          const origOnclick=textBtn.onclick;
+          textBtn.onclick=e=>{
+            e.stopPropagation();
+            toggleVisitado(nombre,textBtn);
+            const val=textBtn.classList.contains('atlas-visitado-active');
+            chk.classList.toggle('visitado',val);
+            chk.textContent=val?'✓':'';
+            chk.title=val?'Ya lo conozco':'Marcar como visitado';
+          };
+        }
+      }
+
+      // Toggle arrow
+      const toggle=document.createElement('span');
+      toggle.className='atlas-card-toggle';
+      toggle.textContent='▾';
+      header.appendChild(toggle);
+
+      header.addEventListener('click',e=>{
+        if(e.target.closest('.atlas-card-chk'))return;
+        const exp=card.classList.toggle('expanded');
+        toggle.textContent=exp?'▴':'▾';
+      });
+    });
+  });
 }
 
 function initAtlasPlanButtons(){
