@@ -169,7 +169,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-link-btn{display:inline-block;margin-top:10px;font-family:'Press Start 2P',monospace;font-size:5.5px;color:rgba(30,200,120,.85);text-decoration:none;border:1px solid rgba(30,200,120,.3);border-radius:6px;padding:5px 10px;transition:background .15s;}
 .atlas-link-btn:hover{background:rgba(30,200,120,.12);}
 .itin-link-btn{display:inline-block;margin-top:6px;font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(30,200,120,.8);text-decoration:none;border:1px solid rgba(30,200,120,.25);border-radius:5px;padding:4px 8px;}
-.atlas-header-sticky{background:#0a1a10;}
+.atlas-header-sticky{background:#0a1a10;flex-shrink:0;position:relative;z-index:3;}
 .atlas-tabs-scroll{display:flex;gap:4px;padding:0 24px 4px;overflow-x:auto;overflow-y:hidden;background:#0a1a10;padding-bottom:8px;scrollbar-width:none;}
 .atlas-tabs-scroll::-webkit-scrollbar{display:none;}
 .atlas-action-wrapper{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:120;}
@@ -449,24 +449,22 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 ═══════════════════════════════════ -->
 <div class="screen" id="s-atlas">
   <div class="bg" style="background:#0a1a10;"></div>
-  <div class="content scroll-area" style="padding:0 0 160px;">
-    <!-- HERO + TABS STICKY WRAPPER -->
-    <div class="atlas-header-sticky">
-      <div style="padding:16px 24px 12px; background:#0a1a10;">
-        <button class="btn btn-ghost" onclick="ir('s-main')" style="text-align:left;width:auto;padding:0;margin-bottom:12px;">← Volver</button>
-        <div class="pixel-lg shadow-text-lg" style="margin-bottom: 4px; font-family: &quot;Press Start 2P&quot;">PN Conguillío</div>
-        <div class="pixel-sm text-muted shadow-text" style="margin-bottom:10px;">IX Región de la Araucanía · 60.832 ha</div>
-      </div>
-      <div class="atlas-tabs-scroll" style="margin-bottom: 16px;">
-        <button class="atlas-tab active" onclick="atlasTab('resumen',this)">Resumen</button>
-        <button class="atlas-tab" onclick="atlasTab('senderos',this)">Senderos</button>
-        <button class="atlas-tab" onclick="atlasTab('hitos',this)">Hitos</button>
-        <button class="atlas-tab" onclick="atlasTab('fauna',this)">Flora y fauna</button>
-        <button class="atlas-tab" onclick="atlasTab('servicios',this)">Servicios</button>
-      </div>
+  <div class="atlas-header-sticky">
+    <div style="padding:16px 24px 12px;">
+      <button class="btn btn-ghost" onclick="ir('s-main')" style="text-align:left;width:auto;padding:0;margin-bottom:12px;">← Volver</button>
+      <div class="pixel-lg shadow-text-lg" style="margin-bottom: 4px; font-family: &quot;Press Start 2P&quot;">PN Conguillío</div>
+      <div class="pixel-sm text-muted shadow-text" style="margin-bottom:10px;">IX Región de la Araucanía · 60.832 ha</div>
     </div>
-    <!-- TAB CONTENT -->
-  <div style="padding: 0 24px 24px;">
+    <div class="atlas-tabs-scroll" style="margin-bottom: 0;">
+      <button class="atlas-tab active" onclick="atlasTab('resumen',this)">Resumen</button>
+      <button class="atlas-tab" onclick="atlasTab('senderos',this)">Senderos</button>
+      <button class="atlas-tab" onclick="atlasTab('hitos',this)">Hitos</button>
+      <button class="atlas-tab" onclick="atlasTab('fauna',this)">Flora y fauna</button>
+      <button class="atlas-tab" onclick="atlasTab('servicios',this)">Servicios</button>
+    </div>
+  </div>
+  <div class="content scroll-area" style="padding:0 0 160px;">
+  <div style="padding: 0 24px 24px; padding-top: 16px;">
       <!-- RESUMEN -->
       <div class="atlas-pnl active" id="ap-resumen">
         <!-- PROGRESO -->
