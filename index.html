@@ -196,6 +196,10 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-plan-opt{font-family:'Press Start 2P',monospace;font-size:5.5px;padding:5px 9px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;-webkit-appearance:none;appearance:none;transition:all .12s;}
 .atlas-plan-opt.sel{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.5);color:rgba(30,220,140,.9);}
 .atlas-plan-go{width:100%;padding:8px;background:rgba(30,200,120,.9);color:#061610;border:none;border-radius:8px;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;font-weight:700;-webkit-appearance:none;appearance:none;}
+.atlas-acceso-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.atlas-acceso-tag{font-family:'Press Start 2P',monospace;font-size:5px;padding:3px 8px;border-radius:6px;display:inline-block;}
+.atlas-acceso-tag.auto{background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.3);color:rgba(30,220,140,.85);}
+.atlas-acceso-tag.send{background:rgba(239,159,39,.12);border:1px solid rgba(239,159,39,.3);color:rgba(239,159,39,.9);}
 
 /* ── CHECKLIST ── */
 .checklist-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
@@ -1791,6 +1795,9 @@ const ATLAS_LLEGAR={
   'Volcán Llaima':{maps:'https://www.google.com/maps/search/?api=1&query=-38.6919,-71.7293',instrucciones:'Visible desde casi todo el parque. Base: ruta hacia sector Cherquenco (poniente). Ascenso al cráter requiere guía certificado y permiso CONAF previo.'},
   'Sierra Nevada':{maps:'https://www.google.com/maps/search/?api=1&query=Sierra+Nevada+Conguillio+Chile',instrucciones:'Trailhead señalizado junto al área de campings, sector Curacautín (playa principal del lago). Ver pestaña Senderos para detalles del recorrido.'},
   'Muralla del Cañón Truful-Truful':{maps:'https://www.google.com/maps/search/?api=1&query=Truful+Truful+Conguillio+Chile',instrucciones:'Sector sureste del parque, entrada Melipeuco. Junto al Salto Truful-Truful, señalizado en la ruta interna. Acceso en vehículo.'},
+  'Laguna Arcoíris':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Arcoiris+Conguillio+Chile',instrucciones:'Sector Curacautín. Acceso desde el área de campings, caminata corta señalizada hasta la orilla. También visible desde la pasarela al inicio del sendero.'},
+  'Laguna Captrén':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Captr%C3%A9n+Conguillio+Chile',instrucciones:'Sector Curacautín. Acceso por sendero Los Carpinteros, ~1.5 km desde el camping. Mirador con reflejo del Llaima. Prohibido nadar.'},
+  'Laguna Verde / Quililo':{maps:'https://www.google.com/maps/search/?api=1&query=Laguna+Verde+Quililo+Conguillio+Chile',instrucciones:'Sector sur (Melipeuco). Ruta interna hacia Laguna Verde. Playa de arena volcánica accesible en vehículo.'},
   'Escoriales del Llaima':{maps:'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',instrucciones:'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén. Punto de detención señalizado entre Melipeuco y el lago.'},
   'Mirador El Descanso de las Araucarias':{maps:'https://maps.app.goo.gl/gqdUQBFeeeiZGbyY9',instrucciones:'Accesible en vehículo 4x2. Señalizado dentro del parque. Consulta la ubicación exacta en el mapa CONAF de la entrada.'},
   '10 sitios arqueológicos Pehuenche':{maps:null,instrucciones:'Sin señalización turística directa. Distribuidos en la orilla sur y poniente del lago. Consulta a los guardaparques en la entrada de Melipeuco.'},
@@ -2184,26 +2191,39 @@ function generarItinerario(){
 }
 
 // ── PLANIFICAR DESDE ATLAS ───────────────────────────
-let _planDrawer={el:null,tipo:null,nombre:null,sector:null,dias:'1dia',grupo:'solo'};
+let _planDrawer={el:null,tipo:null,nombre:null,sector:null,hitoData:null,dias:'1dia',grupo:'solo',accesoModo:null};
 
-function abrirPlanDrawer(btn,tipo,nombre,sector){
-  // Cerrar drawer anterior si existe
-  if(_planDrawer.el){_planDrawer.el.remove();if(_planDrawer.el===btn.nextElementSibling){_planDrawer={el:null,tipo:null,nombre:null,sector:null,dias:'1dia',grupo:'solo'};return;}}
-  _planDrawer.tipo=tipo;_planDrawer.nombre=nombre;_planDrawer.sector=sector;
+function abrirPlanDrawer(btn,tipo,nombre,sector,hitoData){
+  if(_planDrawer.el){_planDrawer.el.remove();if(_planDrawer.el===btn.nextElementSibling){_planDrawer={el:null,tipo:null,nombre:null,sector:null,hitoData:null,dias:'1dia',grupo:'solo',accesoModo:null};return;}}
+  _planDrawer.tipo=tipo;_planDrawer.nombre=nombre;_planDrawer.sector=sector;_planDrawer.hitoData=hitoData||null;
   _planDrawer.dias='1dia';_planDrawer.grupo='solo';
+
+  const acceso=hitoData?.acceso||[];
+  const tieneAuto=acceso.includes('auto');
+  const tieneSendero=acceso.includes('sendero')&&hitoData?.senderoAsociado;
+  _planDrawer.accesoModo=tieneSendero&&!tieneAuto?'sendero':'auto';
+
+  let accesoHtml='';
+  if(tieneAuto&&tieneSendero){
+    accesoHtml='<div class="atlas-plan-drawer-lbl">¿Cómo quieres conocerlo?</div>'
+      +'<div class="atlas-plan-opts">'
+      +'<button class="atlas-plan-opt sel" onclick="_pdSel(this,\'accesoModo\',\'auto\')">🚗 En auto / sin sendero</button>'
+      +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'accesoModo\',\'sendero\')">🥾 Haciendo el sendero</button>'
+      +'</div>';
+  }
 
   const d=document.createElement('div');
   d.className='atlas-plan-drawer';
-  d.innerHTML=
-    '<div class="atlas-plan-drawer-lbl">¿Cuántos días?</div>'
-    +'<div class="atlas-plan-opts" id="apd-dias">'
+  d.innerHTML=accesoHtml
+    +'<div class="atlas-plan-drawer-lbl">¿Cuántos días?</div>'
+    +'<div class="atlas-plan-opts">'
     +'<button class="atlas-plan-opt sel" onclick="_pdSel(this,\'dias\',\'1dia\')">Por el día</button>'
     +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'2dias\')">2 días</button>'
     +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'3dias\')">3 días</button>'
     +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'dias\',\'4-5dias\')">4–5 días</button>'
     +'</div>'
     +'<div class="atlas-plan-drawer-lbl">¿Con quién?</div>'
-    +'<div class="atlas-plan-opts" id="apd-grupo">'
+    +'<div class="atlas-plan-opts">'
     +'<button class="atlas-plan-opt sel" onclick="_pdSel(this,\'grupo\',\'solo\')">Solo</button>'
     +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'grupo\',\'pareja\')">Pareja</button>'
     +'<button class="atlas-plan-opt" onclick="_pdSel(this,\'grupo\',\'amigos\')">Amigos</button>'
@@ -2212,7 +2232,6 @@ function abrirPlanDrawer(btn,tipo,nombre,sector){
     +'<button class="atlas-plan-go" onclick="_pdGenerar()">Crear rastro desde aquí →</button>';
   _planDrawer.el=d;
   btn.parentNode.insertBefore(d,btn.nextSibling);
-  // Scroll to show drawer
   const sc=btn.closest('.scroll-area');
   if(sc){requestAnimationFrame(()=>{const r=d.getBoundingClientRect(),c=sc.getBoundingClientRect();const ov=r.bottom-c.bottom+16;if(ov>0)sc.scrollTop+=ov;});}
 }
@@ -2238,6 +2257,12 @@ function _pdGenerar(){
   const grupoTypes=[grupo==='familia'?'familia':grupo==='amigos'?'grupo_amigos':grupo];
   const noches={'1dia':0,'2dias':1,'3dias':2,'4-5dias':4}[_planDrawer.dias]??0;
 
+  // Determinar qué forzar según modo de acceso
+  let forzarTipo=_planDrawer.tipo, forzarNombre=_planDrawer.nombre;
+  if(_planDrawer.accesoModo==='sendero'&&_planDrawer.hitoData?.senderoAsociado){
+    forzarTipo='sendero';forzarNombre=_planDrawer.hitoData.senderoAsociado;
+  }
+
   state.plan={
     modo:null,grupo,grupoTypes,
     vehiculo:state.plan?.vehiculo||'suv',
@@ -2246,7 +2271,7 @@ function _pdGenerar(){
     presupuesto:state.plan?.presupuesto||'bajo',
     foco:state.plan?.foco||[],
     clima:state.plan?.clima||'despejado',
-    forzarPrimero:{tipo:_planDrawer.tipo,nombre:_planDrawer.nombre}
+    forzarPrimero:{tipo:forzarTipo,nombre:forzarNombre}
   };
   ir('s-planificar-5');
   setTimeout(()=>generarItinerario(),50);
@@ -2259,15 +2284,45 @@ function initAtlasPlanButtons(){
       const ct=card.querySelector('.atlas-ct');if(!ct)return;
       const nombre=([...ct.childNodes].find(n=>n.nodeType===3)?.textContent||ct.textContent).trim();
       const esSendero=sel.includes('senderos');
-      // Sector desde INVENTARIO
-      let sector='';
-      if(esSendero){const s=Object.values(INVENTARIO.senderos).find(x=>x.nombre===nombre);sector=s?.meta?.sector||'';}
-      else{const h=Object.values(INVENTARIO.hitos).find(x=>x.nombre===nombre||nombre.startsWith(x.nombre));sector=h?.tags?.includes('sector-paraguas')?'paraguas':'';}
-      const tipo=esSendero?'sendero':'hito';
+
+      let fullNombre=nombre,tipo=esSendero?'sendero':'hito',sector='',hitoData=null;
+
+      if(esSendero){
+        const s=Object.values(INVENTARIO.senderos).find(x=>x.nombre===nombre);
+        if(s){fullNombre=s.nombre;sector=s.meta?.sector||'';}
+      } else {
+        const h=Object.values(INVENTARIO.hitos).find(x=>
+          x.nombre===nombre||
+          x.nombre.startsWith(nombre)||
+          nombre.startsWith(x.nombre.split(' (')[0])||
+          x.nombre.split(' (')[0]===nombre.split(' (')[0]
+        );
+        if(h){
+          fullNombre=h.nombre;sector=h.tags?.includes('sector-paraguas')?'paraguas':'';hitoData=h;
+        } else {
+          const s=Object.values(INVENTARIO.senderos).find(x=>x.nombre===nombre||x.nombre.startsWith(nombre));
+          if(s){fullNombre=s.nombre;tipo='sendero';sector=s.meta?.sector||'';}
+          else return;
+        }
+      }
+
+      // Badges de acceso junto al nombre
+      if(hitoData?.acceso&&!card.querySelector('.atlas-acceso-tag')){
+        const ctEl=card.querySelector('.atlas-ct');
+        if(ctEl){
+          const wrap=document.createElement('div');
+          wrap.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;';
+          ctEl.parentElement.insertBefore(wrap,ctEl);
+          wrap.appendChild(ctEl);
+          if(hitoData.acceso.includes('auto')){const t=document.createElement('span');t.className='atlas-acceso-tag auto';t.textContent='🚗 En auto';wrap.appendChild(t);}
+          if(hitoData.acceso.includes('sendero')){const t=document.createElement('span');t.className='atlas-acceso-tag send';t.textContent='🥾 Sendero';wrap.appendChild(t);}
+        }
+      }
+
       const btn=document.createElement('button');
       btn.className='atlas-plan-btn';
       btn.textContent='🗺 Planificar desde aquí';
-      btn.onclick=function(){abrirPlanDrawer(this,tipo,nombre,sector);};
+      btn.onclick=function(){abrirPlanDrawer(this,tipo,fullNombre,sector,hitoData);};
       card.appendChild(btn);
     });
   });
@@ -2692,26 +2747,58 @@ const INVENTARIO = {
     }
   },
   hitos: {
+    'laguna-arcoiris-hito': {
+      nombre: 'Laguna Arcoíris',
+      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'geología', 'historia-eruptiva', 'fotografía', 'familia-niños', 'pareja', 'auto-bajo', 'todo-el-año', '<1h', 'hotspot'],
+      acceso: ['auto','sendero'], senderoAsociado: 'Laguna Arcoíris',
+      maps: 'https://www.google.com/maps/search/?api=1&query=Laguna+Arcoiris+Conguillio+Chile',
+      instrucciones: 'Sector Curacautín. Acceso desde el área de campings, corta caminata señalizada hasta la orilla. También visible desde la pasarela al inicio del sendero.'
+    },
+    'laguna-captren-hito': {
+      nombre: 'Laguna Captrén',
+      tags: ['SOC', 'EXP', 'contemplativo', 'agua', 'fauna', 'fotografía', 'familia-niños', 'pareja', 'auto-bajo', 'todo-el-año', '<1h', 'hotspot'],
+      acceso: ['auto','sendero'], senderoAsociado: 'Los Carpinteros',
+      maps: 'https://www.google.com/maps/search/?api=1&query=Laguna+Captr%C3%A9n+Conguillio+Chile',
+      instrucciones: 'Sector Curacautín. Acceso por sendero Los Carpinteros, ~1.5 km desde el camping. Mirador con reflejo del Llaima. Prohibido nadar.'
+    },
+    'laguna-verde-hito': {
+      nombre: 'Laguna Verde / Quililo',
+      tags: ['EXP', 'SOC', 'contemplativo', 'agua', 'familia-niños', 'pareja', 'auto-bajo', 'verano', '<1h', 'poco transitado', 'drive-to'],
+      acceso: ['auto','sendero'], senderoAsociado: 'Ensenada – Laguna Verde',
+      maps: 'https://www.google.com/maps/search/?api=1&query=Laguna+Verde+Quililo+Conguillio+Chile',
+      instrucciones: 'Sector sur (Melipeuco). Ruta interna del parque hacia Laguna Verde. Playa de arena volcánica accesible en vehículo. Mucho menos visitada que el lago principal.'
+    },
+    'muralla-canyon-truful': {
+      nombre: 'Muralla del Cañón Truful-Truful',
+      tags: ['EXP', 'LOG', 'contemplativo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'auto-bajo', 'todo-el-año', '<1h', 'poco transitado'],
+      acceso: ['auto','sendero'], senderoAsociado: 'Salto Truful-Truful',
+      maps: 'https://www.google.com/maps/search/?api=1&query=Truful+Truful+Conguillio+Chile',
+      instrucciones: 'Sector sureste (Melipeuco). Junto al Salto Truful-Truful, señalizado en la ruta interna. Accesible en vehículo hasta el mirador.'
+    },
     'lago-conguillio-playa': {
       nombre: 'Lago Conguillío (playa principal)',
+      acceso: ['auto'],
       tags: ['SOC', 'LOG', 'contemplativo', 'activo', 'agua', 'paisaje-panorámico', 'familia-niños', 'grupo-amigos', 'verano preferente', 'hotspot', 'drive-to'],
       maps: 'https://www.google.com/maps/search/?api=1&query=Playa+Lago+Conguillio+Chile',
       instrucciones: 'Ruta principal del parque → orilla este del lago, ~10 km desde la entrada sur (Melipeuco) o norte (Curacautín). Estacionamiento junto al camping Los Ñirres. Señalizado.'
     },
     'volcan-llaima': {
       nombre: 'Volcán Llaima — 3.125 msnm',
+      acceso: ['auto'],
       tags: ['EXP', 'COM', 'SOC', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'hotspot'],
       maps: 'https://www.google.com/maps/search/?api=1&query=-38.6919,-71.7293',
       instrucciones: 'Visible desde casi todo el parque. Acercarse a la base: ruta hacia sector Cherquenco (poniente). Ascenso al cráter requiere guía certificado y permiso CONAF previo — no es libre.'
     },
     'escoriales-llaima': {
       nombre: 'Escoriales del Llaima',
+      acceso: ['auto','sendero'], senderoAsociado: 'Pastos Blancos',
       tags: ['EXP', 'contemplativo', 'activo', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'poco interpretado', 'poco transitado', 'drive-to'],
       maps: 'https://www.google.com/maps/search/?api=1&query=-38.696,-71.731',
       instrucciones: 'Busca el cartel "Colada de lava 1957" en la ruta interna, sector Captrén (entre Melipeuco y el lago). Punto de detención señalizado en el camino. También visibles desde el sendero Pastos Blancos.'
     },
     'mirador-descanso-araucarias': {
       nombre: 'Mirador El Descanso de las Araucarias',
+      acceso: ['auto'],
       tags: ['SOC', 'LOG', 'EXP', 'contemplativo', 'flora', 'paisaje-panorámico', 'fotografía', 'familia-niños', 'pareja', 'grupo-amigos', 'auto-bajo', 'todo-el-año', 'sector-paraguas', 'poco transitado', 'drive-to'],
       maps: 'https://maps.app.goo.gl/gqdUQBFeeeiZGbyY9',
       instrucciones: 'Accesible en vehículo 4x2 (auto ciudad). Mirador con vista a araucarias centenarias. Señalizado dentro del parque.'
@@ -2724,12 +2811,14 @@ const INVENTARIO = {
     },
     'salto-lan-lan-hito': {
       nombre: 'Salto Lan Lan',
+      acceso: ['sendero'], senderoAsociado: 'Salto Lan Lan',
       tags: ['EXP', 'SOC', 'contemplativo', 'agua', 'geología', 'familia-niños', 'sector-paraguas', 'poco transitado'],
       maps: 'https://www.google.com/maps/search/?api=1&query=Salto+Lan+Lan+Los+Paraguas+Conguillio+Chile',
       instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Desde la guardería CONAF, sendero corto señalizado ~30 min.'
     },
     'cerro-colorado-vista': {
       nombre: 'Panorama Cerro Colorado',
+      acceso: ['sendero'], senderoAsociado: 'Cerro Colorado',
       tags: ['EXP', 'COM', 'desafiante', 'geología', 'historia-eruptiva', 'paisaje-panorámico', 'sector-paraguas', 'poco transitado'],
       maps: 'https://www.google.com/maps/search/?api=1&query=Cerro+Colorado+Los+Paraguas+Llaima+Chile',
       instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Georruta 3, jornada completa. Guía obligatorio — sendero no señalizado. Consulta en guardería CONAF o con Geoparque Kütralkura.'
@@ -2748,6 +2837,7 @@ const INVENTARIO = {
     },
     'laguna-amarilla': {
       nombre: 'Laguna Amarilla',
+      acceso: ['sendero'], senderoAsociado: 'Laguna Amarilla',
       tags: ['EXP', 'geología', 'agua', 'historia-eruptiva', 'sector-paraguas', 'poco transitado'],
       maps: 'https://www.google.com/maps/search/?api=1&query=Laguna+Amarilla+Los+Paraguas+Llaima+Chile',
       instrucciones: 'Sector Los Paraguas (acceso Cherquenco). Laguna formada por colada de lava. Verifica acceso con oficina de turismo de Vilcún — puede estar en propiedad privada.'
