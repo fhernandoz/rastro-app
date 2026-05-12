@@ -191,6 +191,10 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-fauna-btns{display:flex;flex-wrap:wrap;gap:6px;row-gap:8px;margin-top:10px;}
 .atlas-fauna-btn{font-family:system-ui,-apple-system,sans-serif;font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.45);cursor:pointer;padding:6px 10px;-webkit-appearance:none;appearance:none;transition:all .15s;}
 .atlas-fauna-btn.active{background:rgba(30,158,117,.15);border-color:rgba(30,200,120,.4);color:rgba(30,220,140,.9);}
+.atlas-card-sci{font-family:system-ui,-apple-system,sans-serif;font-size:10px;color:rgba(255,255,255,.38);font-style:italic;margin-top:2px;line-height:1.4;}
+.atlas-fauna-ico-row{display:flex;gap:5px;align-items:center;flex-shrink:0;}
+.atlas-fauna-ico{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .15s;opacity:0.35;}
+.atlas-fauna-ico.active{background:rgba(30,158,117,.25);border-color:rgba(30,200,120,.6);opacity:1;}
 .atlas-plan-btn{font-family:system-ui,-apple-system,sans-serif;font-size:11px;font-weight:600;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.35);border-radius:8px;color:rgba(30,220,140,.9);cursor:pointer;padding:7px 12px;margin-top:8px;display:block;-webkit-appearance:none;appearance:none;transition:all .15s;}
 .atlas-plan-drawer{background:rgba(10,26,16,.97);border:1px solid rgba(30,200,120,.3);border-radius:10px;padding:12px 14px;margin-top:8px;}
 .atlas-plan-drawer-lbl{font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(255,255,255,.4);margin-bottom:6px;letter-spacing:.06em;}
@@ -514,7 +518,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
         <div class="atlas-stat-row">
           <div class="atlas-stat"><div class="atlas-stat-n">15</div><div class="atlas-stat-l">🥾</div></div>
           <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">📍</div></div>
-          <div class="atlas-stat"><div class="atlas-stat-n">16</div><div class="atlas-stat-l">🌿</div></div>
+          <div class="atlas-stat"><div class="atlas-stat-n">18</div><div class="atlas-stat-l">🌿</div></div>
           <div class="atlas-stat"><div class="atlas-stat-n">7</div><div class="atlas-stat-l">🏕️</div></div>
         </div>
         <div class="atlas-lbl">3 sectores de acceso</div>
@@ -670,26 +674,28 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
       <!-- FLORA Y FAUNA -->
       <div class="atlas-pnl" id="ap-fauna">
         <div class="atlas-lbl">Flora destacada</div>
-        <div class="atlas-card"><div class="atlas-ct">Araucaria (Pewén) — especie estrella</div><div class="atlas-cs">Monumento Natural. Hasta 50 m. Araucaria Madre: 1.800–2.500 años, 2.2 m de diámetro. Árbol sagrado Pehuenche — el piñón fue su alimento base. Conguillío = "agua con piñones". +300 especies de flora en el parque.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Coihue</div><div class="atlas-cs">Especie dominante junto a la araucaria. Enraíza sobre roca volcánica — rasgo único visible en Laguna Arcoíris.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Ñirre y Lenga</div><div class="atlas-cs">Nothofagus caducifolios. En otoño: naranjo y rojo intenso contrastando con araucarias verdes — de los paisajes más fotografiados.</div></div>
+        <div class="atlas-card" data-sci="Araucaria araucana"><div class="atlas-ct">Araucaria</div><div class="atlas-cs">Monumento Natural. Hasta 50 m. Araucaria Madre: 1.800–2.500 años, 2.2 m de diámetro. Árbol sagrado Pehuenche — el piñón fue su alimento base. Conguillío = "agua con piñones". +300 especies de flora en el parque.</div></div>
+        <div class="atlas-card" data-sci="Nothofagus dombeyi"><div class="atlas-ct">Coihue</div><div class="atlas-cs">Especie dominante junto a la araucaria. Enraíza sobre roca volcánica — rasgo único visible en Laguna Arcoíris.</div></div>
+        <div class="atlas-card" data-sci="Nothofagus antarctica"><div class="atlas-ct">Ñirre</div><div class="atlas-cs">Caducifolio de altura. En otoño: naranjo y rojo intenso contrastando con araucarias verdes — de los paisajes más fotografiados.</div></div>
+        <div class="atlas-card" data-sci="Nothofagus pumilio"><div class="atlas-ct">Lenga</div><div class="atlas-cs">Caducifolio que domina los bosques de altura junto al ñirre. Follaje que vira a rojo y amarillo en otoño.</div></div>
         <div class="atlas-divider"></div>
         <div class="atlas-lbl">Fauna destacada</div>
-        <div class="atlas-card"><div class="atlas-ct">Puma</div><div class="atlas-cs">Presente en el parque. Raramente visto. Activo en crepúsculo y noche. Se han registrado huellas en la nieve.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Pudú</div><div class="atlas-cs">El ciervo más pequeño del mundo. Tímido. Frecuenta bordes de bosque.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Cóndor</div><div class="atlas-cs">Visible en senderos de altura. Mayor probabilidad en Sierra Nevada y Pastos Blancos.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Carpintero Magallánico</div><div class="atlas-cs">El más grande de Sudamérica. Fácil de escuchar. Muy visible en Los Carpinteros en la tarde.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Cachaña</div><div class="atlas-cs">Loro verde de vuelo ruidoso. Frecuente en senderos boscosos.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Pato Cortacorrientes</div><div class="atlas-cs">Especie acuática. Laguna Captrén es su hábitat preferido.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Zorro Culpeo y Zorro Chilla</div><div class="atlas-cs">Más fáciles de avistar que el puma. Especialmente al amanecer.</div></div>
+        <div class="atlas-card" data-sci="Puma concolor"><div class="atlas-ct">Puma</div><div class="atlas-cs">Presente en el parque. Raramente visto. Activo en crepúsculo y noche. Se han registrado huellas en la nieve.</div></div>
+        <div class="atlas-card" data-sci="Pudu puda"><div class="atlas-ct">Pudú</div><div class="atlas-cs">El ciervo más pequeño del mundo. Tímido. Frecuenta bordes de bosque.</div></div>
+        <div class="atlas-card" data-sci="Vultur gryphus"><div class="atlas-ct">Cóndor</div><div class="atlas-cs">Visible en senderos de altura. Mayor probabilidad en Sierra Nevada y Pastos Blancos.</div></div>
+        <div class="atlas-card" data-sci="Campephilus magellanicus"><div class="atlas-ct">Carpintero Magallánico</div><div class="atlas-cs">El más grande de Sudamérica. Fácil de escuchar. Muy visible en Los Carpinteros en la tarde.</div></div>
+        <div class="atlas-card" data-sci="Enicognathus ferrugineus"><div class="atlas-ct">Cachaña</div><div class="atlas-cs">Loro verde de vuelo ruidoso. Frecuente en senderos boscosos.</div></div>
+        <div class="atlas-card" data-sci="Merganetta armata"><div class="atlas-ct">Pato Cortacorrientes</div><div class="atlas-cs">Especie acuática. Laguna Captrén es su hábitat preferido.</div></div>
+        <div class="atlas-card" data-sci="Lycalopex culpaeus"><div class="atlas-ct">Zorro Culpeo</div><div class="atlas-cs">El mayor de los zorros sudamericanos. Más fácil de avistar que el puma. Especialmente al amanecer y al atardecer.</div></div>
+        <div class="atlas-card" data-sci="Lycalopex griseus"><div class="atlas-ct">Zorro Chilla</div><div class="atlas-cs">Más pequeño y esbelto que el culpeo. Habitual en bordes de bosque y zonas abiertas. Activo al amanecer.</div></div>
         <div class="atlas-divider"></div>
         <div class="atlas-lbl">Fungi</div>
-        <div class="atlas-card"><div class="atlas-ct">Llao llao</div><div class="atlas-cs"><em>Cyttaria darwinii</em> · Esferas naranja brillante que emergen en racimos sobre ramas de coihue y ñirre. Parásito endémico de Nothofagus. Comestible y dulce — ingrediente ancestral en la culinaria Pehuenche, incluida la chicha. Descrito por Charles Darwin en 1832.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Digüeñe</div><div class="atlas-cs"><em>Cyttaria espinosae</em> · Frutas naranja pálido con textura porosa, similares a una mora, que emergen de agallas en ramas de roble chileno. Parásito específico de Nothofagus obliqua. Comestible, se cosecha en primavera — uno de los hongos más consumidos del sur de Chile.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Changle</div><div class="atlas-cs"><em>Ramaria flava</em> · Hongo coral amarillo limón intenso con estructura ramificada, hasta 20 cm. Habitual en bosques templados del sur de Chile. Comestible y apreciado — textura crujiente, sabor levemente amargo. Aparece en otoño.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Lebre</div><div class="atlas-cs"><em>Cortinarius lebre</em> · Reconocible por su fuerte olor a naftalina en fresco, que se transforma al cocinarse. Abundante en bosque nativo durante la temporada lluviosa (mayo–agosto). Comestible, con importancia culinaria regional.</div></div>
-        <div class="atlas-card atlas-card-hidden"><div class="atlas-ct">Loyo <span class="badge badge-sub" style="margin-left:4px;">En peligro</span></div><div class="atlas-cs"><em>Butyriboletus loyo</em> · Sombrero púrpura-rojo y pie amarillo brillante, puede alcanzar 30 cm y 5 kg. Consumido desde tiempos ancestrales en el sur de Chile. Actualmente en peligro de extinción por sobreexplotación y pérdida de bosque nativo.</div></div>
-        <div class="atlas-card"><div class="atlas-ct">Cola de pavo</div><div class="atlas-cs"><em>Trametes versicolor</em> · Políporo multicolor en anillos concéntricos sobre troncos caídos — marrón, ocre y gris. Descomponedor clave del bosque. Reconocido mundialmente por sus propiedades medicinales (β-glucanos, sistema inmune).</div></div>
+        <div class="atlas-card" data-sci="Cyttaria darwinii"><div class="atlas-ct">Llao llao</div><div class="atlas-cs">Esferas naranja brillante que emergen en racimos sobre ramas de coihue y ñirre. Parásito endémico de Nothofagus. Comestible y dulce — ingrediente ancestral en la culinaria Pehuenche, incluida la chicha. Descrito por Charles Darwin en 1832.</div></div>
+        <div class="atlas-card" data-sci="Cyttaria espinosae"><div class="atlas-ct">Digüeñe</div><div class="atlas-cs">Frutas naranja pálido con textura porosa, similares a una mora, que emergen de agallas en ramas de roble chileno. Parásito específico de Nothofagus obliqua. Comestible, se cosecha en primavera — uno de los hongos más consumidos del sur de Chile.</div></div>
+        <div class="atlas-card" data-sci="Ramaria flava"><div class="atlas-ct">Changle</div><div class="atlas-cs">Hongo coral amarillo limón intenso con estructura ramificada, hasta 20 cm. Habitual en bosques templados del sur de Chile. Comestible y apreciado — textura crujiente, sabor levemente amargo. Aparece en otoño.</div></div>
+        <div class="atlas-card" data-sci="Cortinarius lebre"><div class="atlas-ct">Lebre</div><div class="atlas-cs">Reconocible por su fuerte olor a naftalina en fresco, que se transforma al cocinarse. Abundante en bosque nativo durante la temporada lluviosa (mayo–agosto). Comestible, con importancia culinaria regional.</div></div>
+        <div class="atlas-card atlas-card-hidden" data-sci="Butyriboletus loyo"><div class="atlas-ct">Loyo <span class="badge badge-sub" style="margin-left:4px;">En peligro</span></div><div class="atlas-cs">Sombrero púrpura-rojo y pie amarillo brillante, puede alcanzar 30 cm y 5 kg. Consumido desde tiempos ancestrales en el sur de Chile. Actualmente en peligro de extinción por sobreexplotación y pérdida de bosque nativo.</div></div>
+        <div class="atlas-card" data-sci="Trametes versicolor"><div class="atlas-ct">Cola de pavo</div><div class="atlas-cs">Políporo multicolor en anillos concéntricos sobre troncos caídos — marrón, ocre y gris. Descomponedor clave del bosque. Reconocido mundialmente por sus propiedades medicinales (β-glucanos, sistema inmune).</div></div>
       </div>
 
 
@@ -1234,6 +1240,7 @@ const SENDERO_HITO_LINKS={
   'Las Vertientes':          ['Lago Conguillío'],
   'Laguna Amarilla':         ['Laguna Amarilla'],
 };
+const HITOS_VINCULADOS=new Set(Object.values(SENDERO_HITO_LINKS).flat());
 const INTENSIDAD={contemplativo:"contemplativos",activo:"activos",exigente:"desafiantes"};
 const BADGE_COLS={E:"badge-purpura",L:"badge-verde",S:"badge-amber",C:"badge-coral"};
 
@@ -1544,8 +1551,8 @@ function durationAllowed(hitoDuration,dias){if(!hitoDuration)return true;const d
 function getContextoVisitaSeason(hito,temporada){const entry=getContextoVisitaEntry(hito);if(!entry)return null;return entry[normalizeSeasonKey(temporada)]||null;}
 function buildHitoExplanation(result,plan){const reasons=[];if(result.scores.E1!==undefined)reasons.push('Perfil: '+result.scores.E1.toFixed(0)+'/10');if(result.scores.E2!==undefined)reasons.push('Intensidad: '+result.scores.E2.toFixed(0)+'/10');if(result.scores.E3!==undefined)reasons.push('Foco: '+result.scores.E3.toFixed(0)+'/10');if(result.scores.E4!==undefined)reasons.push('Contexto social: '+result.scores.E4.toFixed(0)+'/10');if(result.scores.E7!==undefined)reasons.push('Temporada: '+result.scores.E7.toFixed(0)+'/10');return reasons.join(' · ');}function resetearPerfil(){mostrarSelectorPerfil();}
 
-function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(()=>{initAtlasPlanButtons();initAtlasVisitados();initAtlasCollapse();},80);}
-function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');setTimeout(initAtlasVisitados,50);}}
+function ir(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(!el){console.warn('Screen not found:',id);return;}el.classList.add('active');el.scrollTop=0;el.classList.add('fade-in');setTimeout(()=>el.classList.remove('fade-in'),350);if(id==='s-main')actualizarMain();if(id==='s-atlas')setTimeout(()=>{initAtlasPlanButtons();initAtlasCollapse();initAtlasVisitados();},80);}
+function navTab(tab){if(tab==='perfil'){dibujarRadarPerfil();ir('s-perfil');actualizarPerfil();}else if(tab==='main'){ir('s-main');}else if(tab==='atlas'){ir('s-atlas');}}
 
 function iniciarApp(){mostrarSelectorPerfil();}
 
@@ -1641,41 +1648,91 @@ function initAtlasVisitados(){
   const faunaData=JSON.parse(localStorage.getItem(perfilKey('atlas_fauna'))||'{}');
   // Senderos e hitos: agregar botón "Ya lo conozco"
   ['#ap-senderos .atlas-card','#ap-hitos .atlas-card'].forEach(sel=>{
+    const isHitoSel=sel.includes('hitos');
+    const visitadosSel=JSON.parse(localStorage.getItem(perfilKey(isHitoSel?'atlas_hitos_visitados':'atlas_visitados'))||'{}');
     document.querySelectorAll(sel).forEach(card=>{
       const ctEl=card.querySelector('.atlas-ct');if(!ctEl)return;
       const nombre=([...ctEl.childNodes].find(n=>n.nodeType===3)?.textContent||ctEl.textContent).trim();
       card.querySelector('.atlas-visitado-btn')?.remove();
       const btn=document.createElement('button');
-      btn.className='atlas-visitado-btn'+(visitados[nombre]?' atlas-visitado-active':'');
-      btn.textContent=visitados[nombre]?'✓ Ya lo conozco':'Marcar como visitado';
+      btn.className='atlas-visitado-btn'+(visitadosSel[nombre]?' atlas-visitado-active':'');
+      btn.textContent=visitadosSel[nombre]?'✓ Ya lo conozco':'Marcar como visitado';
       btn.dataset.nombre=nombre;
-      btn.onclick=e=>{e.stopPropagation();toggleVisitado(nombre,btn);};
-      card.appendChild(btn);
+      btn.onclick=e=>{e.stopPropagation();toggleVisitado(nombre,btn);const val=btn.classList.contains('atlas-visitado-active');const chk=card.querySelector('.atlas-card-chk');if(chk){chk.classList.toggle('visitado',val);chk.textContent=val?'✓':'';}};
+      const chkEl=card.querySelector('.atlas-card-chk');
+      if(chkEl){const isV=!!visitadosSel[nombre];chkEl.classList.toggle('visitado',isV);chkEl.textContent=isV?'✓':'';}
+      const existingBody=card.querySelector('.atlas-card-body');
+      (existingBody||card).appendChild(btn);
     });
   });
-  // Flora y fauna: agregar botones de registro diferenciados
+  // Flora y fauna: nombre científico + iconos en header + botones en body
   let esFauna=false;
   document.querySelectorAll('#ap-fauna > *').forEach(el=>{
-    if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fauna'))esFauna=true;
+    if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fauna destacada'))esFauna=true;
     if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Fungi'))esFauna=false;
+    if(el.classList.contains('atlas-lbl')&&el.textContent.includes('Flora'))esFauna=false;
     if(!el.classList.contains('atlas-card'))return;
     const ctEl=el.querySelector('.atlas-ct');if(!ctEl)return;
-    const nombre=ctEl.textContent.trim();
+    const nombre=([...ctEl.childNodes].find(n=>n.nodeType===3)?.textContent||ctEl.textContent).trim();
     const card=el;
-    card.querySelector('.atlas-fauna-btns')?.remove();
-    const wrap=document.createElement('div');wrap.className='atlas-fauna-btns';
     const d=faunaData[nombre]||{};
     const tipos=esFauna
       ?[{key:'escuchado',ico:'🔊',lbl:'Escuchado'},{key:'visto',ico:'👁',lbl:'Visto'},{key:'fotografiado',ico:'📷',lbl:'Fotografiado'}]
       :[{key:'visto',ico:'👁',lbl:'Visto'},{key:'fotografiado',ico:'📷',lbl:'Fotografiado'}];
+    // Nombre científico bajo el título (solo una vez)
+    const nameSec=card.querySelector('.atlas-card-name-sec');
+    if(nameSec&&!nameSec.querySelector('.atlas-card-sci')&&card.dataset.sci){
+      const sci=document.createElement('div');
+      sci.className='atlas-card-sci';
+      sci.textContent=card.dataset.sci;
+      const atlasCt=nameSec.querySelector('.atlas-ct');
+      if(atlasCt)atlasCt.insertAdjacentElement('afterend',sci);
+      else nameSec.appendChild(sci);
+    }
+    // Iconos de estado en el header (se recrean para reflejar estado actual)
+    card.querySelector('.atlas-fauna-ico-row')?.remove();
+    const header=card.querySelector('.atlas-card-header');
+    if(header){
+      const icoRow=document.createElement('div');
+      icoRow.className='atlas-fauna-ico-row';
+      tipos.forEach(({key,ico})=>{
+        const span=document.createElement('span');
+        span.className='atlas-fauna-ico'+(d[key]?' active':'');
+        span.dataset.key=key;
+        span.textContent=ico;
+        span.style.cursor='pointer';
+        span.onclick=e=>{
+          e.stopPropagation();
+          toggleFaunaItem(nombre,key,span);
+          const bodyBtn=card.querySelector(`.atlas-fauna-btn[data-key="${key}"]`);
+          if(bodyBtn)bodyBtn.classList.toggle('active',span.classList.contains('active'));
+        };
+        icoRow.appendChild(span);
+      });
+      const toggle=header.querySelector('.atlas-card-toggle');
+      header.insertBefore(icoRow,toggle||null);
+    }
+    // Botones de acción en el body
+    const body=card.querySelector('.atlas-card-body');
+    card.querySelector('.atlas-fauna-btns')?.remove();
+    const wrap=document.createElement('div');wrap.className='atlas-fauna-btns';
     tipos.forEach(({key,ico,lbl})=>{
       const b=document.createElement('button');
       b.className='atlas-fauna-btn'+(d[key]?' active':'');
+      b.dataset.key=key;
       b.textContent=ico+' '+lbl;
-      b.onclick=e=>{e.stopPropagation();toggleFaunaItem(nombre,key,b);};
+      b.onclick=e=>{
+        e.stopPropagation();
+        toggleFaunaItem(nombre,key,b);
+        const ico2=card.querySelector(`.atlas-fauna-ico[data-key="${key}"]`);
+        if(ico2)ico2.classList.toggle('active',b.classList.contains('active'));
+        card.classList.add('expanded');
+        const t=card.querySelector('.atlas-card-toggle');if(t)t.textContent='▴';
+      };
       wrap.appendChild(b);
     });
-    card.appendChild(wrap);
+    if(body)body.appendChild(wrap);
+    else card.appendChild(wrap);
   });
   actualizarProgresoAtlas();
 }
@@ -1694,14 +1751,16 @@ function actualizarProgresoAtlas(){
     const ct=card.querySelector('.atlas-ct');if(!ct)return null;
     return([...ct.childNodes].find(n=>n.nodeType===3)?.textContent||ct.textContent).trim()||null;
   }
+  const visitadosSenderos=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
+  const visitadosHitos=JSON.parse(localStorage.getItem(perfilKey('atlas_hitos_visitados'))||'{}');
   // Senderos
   const sCrds=[...document.querySelectorAll('#ap-senderos .atlas-card')];
   const sTotal=sCrds.length;
-  const sVis=sCrds.filter(c=>{const n=getNombre(c);return n&&visitados[n];}).length;
+  const sVis=sCrds.filter(c=>{const n=getNombre(c);return n&&visitadosSenderos[n];}).length;
   // Hitos
   const hCrds=[...document.querySelectorAll('#ap-hitos .atlas-card')];
   const hTotal=hCrds.length;
-  const hVis=hCrds.filter(c=>{const n=getNombre(c);return n&&visitados[n];}).length;
+  const hVis=hCrds.filter(c=>{const n=getNombre(c);return n&&visitadosHitos[n];}).length;
   // Flora y fauna separado por tipo
   let faunaTotal=0,floraTotal=0,escuchados=0,vistos=0,fotografiados=0;
   let esFauna=false;
@@ -1734,12 +1793,34 @@ function actualizarProgresoAtlas(){
   set('prog-hitos-bar','prog-hitos-txt',hVis,hTotal);
   set('prog-fauna-bar','prog-fauna-txt',faunaObsTotal,faunaPosible);
 }
+function propagarSenderoAHitos(nombre,val){
+  if(!val)return;
+  const hm=JSON.parse(localStorage.getItem(perfilKey('atlas_hitos_visitados'))||'{}');
+  (SENDERO_HITO_LINKS[nombre]||[]).forEach(h=>{
+    hm[h]=true;
+    document.querySelectorAll('#ap-hitos .atlas-card').forEach(card=>{
+      const ct=card.querySelector('.atlas-ct');if(!ct)return;
+      const n=([...ct.childNodes].find(nd=>nd.nodeType===3)?.textContent||ct.textContent).trim();
+      if(n!==h)return;
+      const chk=card.querySelector('.atlas-card-chk');
+      if(chk){chk.classList.add('visitado');chk.textContent='✓';}
+      const tb=card.querySelector('.atlas-visitado-btn');
+      if(tb){tb.textContent='✓ Ya lo conozco';tb.classList.add('atlas-visitado-active');}
+    });
+  });
+  localStorage.setItem(perfilKey('atlas_hitos_visitados'),JSON.stringify(hm));
+}
 function toggleVisitado(nombre,btn){
-  const v=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
+  const card=btn.closest('.atlas-card');
+  const isHito=!!card?.closest('#ap-hitos');
+  const key=perfilKey(isHito?'atlas_hitos_visitados':'atlas_visitados');
+  const v=JSON.parse(localStorage.getItem(key)||'{}');
   v[nombre]=!v[nombre];
-  localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(v));
-  btn.textContent=v[nombre]?'✓ Ya lo conozco':'Marcar como visitado';
-  btn.classList.toggle('atlas-visitado-active',!!v[nombre]);
+  const val=!!v[nombre];
+  localStorage.setItem(key,JSON.stringify(v));
+  if(!isHito)propagarSenderoAHitos(nombre,val);
+  btn.textContent=val?'✓ Ya lo conozco':'Marcar como visitado';
+  btn.classList.toggle('atlas-visitado-active',val);
   actualizarProgresoAtlas();
 }
 function toggleFaunaItem(nombre,tipo,btn){
@@ -1753,18 +1834,20 @@ function toggleFaunaItem(nombre,tipo,btn){
 const LIBRE_HITO_LINKS={'Playa del lago':'Lago Conguillío','Mañana en la playa del lago':'Lago Conguillío','Tarde junto al lago':'Lago Conguillío','Baño o kayak en el lago':'Lago Conguillío','Kayak o paseo en bote':'Lago Conguillío'};
 function marcarVisitadosDesdeRastro(pasos){
   if(!pasos)return;
-  const v=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
-  let changed=false;
+  const vs=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
+  const vh=JSON.parse(localStorage.getItem(perfilKey('atlas_hitos_visitados'))||'{}');
+  let changedS=false,changedH=false;
   pasos.forEach(paso=>{
     const esActividad=paso.hora==='Mañana'||paso.hora==='Tarde'||/^\d+:\d+$/.test(paso.hora||'');
     if(esActividad){
       const m=paso.texto?.match(/^(?:Sendero|Visita): (.+)$/);
-      if(m&&m[1]){v[m[1]]=true;changed=true;(SENDERO_HITO_LINKS[m[1]]||[]).forEach(h=>{v[h]=true;changed=true;});}
+      if(m&&m[1]){vs[m[1]]=true;changedS=true;(SENDERO_HITO_LINKS[m[1]]||[]).forEach(h=>{vh[h]=true;changedH=true;});}
       const hitoLib=LIBRE_HITO_LINKS[paso.texto];
-      if(hitoLib){v[hitoLib]=true;changed=true;}
+      if(hitoLib){vh[hitoLib]=true;changedH=true;}
     }
   });
-  if(changed)localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(v));
+  if(changedS)localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(vs));
+  if(changedH)localStorage.setItem(perfilKey('atlas_hitos_visitados'),JSON.stringify(vh));
 }
 
 document.addEventListener('click',function(e){const wrapper=document.querySelector('.atlas-action-wrapper');const menu=document.getElementById('atlas-action-menu');if(menu && menu.classList.contains('open') && !e.target.closest('.atlas-action-wrapper')){closeAtlasActionMenu();}});
@@ -2346,22 +2429,25 @@ function initAtlasCollapse(){
       // Ícono visitado (solo senderos e hitos)
       const isSH=sel.includes('senderos')||sel.includes('hitos');
       if(isSH){
-        const textBtn=body.querySelector('.atlas-visitado-btn');
-        const isV=textBtn?.classList.contains('atlas-visitado-active');
-        const nom=textBtn?.dataset.nombre||'';
+        const nom=([...ctEl.childNodes].find(n=>n.nodeType===3)?.textContent||ctEl.textContent).trim();
+        const _storKey=perfilKey(sel.includes('hitos')?'atlas_hitos_visitados':'atlas_visitados');
+        const _visitados=JSON.parse(localStorage.getItem(_storKey)||'{}');
+        const isV=!!_visitados[nom];
         const chk=document.createElement('button');
         chk.className='atlas-card-chk'+(isV?' visitado':'');
         chk.textContent=isV?'✓':'';
         chk.onclick=e=>{
           e.stopPropagation();
-          const v=JSON.parse(localStorage.getItem(perfilKey('atlas_visitados'))||'{}');
-          v[nom]=!v[nom];localStorage.setItem(perfilKey('atlas_visitados'),JSON.stringify(v));
-          const val=!!v[nom];chk.classList.toggle('visitado',val);chk.textContent=val?'✓':'';
-          if(textBtn){textBtn.textContent=val?'✓ Ya lo conozco':'Marcar como visitado';textBtn.classList.toggle('atlas-visitado-active',val);}
+          const v=JSON.parse(localStorage.getItem(_storKey)||'{}');
+          v[nom]=!v[nom];const val=!!v[nom];
+          if(sel.includes('senderos'))propagarSenderoAHitos(nom,val);
+          localStorage.setItem(_storKey,JSON.stringify(v));
+          chk.classList.toggle('visitado',val);chk.textContent=val?'✓':'';
+          const tb=card.querySelector('.atlas-visitado-btn');
+          if(tb){tb.textContent=val?'✓ Ya lo conozco':'Marcar como visitado';tb.classList.toggle('atlas-visitado-active',val);}
           actualizarProgresoAtlas();
         };
         header.appendChild(chk);
-        if(textBtn){textBtn.onclick=e=>{e.stopPropagation();toggleVisitado(nom,textBtn);const val=textBtn.classList.contains('atlas-visitado-active');chk.classList.toggle('visitado',val);chk.textContent=val?'✓':'';};}
       }
 
       // Toggle
