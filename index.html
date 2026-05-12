@@ -184,12 +184,12 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-action-item:hover{background:#14402c;}
 .music-switch{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:20px;color:rgba(255,255,255,.35);cursor:pointer;padding:6px 14px;-webkit-appearance:none;transition:all .25s;letter-spacing:.3px;display:inline-flex;align-items:center;gap:6px;}
 .music-switch.on{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.45);color:rgba(30,220,140,.9);}
-.atlas-visitado-btn{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.38);cursor:pointer;padding:5px 9px;margin-top:8px;display:inline-block;-webkit-appearance:none;transition:all .15s;}
+.atlas-visitado-btn{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.38);cursor:pointer;padding:5px 9px;margin-top:10px;display:block;-webkit-appearance:none;appearance:none;transition:all .15s;}
 .atlas-visitado-btn.atlas-visitado-active{background:rgba(30,158,117,.18);border-color:rgba(30,200,120,.45);color:rgba(30,220,140,.9);}
 .atlas-fauna-btns{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
-.atlas-fauna-btn{font-family:'Press Start 2P',monospace;font-size:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.38);cursor:pointer;padding:4px 8px;-webkit-appearance:none;transition:all .15s;}
+.atlas-fauna-btn{font-family:'Press Start 2P',monospace;font-size:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:rgba(255,255,255,.38);cursor:pointer;padding:4px 8px;-webkit-appearance:none;appearance:none;transition:all .15s;}
 .atlas-fauna-btn.active{background:rgba(30,158,117,.15);border-color:rgba(30,200,120,.4);color:rgba(30,220,140,.9);}
-.atlas-plan-btn{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.35);border-radius:8px;color:rgba(30,220,140,.85);cursor:pointer;padding:5px 9px;margin-top:8px;display:inline-block;-webkit-appearance:none;appearance:none;transition:all .15s;margin-left:6px;}
+.atlas-plan-btn{font-family:'Press Start 2P',monospace;font-size:5.5px;background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.35);border-radius:8px;color:rgba(30,220,140,.85);cursor:pointer;padding:5px 9px;margin-top:8px;display:block;-webkit-appearance:none;appearance:none;transition:all .15s;}
 .atlas-plan-drawer{background:rgba(10,26,16,.97);border:1px solid rgba(30,200,120,.3);border-radius:10px;padding:12px 14px;margin-top:8px;}
 .atlas-plan-drawer-lbl{font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(255,255,255,.4);margin-bottom:6px;letter-spacing:.06em;}
 .atlas-plan-opts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
@@ -197,7 +197,7 @@ body{font-family:'Press Start 2P',monospace;background:#0a051e;color:white;min-h
 .atlas-plan-opt.sel{background:rgba(30,158,117,.2);border-color:rgba(30,200,120,.5);color:rgba(30,220,140,.9);}
 .atlas-plan-go{width:100%;padding:8px;background:rgba(30,200,120,.9);color:#061610;border:none;border-radius:8px;font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;font-weight:700;-webkit-appearance:none;appearance:none;}
 .atlas-acceso-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
-.atlas-acceso-tag{font-family:'Press Start 2P',monospace;font-size:5px;padding:3px 8px;border-radius:6px;display:inline-block;}
+.atlas-acceso-tag{font-family:'Press Start 2P',monospace;font-size:5px;padding:3px 9px;border-radius:100px;display:inline-block;}
 .atlas-acceso-tag.auto{background:rgba(30,158,117,.15);border:1px solid rgba(30,200,120,.3);color:rgba(30,220,140,.85);}
 .atlas-acceso-tag.send{background:rgba(239,159,39,.12);border:1px solid rgba(239,159,39,.3);color:rgba(239,159,39,.9);}
 
@@ -2311,7 +2311,7 @@ function initAtlasPlanButtons(){
         const ctEl=card.querySelector('.atlas-ct');
         if(ctEl){
           const wrap=document.createElement('div');
-          wrap.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;';
+          wrap.style.cssText='display:flex;align-items:center;column-gap:6px;row-gap:6px;flex-wrap:wrap;margin-bottom:8px;';
           ctEl.parentElement.insertBefore(wrap,ctEl);
           wrap.appendChild(ctEl);
           if(hitoData.acceso.includes('auto')){const t=document.createElement('span');t.className='atlas-acceso-tag auto';t.textContent='🚗 En auto';wrap.appendChild(t);}
